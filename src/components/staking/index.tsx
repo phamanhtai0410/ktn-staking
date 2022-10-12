@@ -1,7 +1,7 @@
 import React from 'react'
 import './index.scss'
-// import head_homepage from "../../assets/images/homepage/head_homepage.jpg"
 
+// import head_homepage from "../../assets/images/homepage/head_homepage.jpg"
 
 const StakingPage = () => {
  
