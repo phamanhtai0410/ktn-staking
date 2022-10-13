@@ -113,13 +113,13 @@ const StakingPage = () => {
   ]
   return (
     <section className="staking pt-40 bg-black pb-12">
-      <div className="staking__main relative flex flex-col items-center min-h-[1254px]">
+      <div className="staking__main relative flex flex-col items-center min-h-[1254px] sm:px-0 px-4">
         <div className="container">
           <div className="flex flex-col w-full space-y-4 max-w-[1280px]">
             <span className="font-oxanium font-bold text-2xl text-[#FFA52C]">
               Stake
             </span>
-            <div className="grid grid-cols-2 w-full items-center space-x-8">
+            <div className="grid lg:grid-cols-2 grid-cols-1 w-full items-center sm:gap-x-8 gap-y-8">
               <div className="flex flex-col space-y-8 border border-[#FFA52C] rounded-2xl backdrop-blur-[25px] p-8 pb-12">
                 <div className="flex flex-row items-center space-x-4">
                   <img src={IcRank} alt="staking" />
@@ -168,47 +168,50 @@ const StakingPage = () => {
               List Top
             </span>
             <div className="flex flex-col space-y-8">
-              <div className="flex flex-row justify-center mt-4 space-x-12">
-                <div className="staking__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
-                  <span className="font-poppins font-semibold text-base text-[#FFB156]">
-                    0x5d07...eba9
-                  </span>
-                  <span className="font-poppins font-semibold text-base text-white">
-                    Point: 3851300
-                  </span>
-                  <img
-                    src={IcTop1}
-                    alt="staking"
-                    className="absolute top-[-25%] left-[-12%]"
-                  />
-                </div>
-                <div className="staking__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
-                  <span className="font-poppins font-semibold text-base text-[#FFB156]">
-                    0x5d07...eba9
-                  </span>
-                  <span className="font-poppins font-semibold text-base text-white">
-                    Point: 3851300
-                  </span>
-                  <img
-                    src={IcTop2}
-                    alt="staking"
-                    className="absolute top-[-25%] left-[-12%]"
-                  />
-                </div>
-                <div className="staking__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
-                  <span className="font-poppins font-semibold text-base text-[#FFB156]">
-                    0x5d07...eba9
-                  </span>
-                  <span className="font-poppins font-semibold text-base text-white">
-                    Point: 3851300
-                  </span>
-                  <img
-                    src={IcTop3}
-                    alt="staking"
-                    className="absolute top-[-25%] left-[-12%]"
-                  />
+              <div className="flex flex-col items-center">
+                <div className="grid lg:grid-cols-3 grid-cols-1 items-center mt-4 gap-x-20 gap-y-12">
+                  <div className="staking__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
+                    <span className="font-poppins font-semibold text-base text-[#FFB156]">
+                      0x5d07...eba9
+                    </span>
+                    <span className="font-poppins font-semibold text-base text-white">
+                      Point: 3851300
+                    </span>
+                    <img
+                      src={IcTop1}
+                      alt="staking"
+                      className="absolute top-[-25%] left-[-12%]"
+                    />
+                  </div>
+                  <div className="staking__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
+                    <span className="font-poppins font-semibold text-base text-[#FFB156]">
+                      0x5d07...eba9
+                    </span>
+                    <span className="font-poppins font-semibold text-base text-white">
+                      Point: 3851300
+                    </span>
+                    <img
+                      src={IcTop2}
+                      alt="staking"
+                      className="absolute top-[-25%] left-[-12%]"
+                    />
+                  </div>
+                  <div className="staking__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
+                    <span className="font-poppins font-semibold text-base text-[#FFB156]">
+                      0x5d07...eba9
+                    </span>
+                    <span className="font-poppins font-semibold text-base text-white">
+                      Point: 3851300
+                    </span>
+                    <img
+                      src={IcTop3}
+                      alt="staking"
+                      className="absolute top-[-25%] left-[-12%]"
+                    />
+                  </div>
                 </div>
               </div>
+
               <div className="staking__table flex flex-col">
                 <div className="grid grid-cols-3 items-center justify-between py-6 border-b border-white border-opacity-10">
                   <span className="font-oxanium font-bold text-2xl text-white text-center">
@@ -245,7 +248,7 @@ const StakingPage = () => {
             <span className="font-oxanium font-bold text-2xl text-[#FFA52C]">
               Information
             </span>
-            <div className="grid grid-cols-2 w-full items-center space-x-8">
+            <div className="grid md:grid-cols-2 grid-cols-1 w-full items-center gap-8">
               <div className="staking__information">
                 <ul>
                   <li className="font-poppins font-medium text-base text-white list-disc">
@@ -313,7 +316,7 @@ const StakingPage = () => {
               <FormSearchPrice />
               <FormSearchToken />
             </div>
-            <div className="grid grid-cols-4 gap-x-12 gap-y-8">
+            <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-x-12 gap-y-8">
               {nftsData.map((item, index) => (
                 <NFT data={item} />
               ))}
