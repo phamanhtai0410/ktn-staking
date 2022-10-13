@@ -6,7 +6,7 @@ const NFT = ({ data }) => {
   const { title, id, price, img } = data
   return (
     <div className="partitals__nft px-[21.48px] py-6 flex flex-col space-y-4 text-white">
-      <img src={img} alt="nft" />
+      <img src={img} alt="nft" className="w-full" />
       <span className="font-oxanium font-bold text-base text-white text-center">
         {title}
       </span>

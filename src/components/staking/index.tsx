@@ -112,15 +112,15 @@ const StakingPage = () => {
     },
   ]
   return (
-    <section className="staking pt-40 bg-black pb-12">
-      <div className="staking__main relative flex flex-col items-center min-h-[1254px] sm:px-0 px-4">
+    <section className="staking">
+      <div className="staking__main pt-40 pb-12 relative flex flex-col items-center min-h-[1254px] sm:px-0 px-4">
         <div className="container">
           <div className="flex flex-col w-full space-y-4 max-w-[1280px]">
             <span className="font-oxanium font-bold text-2xl text-[#FFA52C]">
               Stake
             </span>
             <div className="grid lg:grid-cols-2 grid-cols-1 w-full items-center sm:gap-x-8 gap-y-8">
-              <div className="flex flex-col space-y-8 border border-[#FFA52C] rounded-2xl backdrop-blur-[25px] p-8 pb-12">
+              <div className="flex flex-col h-[208px] space-y-8 border border-[#FFA52C] rounded-2xl backdrop-blur-[25px] p-8 pb-12">
                 <div className="flex flex-row items-center space-x-4">
                   <img src={IcRank} alt="staking" />
                   <span className="font-oxanium_ font-bold text-4xl text-white">
@@ -140,7 +140,7 @@ const StakingPage = () => {
                   </button>
                 </div>
               </div>
-              <div className="flex flex-col space-y-8 border border-[#FFA52C] rounded-2xl backdrop-blur-[25px] p-8 pb-12">
+              <div className="flex flex-col h-[208px] space-y-8 border border-[#FFA52C] rounded-2xl backdrop-blur-[25px] p-8 pb-12">
                 <div className="flex flex-row space-x-4">
                   <img src={IcStaked} alt="staking" />
                   <span className="font-oxanium_ font-bold text-4xl text-white">
@@ -169,7 +169,7 @@ const StakingPage = () => {
             </span>
             <div className="flex flex-col space-y-8">
               <div className="flex flex-col items-center">
-                <div className="grid lg:grid-cols-3 grid-cols-1 items-center mt-4 gap-x-20 gap-y-12">
+                <div className="grid lg:grid-cols-3 grid-cols-1 pl-[18px] items-center mt-4 gap-x-20 gap-y-12">
                   <div className="staking__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
                     <span className="font-poppins font-semibold text-base text-[#FFB156]">
                       0x5d07...eba9
@@ -180,7 +180,7 @@ const StakingPage = () => {
                     <img
                       src={IcTop1}
                       alt="staking"
-                      className="absolute top-[-25%] left-[-12%]"
+                      className="absolute top-[-25%] left-[-36px]"
                     />
                   </div>
                   <div className="staking__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
@@ -193,7 +193,7 @@ const StakingPage = () => {
                     <img
                       src={IcTop2}
                       alt="staking"
-                      className="absolute top-[-25%] left-[-12%]"
+                      className="absolute top-[-25%] left-[-36px]"
                     />
                   </div>
                   <div className="staking__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
@@ -206,7 +206,7 @@ const StakingPage = () => {
                     <img
                       src={IcTop3}
                       alt="staking"
-                      className="absolute top-[-25%] left-[-12%]"
+                      className="absolute top-[-25%] left-[-36px]"
                     />
                   </div>
                 </div>
