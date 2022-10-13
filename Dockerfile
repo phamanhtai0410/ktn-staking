@@ -1,0 +1,17 @@
+
+FROM node:16-alpine as build-step
+RUN apk add --no-cache git openssh
+RUN mkdir /ktn
+
+WORKDIR /ktn
+
+COPY package.json /ktn
+
+#COPY .env.production /dapp-rinz
+
+RUN yarn install
+
+COPY . /ktn
+RUN npm run build
+
+
