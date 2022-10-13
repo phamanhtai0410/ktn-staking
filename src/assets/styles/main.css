@@ -123,6 +123,38 @@
   src: local('Blome'), url(../fonts/blome/Blome-DOKn9.woff) format('woff');
 }
 
+/* Oxanium */
+@font-face {
+  font-family: 'Oxanium';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Oxanium'), url(../fonts/oxanium/Oxanium-Light.ttf) format('ttf');
+}
+@font-face {
+  font-family: 'Oxanium';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Oxanium'), url(../fonts/oxanium/Oxanium-Regular.ttf) format('ttf');
+}
+@font-face {
+  font-family: 'Oxanium';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Oxanium'), url(../fonts/oxanium/Oxanium-Medium.ttf) format('ttf');
+}
+@font-face {
+  font-family: 'Oxanium';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Oxanium'), url(../fonts/oxanium/Oxanium-SemiBold.ttf) format('ttf');
+}
+@font-face {
+  font-family: 'Oxanium';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Oxanium'), url(../fonts/oxanium/Oxanium-Bold.ttf) format('ttf');
+}
+
 body {
   margin: 0;
   font-family: 'Jost', sans-serif;

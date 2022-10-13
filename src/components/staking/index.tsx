@@ -6,7 +6,18 @@ import IcLock from '../../assets/images/staking/ic_lock.svg'
 import IcTop1 from '../../assets/images/staking/ic_top1.svg'
 import IcTop2 from '../../assets/images/staking/ic_top2.svg'
 import IcTop3 from '../../assets/images/staking/ic_top3.svg'
+import nft1 from '../../assets/images/partials/nft1.png'
+import nft2 from '../../assets/images/partials/nft2.png'
+import nft3 from '../../assets/images/partials/nft3.png'
+import nft4 from '../../assets/images/partials/nft4.png'
+import nft5 from '../../assets/images/partials/nft5.png'
+import nft6 from '../../assets/images/partials/nft6.png'
+import nft7 from '../../assets/images/partials/nft7.png'
+import nft8 from '../../assets/images/partials/nft8.png'
 import Pagination from '@/components/Partials/Pagination'
+import FormSearchPrice from '../Partials/FormSearchPrice'
+import FormSearchToken from '../Partials/FormSearchToken'
+import NFT from '../Partials/NFT'
 
 const StakingPage = () => {
   const { t } = useTranslation()
@@ -50,8 +61,58 @@ const StakingPage = () => {
     { id: 'Tier 3', rarity: 'Common', no: '20', total: '700' },
     { id: 'Tier 4', rarity: 'Common', no: '6', total: '200' },
   ]
+  const nftsData = [
+    {
+      title: 'NFTS WITH REAL UTILITY',
+      id: '#61006',
+      price: '10.1 USDT',
+      img: nft1,
+    },
+    {
+      title: 'NFTS WITH REAL UTILITY',
+      id: '#61006',
+      price: '10.1 USDT',
+      img: nft2,
+    },
+    {
+      title: 'NFTS WITH REAL UTILITY',
+      id: '#61006',
+      price: '10.1 USDT',
+      img: nft3,
+    },
+    {
+      title: 'NFTS WITH REAL UTILITY',
+      id: '#61006',
+      price: '10.1 USDT',
+      img: nft4,
+    },
+    {
+      title: 'NFTS WITH REAL UTILITY',
+      id: '#61006',
+      price: '10.1 USDT',
+      img: nft5,
+    },
+    {
+      title: 'NFTS WITH REAL UTILITY',
+      id: '#61006',
+      price: '10.1 USDT',
+      img: nft6,
+    },
+    {
+      title: 'NFTS WITH REAL UTILITY',
+      id: '#61006',
+      price: '10.1 USDT',
+      img: nft7,
+    },
+    {
+      title: 'NFTS WITH REAL UTILITY',
+      id: '#61006',
+      price: '10.1 USDT',
+      img: nft8,
+    },
+  ]
   return (
-    <section className="staking pt-40 bg-black pb-12]">
+    <section className="staking pt-40 bg-black pb-12">
       <div className="staking__main relative flex flex-col items-center min-h-[1254px]">
         <div className="container">
           <div className="flex flex-col w-full space-y-4 max-w-[1280px]">
@@ -241,6 +302,21 @@ const StakingPage = () => {
                   </tbody>
                 </table>
               </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col space-y-4 mt-8 w-full">
+            <span className="font-oxanium font-bold text-2xl text-[#FFA52C]">
+              NFTs
+            </span>
+            <div className="flex flex-row space-x-6">
+              <FormSearchPrice />
+              <FormSearchToken />
+            </div>
+            <div className="grid grid-cols-4 gap-x-12 gap-y-8">
+              {nftsData.map((item, index) => (
+                <NFT data={item} />
+              ))}
             </div>
           </div>
         </div>
