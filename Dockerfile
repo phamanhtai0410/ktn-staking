@@ -1,4 +1,3 @@
-
 FROM node:16-alpine as build-step
 RUN apk add --no-cache git openssh
 RUN mkdir /ktn
@@ -13,5 +12,13 @@ RUN yarn install
 
 COPY . /ktn
 RUN npm run build
+
+
+# Stage 2
+
+FROM nginx:1.17.1-alpine
+
+COPY --from=build-step /ktn/dist /usr/share/nginx/html
+COPY conf.d/default.conf /etc/nginx/conf.d/default.conf
 
 
