@@ -2,6 +2,7 @@ variables:
   REGION: asia-southeast1
   IMAGE_NAME: ktn-staking
   CONTAINER_REPO_ASIA: 968557029040.dkr.ecr.ap-southeast-1.amazonaws.com/stag/ktn-staking
+  CONTAINER_REPO_ASIA_STAG: 968557029040.dkr.ecr.ap-southeast-1.amazonaws.com/stag/ktn-staking
   NAMESPACE: ktn-website-stag
   FULLREPO_ASIA: $CONTAINER_REPO_ASIA:$CI_COMMIT_SHORT_SHA
 
