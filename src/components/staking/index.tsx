@@ -6,7 +6,18 @@ import IcLock from '../../assets/images/staking/ic_lock.svg'
 import IcTop1 from '../../assets/images/staking/ic_top1.svg'
 import IcTop2 from '../../assets/images/staking/ic_top2.svg'
 import IcTop3 from '../../assets/images/staking/ic_top3.svg'
+import nft1 from '../../assets/images/partials/nft1.png'
+import nft2 from '../../assets/images/partials/nft2.png'
+import nft3 from '../../assets/images/partials/nft3.png'
+import nft4 from '../../assets/images/partials/nft4.png'
+import nft5 from '../../assets/images/partials/nft5.png'
+import nft6 from '../../assets/images/partials/nft6.png'
+import nft7 from '../../assets/images/partials/nft7.png'
+import nft8 from '../../assets/images/partials/nft8.png'
 import Pagination from '@/components/Partials/Pagination'
+import FormSearchPrice from '../Partials/FormSearchPrice'
+import FormSearchToken from '../Partials/FormSearchToken'
+import NFT from '../Partials/NFT'
 
 const StakingPage = () => {
   const { t } = useTranslation()
@@ -50,16 +61,66 @@ const StakingPage = () => {
     { id: 'Tier 3', rarity: 'Common', no: '20', total: '700' },
     { id: 'Tier 4', rarity: 'Common', no: '6', total: '200' },
   ]
+  const nftsData = [
+    {
+      title: 'NFTS WITH REAL UTILITY',
+      id: '#61006',
+      price: '10.1 USDT',
+      img: nft1,
+    },
+    {
+      title: 'NFTS WITH REAL UTILITY',
+      id: '#61006',
+      price: '10.1 USDT',
+      img: nft2,
+    },
+    {
+      title: 'NFTS WITH REAL UTILITY',
+      id: '#61006',
+      price: '10.1 USDT',
+      img: nft3,
+    },
+    {
+      title: 'NFTS WITH REAL UTILITY',
+      id: '#61006',
+      price: '10.1 USDT',
+      img: nft4,
+    },
+    {
+      title: 'NFTS WITH REAL UTILITY',
+      id: '#61006',
+      price: '10.1 USDT',
+      img: nft5,
+    },
+    {
+      title: 'NFTS WITH REAL UTILITY',
+      id: '#61006',
+      price: '10.1 USDT',
+      img: nft6,
+    },
+    {
+      title: 'NFTS WITH REAL UTILITY',
+      id: '#61006',
+      price: '10.1 USDT',
+      img: nft7,
+    },
+    {
+      title: 'NFTS WITH REAL UTILITY',
+      id: '#61006',
+      price: '10.1 USDT',
+      img: nft8,
+    },
+  ]
   return (
-    <section className="staking pt-40 bg-black pb-12]">
-      <div className="staking__main relative flex flex-col items-center min-h-[1254px]">
+    <section className="staking">
+      <div className="staking__main pt-40 pb-12 relative flex flex-col items-center min-h-[1254px] sm:px-0 px-4">
         <div className="container">
           <div className="flex flex-col w-full space-y-4 max-w-[1280px]">
             <span className="font-oxanium font-bold text-2xl text-[#FFA52C]">
               Stake
             </span>
-            <div className="grid grid-cols-2 w-full items-center space-x-8">
-              <div className="flex flex-col space-y-8 border border-[#FFA52C] rounded-2xl backdrop-blur-[25px] p-8 pb-12">
+            <div className="grid lg:grid-cols-2 grid-cols-1 w-full items-center sm:gap-x-8 gap-y-8">
+              <div className="flex flex-col h-[208px] space-y-8 border border-[#FFA52C] rounded-2xl backdrop-blur-[25px] p-8 pb-12">
                 <div className="flex flex-row items-center space-x-4">
                   <img src={IcRank} alt="staking" />
                   <span className="font-oxanium_ font-bold text-4xl text-white">
@@ -79,7 +140,7 @@ const StakingPage = () => {
                   </button>
                 </div>
               </div>
-              <div className="flex flex-col space-y-8 border border-[#FFA52C] rounded-2xl backdrop-blur-[25px] p-8 pb-12">
+              <div className="flex flex-col h-[208px] space-y-8 border border-[#FFA52C] rounded-2xl backdrop-blur-[25px] p-8 pb-12">
                 <div className="flex flex-row space-x-4">
                   <img src={IcStaked} alt="staking" />
                   <span className="font-oxanium_ font-bold text-4xl text-white">
@@ -107,47 +168,50 @@ const StakingPage = () => {
               List Top
             </span>
             <div className="flex flex-col space-y-8">
-              <div className="flex flex-row justify-center mt-4 space-x-12">
-                <div className="staking__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
-                  <span className="font-poppins font-semibold text-base text-[#FFB156]">
-                    0x5d07...eba9
-                  </span>
-                  <span className="font-poppins font-semibold text-base text-white">
-                    Point: 3851300
-                  </span>
-                  <img
-                    src={IcTop1}
-                    alt="staking"
-                    className="absolute top-[-25%] left-[-12%]"
-                  />
-                </div>
-                <div className="staking__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
-                  <span className="font-poppins font-semibold text-base text-[#FFB156]">
-                    0x5d07...eba9
-                  </span>
-                  <span className="font-poppins font-semibold text-base text-white">
-                    Point: 3851300
-                  </span>
-                  <img
-                    src={IcTop2}
-                    alt="staking"
-                    className="absolute top-[-25%] left-[-12%]"
-                  />
-                </div>
-                <div className="staking__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
-                  <span className="font-poppins font-semibold text-base text-[#FFB156]">
-                    0x5d07...eba9
-                  </span>
-                  <span className="font-poppins font-semibold text-base text-white">
-                    Point: 3851300
-                  </span>
-                  <img
-                    src={IcTop3}
-                    alt="staking"
-                    className="absolute top-[-25%] left-[-12%]"
-                  />
+              <div className="flex flex-col items-center">
+                <div className="grid lg:grid-cols-3 grid-cols-1 pl-[18px] items-center mt-4 gap-x-20 gap-y-12">
+                  <div className="staking__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
+                    <span className="font-poppins font-semibold text-base text-[#FFB156]">
+                      0x5d07...eba9
+                    </span>
+                    <span className="font-poppins font-semibold text-base text-white">
+                      Point: 3851300
+                    </span>
+                    <img
+                      src={IcTop1}
+                      alt="staking"
+                      className="absolute top-[-25%] left-[-36px]"
+                    />
+                  </div>
+                  <div className="staking__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
+                    <span className="font-poppins font-semibold text-base text-[#FFB156]">
+                      0x5d07...eba9
+                    </span>
+                    <span className="font-poppins font-semibold text-base text-white">
+                      Point: 3851300
+                    </span>
+                    <img
+                      src={IcTop2}
+                      alt="staking"
+                      className="absolute top-[-25%] left-[-36px]"
+                    />
+                  </div>
+                  <div className="staking__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
+                    <span className="font-poppins font-semibold text-base text-[#FFB156]">
+                      0x5d07...eba9
+                    </span>
+                    <span className="font-poppins font-semibold text-base text-white">
+                      Point: 3851300
+                    </span>
+                    <img
+                      src={IcTop3}
+                      alt="staking"
+                      className="absolute top-[-25%] left-[-36px]"
+                    />
+                  </div>
                 </div>
               </div>
+
               <div className="staking__table flex flex-col">
                 <div className="grid grid-cols-3 items-center justify-between py-6 border-b border-white border-opacity-10">
                   <span className="font-oxanium font-bold text-2xl text-white text-center">
@@ -161,7 +225,7 @@ const StakingPage = () => {
                   </span>
                 </div>
                 {tableData.map((item, index) => (
-                  <div className="grid grid-cols-3 items-center justify-between py-5 border-b border-white border-opacity-10">
+                  <div className="grid grid-cols-3 items-center justify-between py-5 border-b border-white border-opacity-10 hover:bg-[#FFA52C] hover:bg-opacity-10">
                     <span className="font-poppins font-normal text-base text-white text-center">
                       {item.rank}
                     </span>
@@ -184,7 +248,7 @@ const StakingPage = () => {
             <span className="font-oxanium font-bold text-2xl text-[#FFA52C]">
               Information
             </span>
-            <div className="grid grid-cols-2 w-full items-center space-x-8">
+            <div className="grid md:grid-cols-2 grid-cols-1 w-full items-center gap-8">
               <div className="staking__information">
                 <ul>
                   <li className="font-poppins font-medium text-base text-white list-disc">
@@ -241,6 +305,21 @@ const StakingPage = () => {
                   </tbody>
                 </table>
               </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col space-y-4 mt-8 w-full">
+            <span className="font-oxanium font-bold text-2xl text-[#FFA52C]">
+              NFTs
+            </span>
+            <div className="flex flex-row space-x-6">
+              <FormSearchPrice />
+              <FormSearchToken />
+            </div>
+            <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-x-12 gap-y-8">
+              {nftsData.map((item, index) => (
+                <NFT data={item} />
+              ))}
             </div>
           </div>
         </div>
