@@ -225,7 +225,7 @@ const StakingPage = () => {
                   </span>
                 </div>
                 {tableData.map((item, index) => (
-                  <div className="grid grid-cols-3 items-center justify-between py-5 border-b border-white border-opacity-10">
+                  <div className="grid grid-cols-3 items-center justify-between py-5 border-b border-white border-opacity-10 hover:bg-[#FFA52C] hover:bg-opacity-10">
                     <span className="font-poppins font-normal text-base text-white text-center">
                       {item.rank}
                     </span>
