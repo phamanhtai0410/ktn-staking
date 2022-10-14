@@ -249,8 +249,8 @@ const StakingPage = () => {
               Information
             </span>
             <div className="grid md:grid-cols-2 grid-cols-1 w-full items-center gap-8">
-              <div className="staking__information">
-                <ul>
+              <div className="staking__information p-6">
+                <ul className=" ml-4">
                   <li className="font-poppins font-medium text-base text-white list-disc">
                     Users will stake MSP Tokens in exchange for points and have
                     a top point ranking to get the right to buy Lands.
