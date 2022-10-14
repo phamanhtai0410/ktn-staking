@@ -1,26 +1,12 @@
 import { useTranslation } from 'react-i18next'
 import './index.scss'
-import IcRank from '../../assets/images/staking/ic_rank.svg'
-import IcStaked from '../../assets/images/staking/ic_staked.svg'
-import IcLock from '../../assets/images/staking/ic_lock.svg'
+import IcReferral from '../../assets/images/referral/ic_referral.svg'
+import IcCopy from '../../assets/images/referral/ic_copy.svg'
 import IcTop1 from '../../assets/images/staking/ic_top1.svg'
 import IcTop2 from '../../assets/images/staking/ic_top2.svg'
 import IcTop3 from '../../assets/images/staking/ic_top3.svg'
-import nft1 from '../../assets/images/partials/nft1.png'
-import nft2 from '../../assets/images/partials/nft2.png'
-import nft3 from '../../assets/images/partials/nft3.png'
-import nft4 from '../../assets/images/partials/nft4.png'
-import nft5 from '../../assets/images/partials/nft5.png'
-import nft6 from '../../assets/images/partials/nft6.png'
-import nft7 from '../../assets/images/partials/nft7.png'
-import nft8 from '../../assets/images/partials/nft8.png'
 import Pagination from '@/components/partials/Pagination'
-import FormSearchPrice from '../partials/FormSearchPrice'
-import FormSearchToken from '../partials/FormSearchToken'
-import NFT from '../partials/NFT'
-import { useAppDispatch } from '@/app/hooks'
-import { fetchListLeaderBoard } from '@/actions/stakingActions'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   CSSTransition,
   SwitchTransition,
@@ -28,16 +14,8 @@ import {
 } from 'react-transition-group'
 import classnames from 'classnames'
 
-const StakingPage = () => {
-
+const ReferralPage = () => {
   const { t } = useTranslation()
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-      dispatch(fetchListLeaderBoard())
-  }, [])
-  
-
   const makeid = (length) => {
     var result = ''
     var characters =
@@ -387,66 +365,11 @@ const StakingPage = () => {
     { id: 'Tier 3', rarity: 'Common', no: '20', total: '700' },
     { id: 'Tier 4', rarity: 'Common', no: '6', total: '200' },
   ]
-  const nftsData = [
-    {
-      title: 'NFTS WITH REAL UTILITY',
-      id: '#61001',
-      price: '10.1 USDT',
-      img: nft1,
-    },
-    {
-      title: 'NFTS WITH REAL UTILITY',
-      id: '#61002',
-      price: '10.1 USDT',
-      img: nft2,
-    },
-    {
-      title: 'NFTS WITH REAL UTILITY',
-      id: '#61003',
-      price: '10.1 USDT',
-      img: nft3,
-    },
-    {
-      title: 'NFTS WITH REAL UTILITY',
-      id: '#61004',
-      price: '10.1 USDT',
-      img: nft4,
-    },
-    {
-      title: 'NFTS WITH REAL UTILITY',
-      id: '#61005',
-      price: '10.1 USDT',
-      img: nft5,
-    },
-    {
-      title: 'NFTS WITH REAL UTILITY',
-      id: '#61006',
-      price: '10.1 USDT',
-      img: nft6,
-    },
-    {
-      title: 'NFTS WITH REAL UTILITY',
-      id: '#61007',
-      price: '10.1 USDT',
-      img: nft7,
-    },
-    {
-      title: 'NFTS WITH REAL UTILITY',
-      id: '#61008',
-      price: '10.1 USDT',
-      img: nft8,
-    },
-  ]
 
   let PageSize = 10
   const [currentPage, setCurrentPage] = useState(1)
   const [pageChangeIncrease, setPageChangeIncrease] = useState(false)
   const [currentTableData, setCurrentTableData] = useState([])
-  //   const currentTableData = useMemo(() => {
-  //     const firstPageIndex = (currentPage - 1) * PageSize
-  //     const lastPageIndex = firstPageIndex + PageSize
-  //     return tableData.slice(firstPageIndex, lastPageIndex)
-  //   }, [currentPage])
   useEffect(() => {
     const firstPageIndex = (currentPage - 1) * PageSize
     const lastPageIndex = firstPageIndex + PageSize
@@ -454,52 +377,66 @@ const StakingPage = () => {
   }, [currentPage])
 
   return (
-    <section className="staking">
-      <div className="staking__main pt-40 pb-12 relative flex flex-col items-center min-h-[1254px] sm:px-0 px-4">
+    <section className="referral">
+      <div className="referral__main pt-40 pb-12 relative flex flex-col items-center min-h-[1254px] sm:px-0 px-4">
         <div className="container">
           <div className="flex flex-col w-full space-y-4 max-w-[1280px]">
             <span className="font-oxanium font-bold text-2xl text-[#FFA52C]">
-              Stake
+              Referral
             </span>
-            <div className="grid lg:grid-cols-2 grid-cols-1 w-full items-center sm:gap-x-8 gap-y-8">
-              <div className="flex flex-col h-[208px] space-y-8 border border-[#FFA52C] rounded-2xl backdrop-blur-[25px] p-8 pb-12">
-                <div className="flex flex-row items-center space-x-4">
-                  <img src={IcRank} alt="staking" />
-                  <span className="font-oxanium_ font-bold text-4xl text-white">
-                    My Rank
-                  </span>
-                </div>
-                <div className="flex flex-row items-center justify-between">
-                  <span className="font-poppins font-bold text-xl text-white">
-                    Rank -
-                  </span>
-                  <span className="font-poppins font-bold text-xl text-white">
-                    Point: 0
-                  </span>
-                  <button className="px-4 py-3 bg-[#FFA52C] rounded-lg font-poppins font-bold text-base text-white">
-                    {' '}
-                    Claim
-                  </button>
-                </div>
+            <div className=" referral__head flex flex-col p-8 border-[0.5px] border-[#FFA52C] rounded-2xl backdrop-blur-[25px]">
+              <div className="flex flex-row space-x-4">
+                <img
+                  src={IcReferral}
+                  alt="referral"
+                  className="cursor-pointer"
+                />
+                <span className="font-oxanium font-bold text-4xl text-white">
+                  Referral
+                </span>
               </div>
-              <div className="flex flex-col h-[208px] space-y-8 border border-[#FFA52C] rounded-2xl backdrop-blur-[25px] p-8 pb-12">
-                <div className="flex flex-row space-x-4">
-                  <img src={IcStaked} alt="staking" />
-                  <span className="font-oxanium_ font-bold text-4xl text-white">
-                    Total Staked
-                  </span>
-                </div>
+              <div className="flex flex-col mt-7 space-y-7">
                 <div className="flex flex-row items-center justify-between">
-                  <div className="flex flex-row space-x-2">
+                  <span className="font-poppins font-medium text-base text-[#E2C1AA]">
+                    My referral code:
+                  </span>
+                  <div className="flex flex-row items-center space-x-4">
+                    <img src={IcCopy} alt="referral" />
                     <span className="font-poppins font-bold text-xl text-[#FFA52C]">
-                      0
-                    </span>
-                    <span className="font-poppins font-bold text-xl text-white">
-                      KATA
+                      26757874
                     </span>
                   </div>
-
-                  <img src={IcLock} alt="staking" />
+                </div>
+                <div className="flex flex-row items-center justify-between">
+                  <span className="font-poppins font-medium text-base text-[#E2C1AA]">
+                    Referral People:
+                  </span>
+                  <span className="font-poppins font-bold text-xl text-[#FFA52C]">
+                    7874
+                  </span>
+                </div>
+                <div className="flex flex-row items-center justify-between">
+                  <span className="font-poppins font-medium text-base text-[#E2C1AA]">
+                    Total Earned:
+                  </span>
+                  <span className="font-poppins font-bold text-xl text-[#FFA52C]">
+                    $ 1,100,222
+                  </span>
+                </div>
+              </div>
+              <div className="mt-[26px] mb-6 h-[1px] border border-dashed border-[#81715C]"></div>
+              <div className="flex flex-col space-y-[10px]">
+                <span className="font-poppins font-medium text-base text-[#E2C1AA]">
+                  Been referred by a friend?
+                </span>
+                <div className="flex flex-row w-full items-center space-x-4">
+                  <input
+                    className="w-full p-3 font-poppins font-medium text-base text-[#E2C1AA] placeholder:text-[#81715C] bg-white bg-opacity-10 rounded-lg focus:outline-none"
+                    placeholder="Enter code"
+                  />
+                  <button className="px-4 py-3 bg-white bg-opacity-10 font-poppins font-semibold text-base text-[#81715C] rounded-lg">
+                    Submit
+                  </button>
                 </div>
               </div>
             </div>
@@ -512,7 +449,7 @@ const StakingPage = () => {
             <div className="flex flex-col space-y-8">
               <div className="flex flex-col items-center">
                 <div className="grid lg:grid-cols-3 grid-cols-1 pl-[18px] items-center mt-4 gap-x-20 gap-y-12">
-                  <div className="staking__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
+                  <div className="referral__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
                     <span className="font-poppins font-semibold text-base text-[#FFB156]">
                       0x5d07...eba9
                     </span>
@@ -521,11 +458,11 @@ const StakingPage = () => {
                     </span>
                     <img
                       src={IcTop1}
-                      alt="staking"
+                      alt="referral"
                       className="absolute top-[-25%] left-[-36px]"
                     />
                   </div>
-                  <div className="staking__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
+                  <div className="referral__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
                     <span className="font-poppins font-semibold text-base text-[#FFB156]">
                       0x5d07...eba9
                     </span>
@@ -534,11 +471,11 @@ const StakingPage = () => {
                     </span>
                     <img
                       src={IcTop2}
-                      alt="staking"
+                      alt="referral"
                       className="absolute top-[-25%] left-[-36px]"
                     />
                   </div>
-                  <div className="staking__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
+                  <div className="referral__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
                     <span className="font-poppins font-semibold text-base text-[#FFB156]">
                       0x5d07...eba9
                     </span>
@@ -547,13 +484,13 @@ const StakingPage = () => {
                     </span>
                     <img
                       src={IcTop3}
-                      alt="staking"
+                      alt="referral"
                       className="absolute top-[-25%] left-[-36px]"
                     />
                   </div>
                 </div>
               </div>
-              <div className="staking__table flex flex-col overflow-hidden">
+              <div className="referral__table flex flex-col overflow-hidden">
                 <div className="grid grid-cols-3 items-center justify-between py-6 border-b border-white border-opacity-10">
                   <span className="font-oxanium font-bold text-2xl text-white text-center">
                     Rank
@@ -609,10 +546,10 @@ const StakingPage = () => {
 
           <div className="flex flex-col space-y-4 mt-8 w-full">
             <span className="font-oxanium font-bold text-2xl text-[#FFA52C]">
-              Information
+              Rule
             </span>
             <div className="grid md:grid-cols-2 grid-cols-1 w-full items-center gap-8">
-              <div className="staking__information p-6">
+              <div className="referral__information p-6">
                 <ul className=" ml-4">
                   <li className="font-poppins font-medium text-base text-white list-disc">
                     Users will stake MSP Tokens in exchange for points and have
@@ -637,7 +574,7 @@ const StakingPage = () => {
                 </ul>
               </div>
               <div className="border-[0.5px] border-[#353A45] rounded-xl overflow-hidden">
-                <table className="staking__information__table w-full xl:p-4">
+                <table className="referral__information__table w-full xl:p-4">
                   <thead>
                     <tr>
                       {tableHead.map((item, index) => (
@@ -670,24 +607,9 @@ const StakingPage = () => {
               </div>
             </div>
           </div>
-
-          <div className="flex flex-col space-y-4 mt-8 w-full">
-            <span className="font-oxanium font-bold text-2xl text-[#FFA52C]">
-              NFTs
-            </span>
-            <div className="flex flex-row space-x-6">
-              <FormSearchPrice />
-              <FormSearchToken />
-            </div>
-            <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-x-12 gap-y-8">
-              {nftsData.map((item) => (
-                <NFT data={item} />
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </section>
   )
 }
-export default StakingPage
+export default ReferralPage

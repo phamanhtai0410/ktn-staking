@@ -14,14 +14,13 @@ import nft5 from '../../assets/images/partials/nft5.png'
 import nft6 from '../../assets/images/partials/nft6.png'
 import nft7 from '../../assets/images/partials/nft7.png'
 import nft8 from '../../assets/images/partials/nft8.png'
-import Pagination from '@/components/partials/Pagination'
+import Pagination from '@/components/Partials/Pagination'
 import FormSearchPrice from '../partials/FormSearchPrice'
 import FormSearchToken from '../partials/FormSearchToken'
 import NFT from '../partials/NFT'
-import { useAppDispatch } from '@/app/hooks'
-import { fetchListLeaderBoard } from '@/actions/stakingActions'
 import { useEffect, useMemo, useState } from 'react'
 import {
+  Transition,
   CSSTransition,
   SwitchTransition,
   TransitionGroup,
@@ -29,15 +28,7 @@ import {
 import classnames from 'classnames'
 
 const StakingPage = () => {
-
   const { t } = useTranslation()
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-      dispatch(fetchListLeaderBoard())
-  }, [])
-  
-
   const makeid = (length) => {
     var result = ''
     var characters =
