@@ -18,9 +18,20 @@ import Pagination from '@/components/Partials/Pagination'
 import FormSearchPrice from '../Partials/FormSearchPrice'
 import FormSearchToken from '../Partials/FormSearchToken'
 import NFT from '../Partials/NFT'
+import { useAppDispatch } from '@/app/hooks'
+import { useEffect } from 'react'
+import { fetchListLeaderBoard } from '@/actions/stakingActions'
 
 const StakingPage = () => {
+
   const { t } = useTranslation()
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+      dispatch(fetchListLeaderBoard())
+  }, [])
+  
+
   const tableData = [
     { rank: 1, address: '0x5d07...eba9', point: 3851300 },
     { rank: 1, address: '0x5d07...eba9', point: 3851300 },
