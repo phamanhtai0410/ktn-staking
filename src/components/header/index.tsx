@@ -2,6 +2,7 @@ import icLogo from '@/assets/images/game/ic-logo.png'
 import { useLocation } from 'react-router'
 import './index.scss'
 import PublicIcon from '@mui/icons-material/Public';
+import ConnectWallet from '../ConnectWallet';
 
 const menuList = [
   {
@@ -44,12 +45,14 @@ const Header = () => {
 
         <div className="flex md:order-2 items-center gap-8">
           <PublicIcon style={{ color: "#9ca3af" }} />
-          <button
+          {/* <button
             type="button"
             className="home-btn text-white cursor-pointer uppercase bg-transparent font-medium rounded-xl text-base px-5 py-2.5 text-center"
           >
             Connect Wallet
-          </button>
+          </button> */}
+
+          <ConnectWallet />
 
           <button
             data-collapse-toggle="navbar-sticky"
