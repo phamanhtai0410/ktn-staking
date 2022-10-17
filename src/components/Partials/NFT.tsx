@@ -4,22 +4,25 @@ import IcArrow from '../../assets/images/partials/ic_arrow_bot.svg'
 import { v4 as uuidv4 } from 'uuid'
 
 const NFT = ({ data }) => {
-  const { title, id, price, img } = data
   return (
     <div
-      key={id}
+      key={data?.token_id}
       className="partitals__nft px-[21.48px] py-6 flex flex-col space-y-4 text-white"
     >
-      <img src={img} alt="nft" className="w-full" />
+      <img
+        src={data?.image}
+        alt="nft"
+        className="h-[248px] object-cover object-top"
+      />
       <span className="font-oxanium font-bold text-base text-white text-center">
-        {title}
+        {data?.description}
       </span>
       <div className="flex flex-row items-center justify-between">
         <span className="font-poppins font-normal text-sm text-white">
           NFT ID
         </span>
         <span className="font-poppins font-normal text-sm text-[#FFA52C]">
-          {id}
+          {data?.token_id}
         </span>
       </div>
       <div className="flex flex-row items-center justify-between">
@@ -27,7 +30,7 @@ const NFT = ({ data }) => {
           Price
         </span>
         <span className="font-poppins font-bold text-xl text-[#FFA52C]">
-          {price}
+          {data?.price}
         </span>
       </div>
       <button className="btn-stake py-[10px] font-poppins font-medium text-base text-white text-center">

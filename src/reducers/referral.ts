@@ -34,4 +34,4 @@ export default referralSlice.reducer;
 
 // create and export the selector
 export const selectLeaderBoard = (state: RootState) => state.referral.leaderBoard;
-export const selectLeaderBoardTop3 = (state: RootState) => state.referral.leaderBoardTop3.items;
+export const selectLeaderBoardTop3 = (state: RootState) => state.referral.leaderBoardTop3;

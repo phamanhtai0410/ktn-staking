@@ -8,14 +8,16 @@ export interface IPagination{
 
 /** LEADER BOARD */
 export interface ILeaderBoardModel{
+    rank:number,
     address: string,
-    total_user_linked: number
+    point: number
 }
 
 export interface ILeaderBoardArrayModel{
     items: ILeaderBoardModel[],
     pagination:IPagination,
-    loading: boolean
+    loading: boolean,
+    num_of_page:number
 }
 
 
