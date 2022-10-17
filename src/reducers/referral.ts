@@ -21,10 +21,10 @@ const referralSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchListLeaderBoard.fulfilled, (state, action) => {
-          state.leaderBoard.items= action.payload.items
+          state.leaderBoard= action.payload
         })
         builder.addCase(fetchListLeaderBoardTop3.fulfilled, (state, action) => {
-            state.leaderBoardTop3.items= action.payload.items.slice(0,Math.max(3,action.payload.items.length))
+            state.leaderBoardTop3.items= action.payload.items.slice(0,Math.min(3,action.payload.items.length))
           })
     },
 })
@@ -33,5 +33,5 @@ export const { setListCollections } = referralSlice.actions;
 export default referralSlice.reducer;
 
 // create and export the selector
-export const selectLeaderBoard = (state: RootState) => state.referral.leaderBoard.items;
+export const selectLeaderBoard = (state: RootState) => state.referral.leaderBoard;
 export const selectLeaderBoardTop3 = (state: RootState) => state.referral.leaderBoardTop3.items;

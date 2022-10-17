@@ -106,11 +106,12 @@ const ReferralPage = () => {
   useEffect(() => {
     const firstPageIndex = (currentPage - 1) * leaderBoardParams.page_size
     const lastPageIndex = firstPageIndex + leaderBoardParams.page_size
-    setCurrentTableData(listLeaderBoard?.slice(firstPageIndex, lastPageIndex))
+    setCurrentTableData(listLeaderBoard?.items)
   }, [currentPage, listLeaderBoard])
 
   useEffect(() => {
     setLeaderBoardParams({ ...leaderBoardParams, page: currentPage })
+    dispatch(fetchListLeaderBoard({ ...leaderBoardParams, page: currentPage }))
   }, [currentPage])
 
   return (
@@ -198,126 +199,82 @@ const ReferralPage = () => {
                           Point: {item.point}
                         </span>
                         <img
-                          // src={`IcTop${index + 1}`}
                           src={getIconListTop(item.rank)}
                           alt="referral"
                           className="absolute top-[-25%] left-[-36px]"
                         />
                       </div>
                     ))}
-                  {/* <div className="referral__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
-                    <span className="font-poppins font-semibold text-base text-[#FFB156]">
-                      0x5d07...eba9
-                    </span>
-                    <span className="font-poppins font-semibold text-base text-white">
-                      Point: 3851300
-                    </span>
-                    <img
-                      src={IcTop1}
-                      alt="referral"
-                      className="absolute top-[-25%] left-[-36px]"
-                    />
-                  </div>
-                  <div className="referral__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
-                    <span className="font-poppins font-semibold text-base text-[#FFB156]">
-                      0x5d07...eba9
-                    </span>
-                    <span className="font-poppins font-semibold text-base text-white">
-                      Point: 3851300
-                    </span>
-                    <img
-                      src={IcTop2}
-                      alt="referral"
-                      className="absolute top-[-25%] left-[-36px]"
-                    />
-                  </div>
-                  <div className="referral__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
-                    <span className="font-poppins font-semibold text-base text-[#FFB156]">
-                      0x5d07...eba9
-                    </span>
-                    <span className="font-poppins font-semibold text-base text-white">
-                      Point: 3851300
-                    </span>
-                    <img
-                      src={IcTop3}
-                      alt="referral"
-                      className="absolute top-[-25%] left-[-36px]"
-                    />
-                  </div> */}
                 </div>
               </div>
-              {listLeaderBoard && listLeaderBoard?.length > 0 && (
-                <div className="referral__table flex flex-col overflow-hidden">
-                  <div className="grid grid-cols-3 items-center justify-between py-6 border-b border-white border-opacity-10">
-                    <span className="font-oxanium font-bold text-2xl text-white text-center">
-                      Rank
-                    </span>
-                    <span className="font-oxanium font-bold text-2xl text-white text-center">
-                      Wallet Address
-                    </span>
-                    <span className="font-oxanium font-bold text-2xl text-white text-center">
-                      Point
-                    </span>
-                  </div>
-                  {currentTableData?.map((item, index) => (
-                    <SwitchTransition
-                      key={
-                        leaderBoardParams.page_size * (currentPage - 1) +
-                        index +
-                        1
-                      }
-                      mode={'out-in'}
-                    >
-                      <CSSTransition
-                        key={
-                          leaderBoardParams.page_size * (currentPage - 1) +
-                          index +
-                          1
-                        }
-                        timeout={100 + index * 40}
-                        classNames={classnames({
-                          'table-row-item-left': !pageChangeIncrease,
-                          'table-row-item-right': pageChangeIncrease,
-                        })}
-                      >
-                        <div
-                          className={classnames(
-                            'grid grid-cols-3 items-center justify-between py-5 border-b border-white border-opacity-10 cursor-pointer',
-                            {
-                              'bg-[#FFA52C] bg-opacity-10':
-                                index === currentRow,
-                            },
-                          )}
-                          onClick={() => setCurrentRow(index)}
+              {listLeaderBoard &&
+                listLeaderBoard?.items &&
+                listLeaderBoard?.items?.length > 0 && (
+                  <div className="referral__table flex flex-col overflow-hidden">
+                    <div className="grid grid-cols-3 items-center justify-between py-6 border-b border-white border-opacity-10">
+                      <span className="font-oxanium font-bold text-2xl text-white text-center">
+                        Rank
+                      </span>
+                      <span className="font-oxanium font-bold text-2xl text-white text-center">
+                        Wallet Address
+                      </span>
+                      <span className="font-oxanium font-bold text-2xl text-white text-center">
+                        Point
+                      </span>
+                    </div>
+                    {currentTableData?.map((item, index) => (
+                      <SwitchTransition mode={'out-in'}>
+                        <CSSTransition
+                          key={
+                            leaderBoardParams.page_size * (currentPage - 1) +
+                            index +
+                            1
+                          }
+                          timeout={100 + index * 40}
+                          classNames={classnames({
+                            'table-row-item-left': !pageChangeIncrease,
+                            'table-row-item-right': pageChangeIncrease,
+                          })}
                         >
-                          <span className="font-poppins font-normal text-base text-white text-center">
-                            {item.rank}
-                          </span>
-                          <span className="font-poppins font-normal text-base text-white text-center">
-                            {addressWalletCompact(item.address)}
-                          </span>
-                          <span className="font-poppins font-normal text-base text-white text-center">
-                            {item.point}
-                          </span>
-                        </div>
-                      </CSSTransition>
-                    </SwitchTransition>
-                  ))}
-                  <div className="flex w-full items-center justify-center pt-8">
-                    <Pagination
-                      className="pagination-bar"
-                      currentPage={currentPage}
-                      totalCount={listLeaderBoard?.length}
-                      pageSize={leaderBoardParams.page_size}
-                      onPageChange={(page) => {
-                        setCurrentRow(0)
-                        setPageChangeIncrease(page > currentPage)
-                        setCurrentPage(page)
-                      }}
-                    />
+                          <div
+                            className={classnames(
+                              'grid grid-cols-3 items-center justify-between py-5 border-b border-white border-opacity-10 cursor-pointer',
+                              {
+                                'bg-[#FFA52C] bg-opacity-10':
+                                  index === currentRow,
+                              },
+                            )}
+                            onClick={() => setCurrentRow(index)}
+                          >
+                            <span className="font-poppins font-normal text-base text-white text-center">
+                              {item.rank}
+                            </span>
+                            <span className="font-poppins font-normal text-base text-white text-center">
+                              {addressWalletCompact(item.address)}
+                            </span>
+                            <span className="font-poppins font-normal text-base text-white text-center">
+                              {item.point}
+                            </span>
+                          </div>
+                        </CSSTransition>
+                      </SwitchTransition>
+                    ))}
+                    <div className="flex w-full items-center justify-center pt-8">
+                      <Pagination
+                        className="pagination-bar"
+                        currentPage={currentPage}
+                        numOfPage={listLeaderBoard?.num_of_page}
+                        // totalCount={listLeaderBoard?.num_of_page}
+                        pageSize={leaderBoardParams.page_size}
+                        onPageChange={(page) => {
+                          setCurrentRow(0)
+                          setPageChangeIncrease(page > currentPage)
+                          setCurrentPage(page)
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
             </div>
           </div>
 

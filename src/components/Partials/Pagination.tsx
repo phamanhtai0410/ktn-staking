@@ -13,6 +13,7 @@ interface Props {
 
 const Pagination = (props) => {
   const {
+    numOfPage,
     onPageChange,
     totalCount,
     siblingCount = 1,
@@ -22,6 +23,7 @@ const Pagination = (props) => {
   } = props
 
   const paginationRange = usePagination({
+    numOfPage,
     currentPage,
     totalCount,
     siblingCount,
