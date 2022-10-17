@@ -14,31 +14,21 @@ import nft5 from '../../assets/images/partials/nft5.png'
 import nft6 from '../../assets/images/partials/nft6.png'
 import nft7 from '../../assets/images/partials/nft7.png'
 import nft8 from '../../assets/images/partials/nft8.png'
-import Pagination from '@/components/partials/Pagination'
+import Pagination from '@/components/Partials/Pagination'
 import FormSearchPrice from '../partials/FormSearchPrice'
 import FormSearchToken from '../partials/FormSearchToken'
 import NFT from '../partials/NFT'
-import { useAppDispatch } from '@/app/hooks'
-import { fetchListLeaderBoard } from '@/actions/stakingActions'
 import { useEffect, useMemo, useState } from 'react'
 import {
+  Transition,
   CSSTransition,
   SwitchTransition,
   TransitionGroup,
 } from 'react-transition-group'
 import classnames from 'classnames'
-import { useSelector } from 'react-redux'
-import { selectCollections } from '@/reducers/LeaderBoardSlice'
 
 const StakingPage = () => {
   const { t } = useTranslation()
-  const dispatch = useAppDispatch()
-  const listLeaderBoard = useSelector(selectCollections)
-
-  useEffect(() => {
-    dispatch(fetchListLeaderBoard())
-  }, [])
-
   const makeid = (length) => {
     var result = ''
     var characters =
@@ -440,10 +430,14 @@ const StakingPage = () => {
   ]
 
   let PageSize = 10
-  const [currentRow, setCurrentRow] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [pageChangeIncrease, setPageChangeIncrease] = useState(false)
   const [currentTableData, setCurrentTableData] = useState([])
+  //   const currentTableData = useMemo(() => {
+  //     const firstPageIndex = (currentPage - 1) * PageSize
+  //     const lastPageIndex = firstPageIndex + PageSize
+  //     return tableData.slice(firstPageIndex, lastPageIndex)
+  //   }, [currentPage])
   useEffect(() => {
     const firstPageIndex = (currentPage - 1) * PageSize
     const lastPageIndex = firstPageIndex + PageSize
@@ -573,16 +567,7 @@ const StakingPage = () => {
                           'table-row-item-right': pageChangeIncrease,
                         })}
                       >
-                        <div
-                          className={classnames(
-                            'grid grid-cols-3 items-center justify-between py-5 border-b border-white border-opacity-10 cursor-pointer',
-                            {
-                              'bg-[#FFA52C] bg-opacity-10':
-                                index === currentRow,
-                            },
-                          )}
-                          onClick={() => setCurrentRow(index)}
-                        >
+                        <div className="grid grid-cols-3 items-center justify-between py-5 border-b border-white border-opacity-10 hover:bg-[#FFA52C] hover:bg-opacity-10">
                           <span className="font-poppins font-normal text-base text-white text-center">
                             {PageSize * (currentPage - 1) + index + 1}
                           </span>
@@ -604,7 +589,6 @@ const StakingPage = () => {
                     totalCount={tableData.length}
                     pageSize={PageSize}
                     onPageChange={(page) => {
-                      setCurrentRow(0)
                       setPageChangeIncrease(page > currentPage)
                       setCurrentPage(page)
                     }}

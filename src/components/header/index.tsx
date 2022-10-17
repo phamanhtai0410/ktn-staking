@@ -1,5 +1,8 @@
 import icLogo from '@/assets/images/game/ic-logo.png'
 import { useLocation } from 'react-router'
+import './index.scss'
+import PublicIcon from '@mui/icons-material/Public';
+import ConnectWallet from '../ConnectWallet';
 
 const menuList = [
   {
@@ -28,7 +31,7 @@ const Header = () => {
 
   const location = useLocation()
 
-return (
+  return (
     <nav className="px-2 sm:px-4 py-2 absolute w-full z-20 left-0">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
         <div className="w-16 h-6 relative">
@@ -40,13 +43,16 @@ return (
           </a>
         </div>
 
-        <div className="flex md:order-2">
-          <button
+        <div className="flex md:order-2 items-center gap-8">
+          <PublicIcon style={{ color: "#9ca3af" }} />
+          {/* <button
             type="button"
             className="home-btn text-white cursor-pointer uppercase bg-transparent font-medium rounded-xl text-base px-5 py-2.5 text-center"
           >
-            Opensea
-          </button>
+            Connect Wallet
+          </button> */}
+
+          <ConnectWallet />
 
           <button
             data-collapse-toggle="navbar-sticky"
@@ -64,9 +70,9 @@ return (
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               ></path>
             </svg>
           </button>
@@ -78,21 +84,27 @@ return (
         >
           <ul className="flex flex-col p-4 mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0">
             {menuList.map((item, index) => (
-              <li key={item.title}>
+              <li key={item.title} >
                 <a
-                  className={`${
-                    item?.link === '/' ||
-                    item?.link === '/cart' ||
-                    item?.link === '/mint'
+                  className={`${item?.link === '/' ||
+                      item?.link === '/cart' ||
+                      item?.link === '/mint'
                       ? 'text-[#e39b11]'
                       : 'text-gray-400'
-                  } block py-2 px-2 text-[16px] uppercase rounded-lg md:bg-transparent hover:bg-neutral-100/[.06] `}
+                    } block py-2 px-2 text-[16px] uppercase md:bg-transparent hover:bg-neutral-100/[.06] `}
                   aria-current="page"
                   href={item.link}
                   key={item.title}
                 >
                   {item.title}
                 </a>
+                <p className={`${item?.link === '/' ||
+                    item?.link === '/cart' ||
+                    item?.link === '/mint'
+                    ? 'text-[#e39b11] border-b-2 border-[#e39b11] px-3 w-fit'
+                    : 'text-gray-400'
+                  } `}></p>
+                
               </li>
             ))}
           </ul>

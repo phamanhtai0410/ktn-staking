@@ -6,41 +6,9 @@
 @font-face {
   font-family: 'Poppins';
   font-style: normal;
-  font-weight: 250;
-  src: local('Poppins'), url(../fonts/poppins/Poppins-Thin.woff) format('woff');
-}
-@font-face {
-  font-family: 'Poppins';
-  font-style: italic;
-  font-weight: 250;
-  src: local('Poppins'), url(../fonts/poppins/Poppins-ThinItalic.woff) format('woff');
-}
-
-@font-face {
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 300;
-  src: local('Poppins'), url(../fonts/poppins/Poppins-Light.woff) format('woff');
-}
-@font-face {
-  font-family: 'Poppins';
-  font-style: italic;
-  font-weight: 300;
-  src: local('Poppins'), url(../fonts/poppins/Poppins-LightItalic.woff) format('woff');
-}
-
-@font-face {
-  font-family: 'Poppins';
-  font-style: normal;
   font-weight: 400;
   src: local('Poppins'), url(../fonts/poppins/Poppins-Regular.woff) format('woff');
 }
-@font-face {
-  font-family: 'Poppins';
-  font-style: italic;
-  font-weight: 400;
-  src: local('Poppins'), url(../fonts/poppins/Poppins-Italic.woff) format('woff');
-}
 
 @font-face {
   font-family: 'Poppins';
@@ -48,7 +16,6 @@
   font-weight: 400;
   src: local('Poppins'), url(../fonts/poppins/Poppins-Italic.woff) format('woff');
 }
-
 @font-face {
   font-family: 'Poppins';
   font-style: normal;
@@ -61,7 +28,6 @@
   font-weight: 500;
   src: local('Poppins'), url(../fonts/poppins/Poppins-MediumItalic.woff) format('woff');
 }
-
 @font-face {
   font-family: 'Poppins';
   font-style: normal;
@@ -75,18 +41,6 @@
   src: local('Poppins'), url(../fonts/poppins/Poppins-SemiBoldItalic.woff) format('woff');
 }
 
-@font-face {
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Poppins'), url(../fonts/poppins/Poppins-Bold.woff) format('woff');
-}
-@font-face {
-  font-family: 'Poppins';
-  font-style: italic;
-  font-weight: 700;
-  src: local('Poppins'), url(../fonts/poppins/Poppins-BoldItalic.woff) format('woff');
-}
 
 @font-face {
   font-family: 'Jost';
@@ -112,15 +66,12 @@
   font-weight: 600;
   src: local('Jost'), url(../fonts/jost/jost-semibold.woff) format('woff');
 }
+
 @font-face {
   font-family: 'Jost';
   font-style: normal;
   font-weight: 700;
   src: local('Jost'), url(../fonts/jost/jost-bold.woff) format('woff');
-  font-family: 'Blome';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Blome'), url(../fonts/blome/Blome-DOKn9.woff) format('woff');
 }
 
 /* Oxanium */
@@ -148,6 +99,7 @@
   font-weight: 600;
   src: local('Oxanium'), url(../fonts/oxanium/Oxanium-SemiBold.ttf) format('ttf');
 }
+
 @font-face {
   font-family: 'Oxanium';
   font-style: normal;

@@ -1,11 +1,15 @@
 import React from 'react'
 import './index.scss'
 import IcArrow from '../../assets/images/partials/ic_arrow_bot.svg'
+import { v4 as uuidv4 } from 'uuid'
 
 const NFT = ({ data }) => {
   const { title, id, price, img } = data
   return (
-    <div className="partitals__nft px-[21.48px] py-6 flex flex-col space-y-4 text-white">
+    <div
+      key={id}
+      className="partitals__nft px-[21.48px] py-6 flex flex-col space-y-4 text-white"
+    >
       <img src={img} alt="nft" className="w-full" />
       <span className="font-oxanium font-bold text-base text-white text-center">
         {title}
