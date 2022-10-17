@@ -28,6 +28,11 @@ const ReferralPage = () => {
   const listLeaderBoard = useSelector(selectLeaderBoard)
   const listLeaderBoardTop3 = useSelector(selectLeaderBoardTop3)
 
+  const [leaderBoardParams, setLeaderBoardParams] = useState({
+    page: 1,
+    page_size: 10,
+    event: 'top_referral',
+  })
   useEffect(() => {
     dispatch(fetchListLeaderBoard(leaderBoardParams))
     dispatch(fetchListLeaderBoardTop3(leaderBoardParams))
@@ -94,11 +99,6 @@ const ReferralPage = () => {
     { id: 'Tier 4', rarity: 'Common', no: '6', total: '200' },
   ]
 
-  const [leaderBoardParams, setLeaderBoardParams] = useState({
-    page: 1,
-    page_size: 10,
-    event: 'top_referral',
-  })
   const [currentRow, setCurrentRow] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [pageChangeIncrease, setPageChangeIncrease] = useState(false)

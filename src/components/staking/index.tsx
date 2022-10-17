@@ -19,7 +19,7 @@ import FormSearchPrice from '../partials/FormSearchPrice'
 import FormSearchToken from '../partials/FormSearchToken'
 import NFT from '../partials/NFT'
 import { useAppDispatch } from '@/app/hooks'
-import { fetchListLeaderBoard } from '@/actions/stakingActions'
+import { fetchListLeaderBoard, fetchListMyNFTs } from '@/actions/stakingActions'
 import { useEffect, useMemo, useState } from 'react'
 import {
   CSSTransition,
@@ -29,15 +29,23 @@ import {
 import classnames from 'classnames'
 import { useSelector } from 'react-redux'
 import { selectCollections } from '@/reducers/LeaderBoardSlice'
+import { LocalStorageService } from '@/_helpers'
+import { selectMyNFTs } from '@/reducers/myNFTsSlice'
 
 const StakingPage = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const listLeaderBoard = useSelector(selectCollections)
-
+  const listMyNFTs = useSelector(selectMyNFTs)
   useEffect(() => {
     dispatch(fetchListLeaderBoard())
+    dispatch(
+      fetchListMyNFTs({ address: LocalStorageService.getAccessAccount() }),
+    )
   }, [])
+  useEffect(() => {
+    console.log('listMyNFTs', listMyNFTs)
+  }, [listMyNFTs])
 
   const makeid = (length) => {
     var result = ''
@@ -687,7 +695,7 @@ const StakingPage = () => {
               <FormSearchToken />
             </div>
             <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-x-12 gap-y-8">
-              {nftsData.map((item) => (
+              {listMyNFTs.map((item) => (
                 <NFT data={item} />
               ))}
             </div>

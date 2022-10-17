@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { stakingService } from "@/service/staking.service"
-
+  
 export const fetchListLeaderBoard = createAsyncThunk(
     'staking/fetchLeaderBoard',
     async (params, { dispatch, getState }) => {
@@ -11,7 +11,7 @@ export const fetchListLeaderBoard = createAsyncThunk(
 
 export const fetchListMyNFTs = createAsyncThunk(
     'staking/myNfts',
-    async (params, { dispatch, getState }) => {
+    async (params:{address:string}, { dispatch, getState }) => {
         const response = await stakingService.getListMyNFTs(params)
         return response.data
     }
