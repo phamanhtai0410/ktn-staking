@@ -21,6 +21,7 @@ import {
   fetchListLeaderBoardTop3,
 } from '@/actions/referralActions'
 import { addressWalletCompact } from '@/_helpers/utils/lib'
+import { ILeaderBoardParams } from '@/models/referral-models'
 
 const ReferralPage = () => {
   const { t } = useTranslation()
@@ -28,11 +29,13 @@ const ReferralPage = () => {
   const listLeaderBoard = useSelector(selectLeaderBoard)
   const listLeaderBoardTop3 = useSelector(selectLeaderBoardTop3)
 
-  const [leaderBoardParams, setLeaderBoardParams] = useState({
-    page: 1,
-    page_size: 10,
-    event: 'top_referral',
-  })
+  const [leaderBoardParams, setLeaderBoardParams] =
+    useState<ILeaderBoardParams>({
+      search: '',
+      page: 1,
+      page_size: 10,
+      event: 'top_referral',
+    })
   useEffect(() => {
     dispatch(fetchListLeaderBoard(leaderBoardParams))
     dispatch(fetchListLeaderBoardTop3(leaderBoardParams))
@@ -187,10 +190,10 @@ const ReferralPage = () => {
             <div className="flex flex-col space-y-8">
               <div className="flex flex-col items-center">
                 <div
-                  className={`grid lg:grid-cols-${listLeaderBoardTop3?.length} grid-cols-1 pl-[18px] items-center mt-4 gap-x-20 gap-y-12`}
+                  className={`grid lg:grid-cols-${listLeaderBoardTop3?.items?.length} grid-cols-1 pl-[18px] items-center mt-4 gap-x-20 gap-y-12`}
                 >
                   {listLeaderBoardTop3 &&
-                    listLeaderBoardTop3?.map((item, index) => (
+                    listLeaderBoardTop3?.items?.map((item, index) => (
                       <div className="referral__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
                         <span className="font-poppins font-semibold text-base text-[#FFB156]">
                           {addressWalletCompact(item.address)}
