@@ -27,16 +27,17 @@ import {
   TransitionGroup,
 } from 'react-transition-group'
 import classnames from 'classnames'
+import { useSelector } from 'react-redux'
+import { selectCollections } from '@/reducers/LeaderBoardSlice'
 
 const StakingPage = () => {
-
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
+  const listLeaderBoard = useSelector(selectCollections)
 
   useEffect(() => {
-      dispatch(fetchListLeaderBoard())
+    dispatch(fetchListLeaderBoard())
   }, [])
-  
 
   const makeid = (length) => {
     var result = ''
@@ -439,14 +440,10 @@ const StakingPage = () => {
   ]
 
   let PageSize = 10
+  const [currentRow, setCurrentRow] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [pageChangeIncrease, setPageChangeIncrease] = useState(false)
   const [currentTableData, setCurrentTableData] = useState([])
-  //   const currentTableData = useMemo(() => {
-  //     const firstPageIndex = (currentPage - 1) * PageSize
-  //     const lastPageIndex = firstPageIndex + PageSize
-  //     return tableData.slice(firstPageIndex, lastPageIndex)
-  //   }, [currentPage])
   useEffect(() => {
     const firstPageIndex = (currentPage - 1) * PageSize
     const lastPageIndex = firstPageIndex + PageSize
@@ -576,7 +573,16 @@ const StakingPage = () => {
                           'table-row-item-right': pageChangeIncrease,
                         })}
                       >
-                        <div className="grid grid-cols-3 items-center justify-between py-5 border-b border-white border-opacity-10 hover:bg-[#FFA52C] hover:bg-opacity-10">
+                        <div
+                          className={classnames(
+                            'grid grid-cols-3 items-center justify-between py-5 border-b border-white border-opacity-10 cursor-pointer',
+                            {
+                              'bg-[#FFA52C] bg-opacity-10':
+                                index === currentRow,
+                            },
+                          )}
+                          onClick={() => setCurrentRow(index)}
+                        >
                           <span className="font-poppins font-normal text-base text-white text-center">
                             {PageSize * (currentPage - 1) + index + 1}
                           </span>
@@ -598,6 +604,7 @@ const StakingPage = () => {
                     totalCount={tableData.length}
                     pageSize={PageSize}
                     onPageChange={(page) => {
+                      setCurrentRow(0)
                       setPageChangeIncrease(page > currentPage)
                       setCurrentPage(page)
                     }}

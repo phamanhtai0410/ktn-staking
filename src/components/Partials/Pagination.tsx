@@ -48,7 +48,7 @@ const Pagination = (props) => {
       })}
     >
       <button
-        className="flex flex-row items-center space-x-2 p-2 bg-[#353A4552] rounded-lg cursor-pointer"
+        className="flex flex-row items-center space-x-2 p-2 bg-[#353A4552] rounded-lg cursor-pointer hover:bg-white hover:bg-opacity-10"
         disabled={currentPage === 1}
         onClick={onPrevious}
       >
@@ -73,7 +73,7 @@ const Pagination = (props) => {
           <div
             key={index}
             className={classnames(
-              'flex flex-row w-10 items-center justify-center space-x-2 p-2 bg-[#353A4552] rounded-lg cursor-pointer font-poppins font-normal text-base',
+              'flex flex-row w-10 items-center justify-center space-x-2 p-2 bg-[#353A4552] rounded-lg cursor-pointer font-poppins font-normal text-base hover:bg-white hover:bg-opacity-10',
               {
                 'text-[#FFA52C]': pageNumber === currentPage,
                 'text-[#BFBFBF]': pageNumber !== currentPage,
@@ -86,7 +86,7 @@ const Pagination = (props) => {
         )
       })}
       <button
-        className="flex flex-row items-center space-x-2 p-2 bg-[#353A4552] rounded-lg cursor-pointer"
+        className="flex flex-row items-center space-x-2 p-2 bg-[#353A4552] rounded-lg cursor-pointer hover:bg-white hover:bg-opacity-10"
         disabled={currentPage === lastPage}
         onClick={onNext}
       >

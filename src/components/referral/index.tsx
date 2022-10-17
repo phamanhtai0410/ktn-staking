@@ -13,9 +13,26 @@ import {
   TransitionGroup,
 } from 'react-transition-group'
 import classnames from 'classnames'
+import { useAppDispatch } from '@/app/hooks'
+import { useSelector } from 'react-redux'
+import { selectLeaderBoard, selectLeaderBoardTop3 } from '@/reducers/referral'
+import {
+  fetchListLeaderBoard,
+  fetchListLeaderBoardTop3,
+} from '@/actions/referralActions'
+import { addressWalletCompact } from '@/_helpers/utils/lib'
 
 const ReferralPage = () => {
   const { t } = useTranslation()
+  const dispatch = useAppDispatch()
+  const listLeaderBoard = useSelector(selectLeaderBoard)
+  const listLeaderBoardTop3 = useSelector(selectLeaderBoardTop3)
+
+  useEffect(() => {
+    dispatch(fetchListLeaderBoard(leaderBoardParams))
+    dispatch(fetchListLeaderBoardTop3(leaderBoardParams))
+  }, [])
+
   const makeid = (length) => {
     var result = ''
     var characters =
@@ -35,308 +52,19 @@ const ReferralPage = () => {
     }
     return result
   }
-  const tableData = [
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-    {
-      rank: 1,
-      address: '0x' + makeid(4) + '...' + makeid(5),
-      point: makeNumber(7),
-    },
-  ]
+  const getIconListTop = (rank) => {
+    switch (rank) {
+      case 1:
+        return IcTop1
+      case 2:
+        return IcTop2
+      case 3:
+        return IcTop3
+      default:
+        break
+    }
+  }
+
   const tableHead = [
     {
       className:
@@ -366,14 +94,23 @@ const ReferralPage = () => {
     { id: 'Tier 4', rarity: 'Common', no: '6', total: '200' },
   ]
 
-  let PageSize = 10
+  const [leaderBoardParams, setLeaderBoardParams] = useState({
+    page: 1,
+    page_size: 10,
+    event: 'top_referral',
+  })
+  const [currentRow, setCurrentRow] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [pageChangeIncrease, setPageChangeIncrease] = useState(false)
   const [currentTableData, setCurrentTableData] = useState([])
   useEffect(() => {
-    const firstPageIndex = (currentPage - 1) * PageSize
-    const lastPageIndex = firstPageIndex + PageSize
-    setCurrentTableData(tableData.slice(firstPageIndex, lastPageIndex))
+    const firstPageIndex = (currentPage - 1) * leaderBoardParams.page_size
+    const lastPageIndex = firstPageIndex + leaderBoardParams.page_size
+    setCurrentTableData(listLeaderBoard?.slice(firstPageIndex, lastPageIndex))
+  }, [currentPage, listLeaderBoard])
+
+  useEffect(() => {
+    setLeaderBoardParams({ ...leaderBoardParams, page: currentPage })
   }, [currentPage])
 
   return (
@@ -448,8 +185,27 @@ const ReferralPage = () => {
             </span>
             <div className="flex flex-col space-y-8">
               <div className="flex flex-col items-center">
-                <div className="grid lg:grid-cols-3 grid-cols-1 pl-[18px] items-center mt-4 gap-x-20 gap-y-12">
-                  <div className="referral__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
+                <div
+                  className={`grid lg:grid-cols-${listLeaderBoardTop3?.length} grid-cols-1 pl-[18px] items-center mt-4 gap-x-20 gap-y-12`}
+                >
+                  {listLeaderBoardTop3 &&
+                    listLeaderBoardTop3?.map((item, index) => (
+                      <div className="referral__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
+                        <span className="font-poppins font-semibold text-base text-[#FFB156]">
+                          {addressWalletCompact(item.address)}
+                        </span>
+                        <span className="font-poppins font-semibold text-base text-white">
+                          Point: {item.point}
+                        </span>
+                        <img
+                          // src={`IcTop${index + 1}`}
+                          src={getIconListTop(item.rank)}
+                          alt="referral"
+                          className="absolute top-[-25%] left-[-36px]"
+                        />
+                      </div>
+                    ))}
+                  {/* <div className="referral__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
                     <span className="font-poppins font-semibold text-base text-[#FFB156]">
                       0x5d07...eba9
                     </span>
@@ -487,38 +243,58 @@ const ReferralPage = () => {
                       alt="referral"
                       className="absolute top-[-25%] left-[-36px]"
                     />
-                  </div>
+                  </div> */}
                 </div>
               </div>
-              <div className="referral__table flex flex-col overflow-hidden">
-                <div className="grid grid-cols-3 items-center justify-between py-6 border-b border-white border-opacity-10">
-                  <span className="font-oxanium font-bold text-2xl text-white text-center">
-                    Rank
-                  </span>
-                  <span className="font-oxanium font-bold text-2xl text-white text-center">
-                    Wallet Address
-                  </span>
-                  <span className="font-oxanium font-bold text-2xl text-white text-center">
-                    Point
-                  </span>
-                </div>
-                {currentTableData.map((item, index) => (
-                  <TransitionGroup>
-                    <SwitchTransition mode={'out-in'}>
+              {listLeaderBoard && listLeaderBoard?.length > 0 && (
+                <div className="referral__table flex flex-col overflow-hidden">
+                  <div className="grid grid-cols-3 items-center justify-between py-6 border-b border-white border-opacity-10">
+                    <span className="font-oxanium font-bold text-2xl text-white text-center">
+                      Rank
+                    </span>
+                    <span className="font-oxanium font-bold text-2xl text-white text-center">
+                      Wallet Address
+                    </span>
+                    <span className="font-oxanium font-bold text-2xl text-white text-center">
+                      Point
+                    </span>
+                  </div>
+                  {currentTableData?.map((item, index) => (
+                    <SwitchTransition
+                      key={
+                        leaderBoardParams.page_size * (currentPage - 1) +
+                        index +
+                        1
+                      }
+                      mode={'out-in'}
+                    >
                       <CSSTransition
-                        key={PageSize * (currentPage - 1) + index + 1}
+                        key={
+                          leaderBoardParams.page_size * (currentPage - 1) +
+                          index +
+                          1
+                        }
                         timeout={100 + index * 40}
                         classNames={classnames({
                           'table-row-item-left': !pageChangeIncrease,
                           'table-row-item-right': pageChangeIncrease,
                         })}
                       >
-                        <div className="grid grid-cols-3 items-center justify-between py-5 border-b border-white border-opacity-10 hover:bg-[#FFA52C] hover:bg-opacity-10">
+                        <div
+                          className={classnames(
+                            'grid grid-cols-3 items-center justify-between py-5 border-b border-white border-opacity-10 cursor-pointer',
+                            {
+                              'bg-[#FFA52C] bg-opacity-10':
+                                index === currentRow,
+                            },
+                          )}
+                          onClick={() => setCurrentRow(index)}
+                        >
                           <span className="font-poppins font-normal text-base text-white text-center">
-                            {PageSize * (currentPage - 1) + index + 1}
+                            {item.rank}
                           </span>
                           <span className="font-poppins font-normal text-base text-white text-center">
-                            {item.address}
+                            {addressWalletCompact(item.address)}
                           </span>
                           <span className="font-poppins font-normal text-base text-white text-center">
                             {item.point}
@@ -526,21 +302,22 @@ const ReferralPage = () => {
                         </div>
                       </CSSTransition>
                     </SwitchTransition>
-                  </TransitionGroup>
-                ))}
-                <div className="flex w-full items-center justify-center pt-8">
-                  <Pagination
-                    className="pagination-bar"
-                    currentPage={currentPage}
-                    totalCount={tableData.length}
-                    pageSize={PageSize}
-                    onPageChange={(page) => {
-                      setPageChangeIncrease(page > currentPage)
-                      setCurrentPage(page)
-                    }}
-                  />
+                  ))}
+                  <div className="flex w-full items-center justify-center pt-8">
+                    <Pagination
+                      className="pagination-bar"
+                      currentPage={currentPage}
+                      totalCount={listLeaderBoard?.length}
+                      pageSize={leaderBoardParams.page_size}
+                      onPageChange={(page) => {
+                        setCurrentRow(0)
+                        setPageChangeIncrease(page > currentPage)
+                        setCurrentPage(page)
+                      }}
+                    />
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
 
