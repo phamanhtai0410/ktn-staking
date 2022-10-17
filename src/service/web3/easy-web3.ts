@@ -1,5 +1,8 @@
+import { fetchGetMessage } from '@/actions/userActions'
+import { useAppDispatch } from '@/app/hooks'
 import { ethers } from 'ethers'
 import Web3Modal from 'web3modal'
+import { userService } from '../user.service'
 import { EventBus, Registry } from './helper/event-bus'
 import { getChainData } from './helper/utilities'
 import {
@@ -7,6 +10,7 @@ import {
   IProviderMessage,
   IProviderRpcError,
   IWalletInfo,
+  IMessageInfo,
   Web3Callback,
   Web3Error,
   Web3EventType,
@@ -36,6 +40,7 @@ class EasyWeb3 {
   private walletInfo: IWalletInfo = DEFAULT_WALLET_INFO
   private chainId = 1
   private connectState: ConnectState = ConnectState.Disconnected
+  private message: IMessageInfo
 
   public static getInstance(): EasyWeb3 {
     if (!EasyWeb3.instance) {
@@ -62,10 +67,67 @@ class EasyWeb3 {
       this.connectWallet()
     }
   }
+
+  private async web3PersonalSign(message:string, account:string) {
+
+
+    try {
+        return await window.ethereum.request({ method: "personal_sign", params: [message,account] 
+        })
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+  };
+
+
+  /**
+   * get message to wallet
+   */
+  public async getMessageWallet() {
+
+      try {
+
+        if(window.ethereum){
+
+          await window.ethereum.request({
+            method: "wallet_requestPermissions",
+            params: [
+                {
+                    eth_accounts: {}
+                }
+            ]
+          });
+
+            const instance = await this.web3Modal.connect();
+            await this.subscribeProvider(instance)
+            this.web3Provider = new ethers.providers.Web3Provider(instance, 'any')
+  
+            const signer = this.web3Provider!.getSigner()
+            this.walletInfo.address = await signer.getAddress();
+
+            const {data} = await userService.getMessage(this.walletInfo);
+ 
+            if(data && data.message){
+              const signature = await this.web3PersonalSign(data.message,data.address);
+              return{
+                ...data,
+                signature
+              }
+            }
+
+        }
+          
+      }catch(error){  
+        console.log(TAG, 'getMessageWallet', error)
+      }
+  }
+
   /**
    * connect to wallet
    */
   public connectWallet = async (): Promise<void> => {
+
     const connectNotify = async () => {
       await this.updateWalletInfo()
       this.connectState = ConnectState.Connected
@@ -73,7 +135,9 @@ class EasyWeb3 {
         type: Web3EventType.Provider_Connect,
       })
     }
+
     try {
+
       if (this.connectState == ConnectState.Connected) {
         connectNotify()
         return
@@ -84,8 +148,9 @@ class EasyWeb3 {
       EventBus.getInstance().dispatch<IWeb3Event>(WEB3_MESSAGE, {
         type: Web3EventType.Connecting,
       })
+
       if (!this.web3Provider) {
-        const instance = await this.web3Modal.connect()
+        const instance = await this.web3Modal.connect();
         await this.subscribeProvider(instance)
         this.web3Provider = new ethers.providers.Web3Provider(instance, 'any')
       }

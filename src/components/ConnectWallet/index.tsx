@@ -1,6 +1,7 @@
 import {
   ConnectState,
   IWeb3Event,
+  IMessageInfo,
   useEasyWeb3,
   Web3Callback,
   Web3EventType,
@@ -8,9 +9,14 @@ import {
 import { CircularProgress } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import ExitToAppIcon from '@mui/icons-material/ExitToApp'
+import { userService } from '@/service/user.service'
+import { fetchGetMessage, verifySign } from '@/actions/userActions'
+import { useAppDispatch } from '@/app/hooks'
 
 const ConnectWallet = () => {
+
   const { t } = useTranslation()
+  const dispatch = useAppDispatch();
   const web3callback: Web3Callback = (e: IWeb3Event) => {
     switch (e.type) {
       case Web3EventType.Provider_Disconnect:
@@ -18,13 +24,23 @@ const ConnectWallet = () => {
         break
     }
   }
+
   const { easyWeb3, connectState, walletInfo } = useEasyWeb3(web3callback)
-  const onConnect = () => {
-    easyWeb3.connectWallet()
+  const onConnect = async () => {
+    
+    const messageSign = await easyWeb3.getMessageWallet();
+
+    if(messageSign && messageSign.signature){
+          dispatch(verifySign(messageSign))
+    }
+
+
   }
+
   const onDisconnect = () => {
     easyWeb3.disconnect()
   }
+
   return (
     <>
       {connectState == ConnectState.Disconnected && (
