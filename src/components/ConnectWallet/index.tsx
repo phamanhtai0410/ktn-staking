@@ -12,6 +12,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import { userService } from '@/service/user.service'
 import { fetchGetMessage, verifySign } from '@/actions/userActions'
 import { useAppDispatch } from '@/app/hooks'
+import { LocalStorageService } from '@/_helpers'
 
 const ConnectWallet = () => {
 
@@ -31,9 +32,12 @@ const ConnectWallet = () => {
     const messageSign = await easyWeb3.getMessageWallet();
 
     if(messageSign && messageSign.signature){
-          dispatch(verifySign(messageSign))
+         const res =  dispatch(verifySign(messageSign))
+         if(res){
+          await easyWeb3.connectWallet();
+          LocalStorageService.setAccount(messageSign.address)
+         }
     }
-
 
   }
 

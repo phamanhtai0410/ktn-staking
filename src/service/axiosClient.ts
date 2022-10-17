@@ -52,6 +52,11 @@ axiosClient.interceptors.request.use(
           config.headers['Authorization'] = 'Bearer ' + token;
       }
 
+      const address = localStorageService.getAccessAccount();
+      if (address) {
+          config.headers['address'] = address;
+      }
+
       return config;
 
   },error => {

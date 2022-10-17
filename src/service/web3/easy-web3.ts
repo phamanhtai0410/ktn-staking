@@ -1,5 +1,6 @@
 import { fetchGetMessage } from '@/actions/userActions'
 import { useAppDispatch } from '@/app/hooks'
+import { LocalStorageService } from '@/_helpers'
 import { ethers } from 'ethers'
 import Web3Modal from 'web3modal'
 import { userService } from '../user.service'
@@ -63,7 +64,8 @@ class EasyWeb3 {
    * connect to wallet if cached before
    */
   public connectWalletIfCached(): void {
-    if (this.web3Modal.cachedProvider) {
+    const address = LocalStorageService.getAccessAccount();
+    if (this.web3Modal.cachedProvider && address) {
       this.connectWallet()
     }
   }
@@ -139,7 +141,6 @@ class EasyWeb3 {
     try {
 
       if (this.connectState == ConnectState.Connected) {
-        connectNotify()
         return
       } else if (this.connectState == ConnectState.Connecting) {
         return
