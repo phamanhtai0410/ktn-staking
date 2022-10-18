@@ -5,7 +5,7 @@ import IcCopy from '../../assets/images/referral/ic_copy.svg'
 import IcTop1 from '../../assets/images/staking/ic_top1.svg'
 import IcTop2 from '../../assets/images/staking/ic_top2.svg'
 import IcTop3 from '../../assets/images/staking/ic_top3.svg'
-import Pagination from '@/components/partials/Pagination'
+import Pagination from '@/components/_partials/Pagination'
 import { useEffect, useState } from 'react'
 import {
   CSSTransition,
