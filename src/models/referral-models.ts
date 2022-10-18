@@ -1,3 +1,12 @@
+/** REFERRAL CODE */
+export interface IReferralCode{
+    address: string,
+    code: string,
+    address_linked: string,
+    code_linked:  string,
+    total_user_linked: number,
+    total_earn:number,
+}
 
 /** LEADER BOARD */
 export interface ILeaderBoardParams{
