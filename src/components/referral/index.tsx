@@ -153,26 +153,26 @@ const ReferralPage = () => {
                     <span className="font-poppins font-medium text-base text-[#E2C1AA]">
                       My referral code:
                     </span>
-                    <div className="flex flex-row items-center space-x-4">
-                      <img
-                        src={IcCopy}
-                        alt="referral"
-                        className="cursor-pointer"
-                        onClick={() => onCopyReferralCode(referralCode?.code)}
-                      />
-                      <span className="font-poppins font-bold text-xl text-[#FFA52C]">
-                        {referralCode?.code}
-                      </span>
-                    </div>
+                    {referralCode?.code && (
+                      <div className="flex flex-row items-center space-x-4">
+                        <img
+                          src={IcCopy}
+                          alt="referral"
+                          className="cursor-pointer"
+                          onClick={() => onCopyReferralCode(referralCode?.code)}
+                        />
+                        <span className="font-poppins font-bold text-xl text-[#FFA52C]">
+                          {referralCode?.code}
+                        </span>
+                      </div>
+                    )}
                   </div>
                   <div className="flex flex-row items-center justify-between">
                     <span className="font-poppins font-medium text-base text-[#E2C1AA]">
                       Referral People:
                     </span>
                     <span className="font-poppins font-bold text-xl text-[#FFA52C]">
-                      {referralCode?.total_user_linked
-                        ? referralCode.total_user_linked
-                        : '--'}
+                      {referralCode?.point ? referralCode.point : '--'}
                     </span>
                   </div>
                   <div className="flex flex-row items-center justify-between">
