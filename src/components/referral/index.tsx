@@ -112,11 +112,16 @@ const ReferralPage = () => {
     { id: 'Tier 3', rarity: 'Common', no: '20', total: '700' },
     { id: 'Tier 4', rarity: 'Common', no: '6', total: '200' },
   ]
-
+  const [inputReferralCode, setInputReferralCode] = useState('')
   const [currentRow, setCurrentRow] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [pageChangeIncrease, setPageChangeIncrease] = useState(false)
   const [currentTableData, setCurrentTableData] = useState([])
+
+  const onChangeReferralCode = (value) => {
+    setInputReferralCode(value)
+  }
+
   useEffect(() => {
     const firstPageIndex = (currentPage - 1) * leaderBoardParams.page_size
     const lastPageIndex = firstPageIndex + leaderBoardParams.page_size
@@ -196,10 +201,24 @@ const ReferralPage = () => {
                     <input
                       className="w-full p-3 font-poppins font-medium text-base text-[#E2C1AA] placeholder:text-[#81715C] bg-white bg-opacity-10 rounded-lg focus:outline-none"
                       placeholder="Enter code"
+                      value={inputReferralCode}
+                      onChange={(e) => onChangeReferralCode(e.target.value)}
                     />
                     <button
                       type="submit"
-                      className="px-4 py-3 bg-white bg-opacity-10 font-poppins font-semibold text-base text-[#81715C] rounded-lg"
+                      className={`px-4 py-3 font-poppins font-semibold text-base rounded-lg ${
+                        inputReferralCode.length > 5
+                          ? 'bg-[#FFA52C] text-white'
+                          : 'bg-white bg-opacity-10 text-[#81715C]'
+                      } `}
+                      disabled={inputReferralCode.length < 6}
+                      // className={classnames(
+                      //   'px-4 py-3 bg-white bg-opacity-10 font-poppins font-semibold text-base text-[#81715C] rounded-lg',
+                      //   {
+                      //     'bg-[#FFA52C] text-white':
+                      //       inputReferralCode.length >= 6,
+                      //   },
+                      // )}
                     >
                       Submit
                     </button>
