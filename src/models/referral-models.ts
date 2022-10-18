@@ -4,7 +4,7 @@ export interface IReferralCode{
     code: string,
     address_linked: string,
     code_linked:  string,
-    total_user_linked: number,
+    point: number,
     total_earn:number,
 }
 
