@@ -2,16 +2,9 @@ import { useTranslation } from 'react-i18next'
 import './index.scss'
 import IcReferral from '../../assets/images/referral/ic_referral.svg'
 import IcCopy from '../../assets/images/referral/ic_copy.svg'
-import IcTop1 from '../../assets/images/staking/ic_top1.svg'
-import IcTop2 from '../../assets/images/staking/ic_top2.svg'
-import IcTop3 from '../../assets/images/staking/ic_top3.svg'
 import Pagination from '@/components/_partials/Pagination'
 import { useEffect, useState } from 'react'
-import {
-  CSSTransition,
-  SwitchTransition,
-  TransitionGroup,
-} from 'react-transition-group'
+import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import classnames from 'classnames'
 import { useAppDispatch } from '@/app/hooks'
 import { useSelector } from 'react-redux'
@@ -29,7 +22,8 @@ import {
 import { addressWalletCompact, copyTextToClipboard } from '@/_helpers/utils/lib'
 import { ILeaderBoardParams } from '@/models/referral-models'
 import { LocalStorageService } from '@/_helpers'
-import { useParams, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
+import Top from '../_partials/Top'
 
 const ReferralPage = () => {
   const { t } = useTranslation()
@@ -53,19 +47,6 @@ const ReferralPage = () => {
     dispatch(fetchListLeaderBoard(leaderBoardParams))
     dispatch(fetchListLeaderBoardTop3(leaderBoardParams))
   }, [])
-
-  const getIconListTop = (rank) => {
-    switch (rank) {
-      case 1:
-        return IcTop1
-      case 2:
-        return IcTop2
-      case 3:
-        return IcTop3
-      default:
-        break
-    }
-  }
 
   const onCopyReferralCode = (value) => {
     copyTextToClipboard(value)
@@ -123,7 +104,7 @@ const ReferralPage = () => {
 
   useEffect(() => {
     const firstPageIndex = (currentPage - 1) * leaderBoardParams.page_size
-    const lastPageIndex = firstPageIndex + leaderBoardParams.page_size
+    // const lastPageIndex = firstPageIndex + leaderBoardParams.page_size
     setCurrentTableData(listLeaderBoard?.items)
   }, [currentPage, listLeaderBoard])
 
@@ -161,19 +142,17 @@ const ReferralPage = () => {
                     <span className="font-poppins font-medium text-base text-[#E2C1AA]">
                       My referral code:
                     </span>
-                    {referralCode?.code && (
-                      <div className="flex flex-row items-center space-x-4">
-                        <img
-                          src={IcCopy}
-                          alt="referral"
-                          className="cursor-pointer"
-                          onClick={() => onCopyReferralCode(referralCode?.code)}
-                        />
-                        <span className="font-poppins font-bold text-xl text-[#FFA52C]">
-                          {referralCode?.code}
-                        </span>
-                      </div>
-                    )}
+                    <div className="flex flex-row items-center space-x-4">
+                      <img
+                        src={IcCopy}
+                        alt="referral"
+                        className="cursor-pointer"
+                        onClick={() => onCopyReferralCode(referralCode?.code)}
+                      />
+                      <span className="font-poppins font-bold text-xl text-[#FFA52C]">
+                        {referralCode?.code || '--'}
+                      </span>
+                    </div>
                   </div>
                   <div className="flex flex-row items-center justify-between">
                     <span className="font-poppins font-medium text-base text-[#E2C1AA]">
@@ -215,13 +194,6 @@ const ReferralPage = () => {
                           : 'bg-white bg-opacity-10 text-[#81715C]'
                       } `}
                       disabled={inputReferralCode.length < 6}
-                      // className={classnames(
-                      //   'px-4 py-3 bg-white bg-opacity-10 font-poppins font-semibold text-base text-[#81715C] rounded-lg',
-                      //   {
-                      //     'bg-[#FFA52C] text-white':
-                      //       inputReferralCode.length >= 6,
-                      //   },
-                      // )}
                     >
                       Submit
                     </button>
@@ -242,19 +214,7 @@ const ReferralPage = () => {
                 >
                   {listLeaderBoardTop3 &&
                     listLeaderBoardTop3?.items?.map((item, index) => (
-                      <div className="referral__top relative w-[304px] flex flex-col items-center py-2 space-y-2 ">
-                        <span className="font-poppins font-semibold text-base text-[#FFB156]">
-                          {addressWalletCompact(item.address)}
-                        </span>
-                        <span className="font-poppins font-semibold text-base text-white">
-                          Point: {item.point}
-                        </span>
-                        <img
-                          src={getIconListTop(item.rank)}
-                          alt="referral"
-                          className="absolute top-[-25%] left-[-36px]"
-                        />
-                      </div>
+                      <Top key={index} item={item} />
                     ))}
                 </div>
               </div>
@@ -274,7 +234,7 @@ const ReferralPage = () => {
                       </span>
                     </div>
                     {currentTableData?.map((item, index) => (
-                      <SwitchTransition mode={'out-in'}>
+                      <SwitchTransition key={index} mode={'out-in'}>
                         <CSSTransition
                           key={
                             leaderBoardParams.page_size * (currentPage - 1) +
