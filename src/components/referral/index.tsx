@@ -29,10 +29,12 @@ import {
 import { addressWalletCompact, copyTextToClipboard } from '@/_helpers/utils/lib'
 import { ILeaderBoardParams } from '@/models/referral-models'
 import { LocalStorageService } from '@/_helpers'
+import { useParams, useSearchParams } from 'react-router-dom'
 
 const ReferralPage = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
+  const [searchParams, setSearchParams] = useSearchParams()
   const referralCode = useSelector(selectReferralCode)
   const listLeaderBoard = useSelector(selectLeaderBoard)
   const listLeaderBoardTop3 = useSelector(selectLeaderBoardTop3)
@@ -51,9 +53,6 @@ const ReferralPage = () => {
     dispatch(fetchListLeaderBoard(leaderBoardParams))
     dispatch(fetchListLeaderBoardTop3(leaderBoardParams))
   }, [])
-  useEffect(() => {
-    console.log('referralCode', referralCode)
-  }, [referralCode])
 
   const getIconListTop = (rank) => {
     switch (rank) {
@@ -132,6 +131,10 @@ const ReferralPage = () => {
     setLeaderBoardParams({ ...leaderBoardParams, page: currentPage })
     dispatch(fetchListLeaderBoard({ ...leaderBoardParams, page: currentPage }))
   }, [currentPage])
+
+  useEffect(() => {
+    setInputReferralCode(searchParams.get('ref') || '')
+  }, [searchParams])
 
   return (
     <section className="referral">
