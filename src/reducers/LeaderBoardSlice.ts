@@ -6,7 +6,8 @@ import { fetchListLeaderBoard } from "@/actions/stakingActions";
 const initialState:ILeaderBoardArrayModel={
     items: [] ,
     pagination:null,
-    loading: false
+    loading: false,
+    num_of_page:1,
 }
 
 const LeaderBoardSlice = createSlice({
