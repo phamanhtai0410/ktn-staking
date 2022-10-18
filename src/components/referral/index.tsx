@@ -15,17 +15,25 @@ import {
 import classnames from 'classnames'
 import { useAppDispatch } from '@/app/hooks'
 import { useSelector } from 'react-redux'
-import { selectLeaderBoard, selectLeaderBoardTop3 } from '@/reducers/referral'
+import {
+  selectLeaderBoard,
+  selectLeaderBoardTop3,
+  selectReferralCode,
+} from '@/reducers/referral'
 import {
   fetchListLeaderBoard,
   fetchListLeaderBoardTop3,
+  fetchReferralCode,
+  submitReferralCode,
 } from '@/actions/referralActions'
-import { addressWalletCompact } from '@/_helpers/utils/lib'
+import { addressWalletCompact, copyTextToClipboard } from '@/_helpers/utils/lib'
 import { ILeaderBoardParams } from '@/models/referral-models'
+import { LocalStorageService } from '@/_helpers'
 
 const ReferralPage = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
+  const referralCode = useSelector(selectReferralCode)
   const listLeaderBoard = useSelector(selectLeaderBoard)
   const listLeaderBoardTop3 = useSelector(selectLeaderBoardTop3)
 
@@ -37,29 +45,16 @@ const ReferralPage = () => {
       event: 'top_referral',
     })
   useEffect(() => {
+    dispatch(
+      fetchReferralCode({ address: LocalStorageService.getAccessAccount() }),
+    )
     dispatch(fetchListLeaderBoard(leaderBoardParams))
     dispatch(fetchListLeaderBoardTop3(leaderBoardParams))
   }, [])
+  useEffect(() => {
+    console.log('referralCode', referralCode)
+  }, [referralCode])
 
-  const makeid = (length) => {
-    var result = ''
-    var characters =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-    var charactersLength = characters.length
-    for (var i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength))
-    }
-    return result
-  }
-  const makeNumber = (length) => {
-    var result = ''
-    var characters = '0123456789'
-    var charactersLength = characters.length
-    for (var i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength))
-    }
-    return result
-  }
   const getIconListTop = (rank) => {
     switch (rank) {
       case 1:
@@ -71,6 +66,22 @@ const ReferralPage = () => {
       default:
         break
     }
+  }
+
+  const onCopyReferralCode = (value) => {
+    copyTextToClipboard(value)
+  }
+
+  const onSubmitReferralCode = (e) => {
+    e.preventDefault()
+    let inputCode = e.target[0].value
+
+    dispatch(
+      submitReferralCode({
+        address: LocalStorageService.getAccessAccount(),
+        code: inputCode,
+      }),
+    )
   }
 
   const tableHead = [
@@ -121,67 +132,82 @@ const ReferralPage = () => {
     <section className="referral">
       <div className="referral__main pt-40 pb-12 relative flex flex-col items-center min-h-[1254px] sm:px-0 px-4">
         <div className="container">
-          <div className="flex flex-col w-full space-y-4 max-w-[1280px]">
-            <span className="font-oxanium font-bold text-2xl text-[#FFA52C]">
-              Referral
-            </span>
-            <div className=" referral__head flex flex-col p-8 border-[0.5px] border-[#FFA52C] rounded-2xl backdrop-blur-[25px]">
-              <div className="flex flex-row space-x-4">
-                <img
-                  src={IcReferral}
-                  alt="referral"
-                  className="cursor-pointer"
-                />
-                <span className="font-oxanium font-bold text-4xl text-white">
-                  Referral
-                </span>
-              </div>
-              <div className="flex flex-col mt-7 space-y-7">
-                <div className="flex flex-row items-center justify-between">
-                  <span className="font-poppins font-medium text-base text-[#E2C1AA]">
-                    My referral code:
+          {referralCode && (
+            <div className="flex flex-col w-full space-y-4 max-w-[1280px]">
+              <span className="font-oxanium font-bold text-2xl text-[#FFA52C]">
+                Referral
+              </span>
+              <div className=" referral__head flex flex-col p-8 border-[0.5px] border-[#FFA52C] rounded-2xl backdrop-blur-[25px]">
+                <div className="flex flex-row space-x-4">
+                  <img
+                    src={IcReferral}
+                    alt="referral"
+                    className="cursor-pointer"
+                  />
+                  <span className="font-oxanium font-bold text-4xl text-white">
+                    Referral
                   </span>
-                  <div className="flex flex-row items-center space-x-4">
-                    <img src={IcCopy} alt="referral" />
+                </div>
+                <div className="flex flex-col mt-7 space-y-7">
+                  <div className="flex flex-row items-center justify-between">
+                    <span className="font-poppins font-medium text-base text-[#E2C1AA]">
+                      My referral code:
+                    </span>
+                    <div className="flex flex-row items-center space-x-4">
+                      <img
+                        src={IcCopy}
+                        alt="referral"
+                        className="cursor-pointer"
+                        onClick={() => onCopyReferralCode(referralCode?.code)}
+                      />
+                      <span className="font-poppins font-bold text-xl text-[#FFA52C]">
+                        {referralCode?.code}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex flex-row items-center justify-between">
+                    <span className="font-poppins font-medium text-base text-[#E2C1AA]">
+                      Referral People:
+                    </span>
                     <span className="font-poppins font-bold text-xl text-[#FFA52C]">
-                      26757874
+                      {referralCode?.total_user_linked
+                        ? referralCode.total_user_linked
+                        : '--'}
+                    </span>
+                  </div>
+                  <div className="flex flex-row items-center justify-between">
+                    <span className="font-poppins font-medium text-base text-[#E2C1AA]">
+                      Total Earned:
+                    </span>
+                    <span className="font-poppins font-bold text-xl text-[#FFA52C]">
+                      {referralCode?.total_earn}
                     </span>
                   </div>
                 </div>
-                <div className="flex flex-row items-center justify-between">
+                <div className="mt-[26px] mb-6 h-[1px] border border-dashed border-[#81715C]"></div>
+                <div className="flex flex-col space-y-[10px]">
                   <span className="font-poppins font-medium text-base text-[#E2C1AA]">
-                    Referral People:
+                    Been referred by a friend?
                   </span>
-                  <span className="font-poppins font-bold text-xl text-[#FFA52C]">
-                    7874
-                  </span>
-                </div>
-                <div className="flex flex-row items-center justify-between">
-                  <span className="font-poppins font-medium text-base text-[#E2C1AA]">
-                    Total Earned:
-                  </span>
-                  <span className="font-poppins font-bold text-xl text-[#FFA52C]">
-                    $ 1,100,222
-                  </span>
-                </div>
-              </div>
-              <div className="mt-[26px] mb-6 h-[1px] border border-dashed border-[#81715C]"></div>
-              <div className="flex flex-col space-y-[10px]">
-                <span className="font-poppins font-medium text-base text-[#E2C1AA]">
-                  Been referred by a friend?
-                </span>
-                <div className="flex flex-row w-full items-center space-x-4">
-                  <input
-                    className="w-full p-3 font-poppins font-medium text-base text-[#E2C1AA] placeholder:text-[#81715C] bg-white bg-opacity-10 rounded-lg focus:outline-none"
-                    placeholder="Enter code"
-                  />
-                  <button className="px-4 py-3 bg-white bg-opacity-10 font-poppins font-semibold text-base text-[#81715C] rounded-lg">
-                    Submit
-                  </button>
+                  <form
+                    onSubmit={(event) => onSubmitReferralCode(event)}
+                    className="flex flex-row w-full items-center space-x-4"
+                  >
+                    <input
+                      className="w-full p-3 font-poppins font-medium text-base text-[#E2C1AA] placeholder:text-[#81715C] bg-white bg-opacity-10 rounded-lg focus:outline-none"
+                      placeholder="Enter code"
+                    />
+                    <button
+                      type="submit"
+                      className="px-4 py-3 bg-white bg-opacity-10 font-poppins font-semibold text-base text-[#81715C] rounded-lg"
+                    >
+                      Submit
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>
-          </div>
+          )}
 
           <div className="flex flex-col space-y-4 mt-8 w-full">
             <span className="font-oxanium font-bold text-2xl text-[#FFA52C]">
