@@ -1,0 +1,59 @@
+import { useTranslation } from 'react-i18next'
+import { addressWalletCompact, copyTextToClipboard } from '@/_helpers/utils/lib'
+import IcCopy from '../../assets/images/referral/ic_copy.svg'
+import IcTop1 from '../../assets/images/staking/ic_top1.svg'
+import IcTop2 from '../../assets/images/staking/ic_top2.svg'
+import IcTop3 from '../../assets/images/staking/ic_top3.svg'
+import { useState } from 'react'
+const Top = ({ item }) => {
+  const [showCopyIcon, setShowCopyIcon] = useState(false)
+
+  const getIconListTop = (rank) => {
+    switch (rank) {
+      case 1:
+        return IcTop1
+      case 2:
+        return IcTop2
+      case 3:
+        return IcTop3
+      default:
+        break
+    }
+  }
+
+  const onCopy = (value) => {
+    copyTextToClipboard(value)
+  }
+
+  return (
+    <div
+      className="referral__top relative w-[304px] flex flex-col items-center py-2 space-y-2"
+      onMouseEnter={() => setShowCopyIcon(true)}
+      onMouseLeave={() => setShowCopyIcon(false)}
+    >
+      <div className="relative flex flex-row items-center">
+        <span className="font-poppins font-semibold text-base text-[#FFB156]">
+          {addressWalletCompact(item.address)}
+        </span>
+        {showCopyIcon && (
+          <img
+            src={IcCopy}
+            alt="referral"
+            className="absolute right-[-24px] w-[11px] h-[14px] cursor-pointer"
+            onClick={() => onCopy(item.address)}
+          />
+        )}
+      </div>
+
+      <span className="font-poppins font-semibold text-base text-white">
+        Point: {item.point}
+      </span>
+      <img
+        src={getIconListTop(item.rank)}
+        alt="referral"
+        className="absolute top-[-25%] left-[-36px]"
+      />
+    </div>
+  )
+}
+export default Top
