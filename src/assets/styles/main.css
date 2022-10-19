@@ -151,3 +151,20 @@ body {
 .btn-ktn-shadow{
   box-shadow: rgb(94 69 27) 3px 5px 8px 0px inset, rgba(63 47 17) -3px -8px 8px 1px inset;
 }
+
+
+.katana-modal {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+}
+
+.katana-modal-overlay {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.8);
+}

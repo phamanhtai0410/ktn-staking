@@ -31,6 +31,8 @@ import { useSelector } from 'react-redux'
 import { selectCollections } from '@/reducers/LeaderBoardSlice'
 import { LocalStorageService } from '@/_helpers'
 import { selectMyNFTs } from '@/reducers/myNFTsSlice'
+import { openModalClaim } from '@/reducers/referral'
+import ModalClaim from './ModalClaim'
 
 const StakingPage = () => {
   const { t } = useTranslation()
@@ -458,6 +460,10 @@ const StakingPage = () => {
     setCurrentTableData(tableData.slice(firstPageIndex, lastPageIndex))
   }, [currentPage])
 
+  const onClickClaim = () => {
+    dispatch(openModalClaim({ isOpen: true }))
+  }
+
   return (
     <section className="staking">
       <div className="staking__main pt-40 pb-12 relative flex flex-col items-center min-h-[1254px] sm:px-0 px-4">
@@ -481,8 +487,12 @@ const StakingPage = () => {
                   <span className="font-poppins font-bold text-xl text-white">
                     Point: 0
                   </span>
-                  <button className="px-4 py-3 bg-[#FFA52C] rounded-lg font-poppins font-bold text-base text-white">
-                    {' '}
+                  <button
+                    className="px-4 py-3 bg-[#FFA52C] rounded-lg font-poppins font-bold text-base text-white"
+                    onClick={() => {
+                      onClickClaim()
+                    }}
+                  >
                     Claim
                   </button>
                 </div>
@@ -702,6 +712,7 @@ const StakingPage = () => {
           </div>
         </div>
       </div>
+      <ModalClaim />
     </section>
   )
 }
