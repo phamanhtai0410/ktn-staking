@@ -3,6 +3,7 @@ import Modal from 'react-modal'
 import useClaimFacade from './useClaimFacade'
 import IcUsdt from '../../assets/images/staking/ic_usdt.svg'
 import IcNft from '../../assets/images/staking/ic_nft.svg'
+import IcClose from '../../assets/images/staking/ic_close.svg'
 import classNames from 'classnames'
 import { FadeLoader } from 'react-spinners'
 import { useDispatch } from 'react-redux'
@@ -42,10 +43,16 @@ const ModalClaim = () => {
         overlayClassName="katana-modal-overlay"
       >
         <div className="flex flex-col">
-          <div className="flex flex-row items-center border-b border-[#FFA52C] border-opacity-20">
-            <h2 className="font-poppins font-bold w-full text-align text-center text-xl text-[#FFF6DE] pb-6">
+          <div className="relative flex flex-row items-center border-b border-[#FFA52C] border-opacity-20 pb-6">
+            <h2 className="font-poppins font-bold w-full text-align text-center text-xl text-[#FFF6DE]">
               Claim
             </h2>
+            <img
+              src={IcClose}
+              alt="staking"
+              className="absolute right-4 cursor-pointer hover:scale-110"
+              onClick={closeModal}
+            />
           </div>
           {step === 1 && (
             <div className="mt-8 flex flex-col space-y-8">
