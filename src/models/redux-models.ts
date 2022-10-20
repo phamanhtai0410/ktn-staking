@@ -45,3 +45,11 @@ export interface IAlertModel{
     duration: number,
     message: any,
 }
+
+/** WALLET */
+export interface IWalletModel{
+    address: string,
+    chainId: number,
+    balance: string,
+    easyWeb3:any | void,
+}
