@@ -33,18 +33,24 @@ import { LocalStorageService } from '@/_helpers'
 import { selectMyNFTs } from '@/reducers/myNFTsSlice'
 import { openModalClaim } from '@/reducers/referral'
 import ModalClaim from './ModalClaim'
+import { selectWalletAccount } from '@/reducers/walletSlice'
+import classNames from 'classnames'
 
 const StakingPage = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
+  const walletAccount = useSelector(selectWalletAccount)
   const listLeaderBoard = useSelector(selectCollections)
   const listMyNFTs = useSelector(selectMyNFTs)
   useEffect(() => {
     dispatch(fetchListLeaderBoard())
-    dispatch(
-      fetchListMyNFTs({ address: LocalStorageService.getAccessAccount() }),
-    )
+    // dispatch(
+    //   fetchListMyNFTs({ address: LocalStorageService.getAccessAccount() }),
+    // )
   }, [])
+  useEffect(() => {
+    dispatch(fetchListMyNFTs({ address: walletAccount }))
+  }, [walletAccount])
   useEffect(() => {
     console.log('listMyNFTs', listMyNFTs)
   }, [listMyNFTs])
@@ -488,7 +494,13 @@ const StakingPage = () => {
                     Point: 0
                   </span>
                   <button
-                    className="px-4 py-3 bg-[#FFA52C] rounded-lg font-poppins font-bold text-base text-white"
+                    // className="px-4 py-3 bg-[#FFA52C] rounded-lg font-poppins font-bold text-base text-white"
+                    className={classNames(
+                      'px-4 py-3 rounded-lg font-poppins font-bold text-base',
+                      { 'bg-[#FFA52C] text-white': walletAccount },
+                      { 'bg-[#4D4233] text-[#806B4F]': !walletAccount },
+                    )}
+                    disabled={!walletAccount}
                     onClick={() => {
                       onClickClaim()
                     }}
@@ -704,11 +716,17 @@ const StakingPage = () => {
               <FormSearchPrice />
               <FormSearchToken />
             </div>
-            <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-x-12 gap-y-8">
-              {listMyNFTs.map((item) => (
-                <NFT data={item} />
-              ))}
-            </div>
+            {listMyNFTs && listMyNFTs.length > 0 ? (
+              <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-x-12 gap-y-8">
+                {listMyNFTs.map((item) => (
+                  <NFT data={item} />
+                ))}
+              </div>
+            ) : (
+              <span className="font-poppins font-semibold text-base text-center text-[#FFB156]">
+                No data found!
+              </span>
+            )}
           </div>
         </div>
       </div>
