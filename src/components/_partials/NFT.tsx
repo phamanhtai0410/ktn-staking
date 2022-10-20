@@ -1,9 +1,12 @@
 import React from 'react'
 import './index.scss'
-import IcArrow from '../../assets/images/partials/ic_arrow_bot.svg'
-import { v4 as uuidv4 } from 'uuid'
+import { useSelector } from 'react-redux'
+import { selectStakingId } from '@/reducers/staking'
+import { ClipLoader } from 'react-spinners'
 
 const NFT = ({ data, onStake }) => {
+  const stakingId = useSelector(selectStakingId)
+
   return (
     <div
       key={data?.token_id}
@@ -34,10 +37,20 @@ const NFT = ({ data, onStake }) => {
         </span>
       </div>
       <button
-        className="btn-stake py-[10px] font-poppins font-medium text-base text-white text-center"
+        className="btn-stake flex flex-row items-center justify-center space-x-4 py-[10px]"
         onClick={() => onStake(data?.token_id)}
       >
-        Stake
+        <span className="font-poppins font-medium text-base text-white text-center">
+          Stake
+        </span>
+
+        {stakingId === data?.token_id && (
+          <ClipLoader
+            color="white"
+            size={17}
+            loading={stakingId ? true : false}
+          />
+        )}
       </button>
     </div>
   )

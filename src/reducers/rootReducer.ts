@@ -5,6 +5,7 @@ import wallet from "./walletSlice"
 import leaderBoard from "./LeaderBoardSlice"
 import myNFTs from "./myNFTsSlice"
 import referral from './referral'
+import staking from './staking'
 import alert from './alert'
 
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
     leaderBoard,
     myNFTs,
     referral,
+    staking,
     alert,
 })
 

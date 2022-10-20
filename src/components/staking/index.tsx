@@ -20,6 +20,7 @@ import FormSearchToken from '../_partials/FormSearchToken'
 import NFT from '../_partials/NFT'
 import { useAppDispatch } from '@/app/hooks'
 import {
+  approveStaking,
   fetchListLeaderBoard,
   fetchListLeaderBoardTop3,
   fetchListMyNFTs,
@@ -94,9 +95,6 @@ const StakingPage = () => {
   useEffect(() => {
     dispatch(fetchListMyNFTs({ address: walletAccount }))
   }, [walletAccount])
-  useEffect(() => {
-    console.log('listMyNFTs', listMyNFTs)
-  }, [listMyNFTs])
 
   const makeid = (length) => {
     var result = ''
@@ -464,8 +462,7 @@ const StakingPage = () => {
   }
 
   const onStake = (token_id) => {
-    console.log('token_id', token_id)
-    dispatch(stakeNFT({ token_id: 1 }))
+    dispatch(approveStaking({ token_id: token_id }))
   }
 
   return (
