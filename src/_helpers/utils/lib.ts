@@ -1,4 +1,5 @@
 /* eslint-disable no-extend-native */
+import { v4 as uuidv4 } from "uuid";
 
 export const addressWalletCompact = (address) => {
   return `${address.slice(0, 6)}...${address.slice(
@@ -14,3 +15,7 @@ export async function copyTextToClipboard(text) {
     return document.execCommand("copy", true, text);
   }
 }
+
+export const randomKeyUUID = () => {
+  return uuidv4();
+};
