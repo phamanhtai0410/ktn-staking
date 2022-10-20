@@ -73,7 +73,12 @@
   font-weight: 700;
   src: local('Jost'), url(../fonts/jost/jost-bold.woff) format('woff');
 }
-
+@font-face {
+  font-family: 'Oswald';
+  font-style: bold;
+  font-weight: 700;
+  src: local('Oswald'), url(../fonts/oswald-font-family/Oswald-Bold.woff) format('woff');
+}
 /* Oxanium */
 @font-face {
   font-family: 'Oxanium';
