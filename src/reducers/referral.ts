@@ -26,6 +26,10 @@ const referralSlice = createSlice({
         builder.addCase(fetchReferralCode.fulfilled, (state, action) => {
             state.referralCode = action.payload
         })
+        builder.addCase(fetchReferralCode.rejected, (state, action) => {
+            state.referralCode = <IReferralCode>{}
+        })
+
         builder.addCase(fetchListLeaderBoard.fulfilled, (state, action) => {
           state.leaderBoard= action.payload
         })

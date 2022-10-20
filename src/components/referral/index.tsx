@@ -29,10 +29,12 @@ import { LocalStorageService } from '@/_helpers'
 import { useSearchParams } from 'react-router-dom'
 import Top from '../_partials/Top'
 import { setAlert } from '@/reducers/alert'
+import { selectWalletAccount } from '@/reducers/walletSlice'
 
 const ReferralPage = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
+  const walletAccount = useSelector(selectWalletAccount)
   const [searchParams, setSearchParams] = useSearchParams()
   const referralCode = useSelector(selectReferralCode)
   const listLeaderBoard = useSelector(selectLeaderBoard)
@@ -46,9 +48,9 @@ const ReferralPage = () => {
       event: 'top_referral',
     })
   useEffect(() => {
-    dispatch(
-      fetchReferralCode({ address: LocalStorageService.getAccessAccount() }),
-    )
+    dispatch(fetchReferralCode({ address: walletAccount }))
+  }, [walletAccount])
+  useEffect(() => {
     dispatch(fetchListLeaderBoard(leaderBoardParams))
     dispatch(fetchListLeaderBoardTop3(leaderBoardParams))
   }, [])
@@ -160,12 +162,14 @@ const ReferralPage = () => {
                       My referral code:
                     </span>
                     <div className="flex flex-row items-center space-x-4">
-                      <img
-                        src={IcCopy}
-                        alt="referral"
-                        className="cursor-pointer"
-                        onClick={() => onCopyReferralCode(referralCode?.code)}
-                      />
+                      {referralCode?.code && (
+                        <img
+                          src={IcCopy}
+                          alt="referral"
+                          className="cursor-pointer"
+                          onClick={() => onCopyReferralCode(referralCode?.code)}
+                        />
+                      )}
                       <span className="font-poppins font-bold text-xl text-[#FFA52C]">
                         {referralCode?.code || '--'}
                       </span>
