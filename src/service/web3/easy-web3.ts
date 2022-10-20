@@ -72,14 +72,13 @@ class EasyWeb3 {
 
   private async web3PersonalSign(message:string, account:string) {
 
-
     try {
-        return await window.ethereum.request({ method: "personal_sign", params: [message,account] 
-        })
+        return await window.ethereum.request({ method: "personal_sign", params: [message,account] })
     } catch (error) {
         console.error(error);
         return false;
     }
+
   };
 
 
@@ -328,7 +327,7 @@ class EasyWeb3 {
     this.walletInfo.chainId = await signer.getChainId()
     this.walletInfo.network = await this.web3Provider!.getNetwork()
     this.walletInfo.balance = await this.getBalance()
-    console.log(TAG, 'updateWalletInfo', this.walletInfo)
+    // console.log(TAG, 'updateWalletInfo', this.walletInfo)
   }
   /**
    * disconnect
