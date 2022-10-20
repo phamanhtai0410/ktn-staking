@@ -19,7 +19,12 @@ import FormSearchPrice from '../_partials/FormSearchPrice'
 import FormSearchToken from '../_partials/FormSearchToken'
 import NFT from '../_partials/NFT'
 import { useAppDispatch } from '@/app/hooks'
-import { fetchListLeaderBoard, fetchListMyNFTs } from '@/actions/stakingActions'
+import {
+  fetchListLeaderBoard,
+  fetchListLeaderBoardTop3,
+  fetchListMyNFTs,
+  stakeNFT,
+} from '@/actions/stakingActions'
 import { useEffect, useMemo, useState } from 'react'
 import {
   CSSTransition,
@@ -28,26 +33,64 @@ import {
 } from 'react-transition-group'
 import classnames from 'classnames'
 import { useSelector } from 'react-redux'
-import { selectCollections } from '@/reducers/LeaderBoardSlice'
+import {
+  selectLeaderBoard,
+  selectLeaderBoardTop3,
+} from '@/reducers/LeaderBoardSlice'
 import { LocalStorageService } from '@/_helpers'
 import { selectMyNFTs } from '@/reducers/myNFTsSlice'
 import { openModalClaim } from '@/reducers/referral'
 import ModalClaim from './ModalClaim'
 import { selectWalletAccount } from '@/reducers/walletSlice'
 import classNames from 'classnames'
+import Top from '../_partials/Top'
+import { useSearchParams } from 'react-router-dom'
+import { ILeaderBoardParams } from '@/models/referral-models'
+import {
+  addressWalletCompact,
+  copyTextToClipboard,
+  randomKeyUUID,
+} from '@/_helpers/utils/lib'
+import { setAlert } from '@/reducers/alert'
 
 const StakingPage = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const walletAccount = useSelector(selectWalletAccount)
-  const listLeaderBoard = useSelector(selectCollections)
   const listMyNFTs = useSelector(selectMyNFTs)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const listLeaderBoard = useSelector(selectLeaderBoard)
+  const listLeaderBoardTop3 = useSelector(selectLeaderBoardTop3)
+
+  const [leaderBoardParams, setLeaderBoardParams] =
+    useState<ILeaderBoardParams>({
+      search: '',
+      page: 1,
+      page_size: 10,
+      event: 'stake',
+    })
+
   useEffect(() => {
-    dispatch(fetchListLeaderBoard())
-    // dispatch(
-    //   fetchListMyNFTs({ address: LocalStorageService.getAccessAccount() }),
-    // )
+    dispatch(fetchListLeaderBoard(leaderBoardParams))
+    dispatch(fetchListLeaderBoardTop3(leaderBoardParams))
   }, [])
+
+  const onCopyReferralCode = (value) => {
+    copyTextToClipboard(value)
+    dispatch(
+      setAlert({
+        type: 'success',
+        key: randomKeyUUID(),
+        duration: 10,
+        message: {
+          status: 'info',
+          title: 'Coming soon',
+          description: `We are in progress to complete this function`,
+        },
+      }),
+    )
+  }
+
   useEffect(() => {
     dispatch(fetchListMyNFTs({ address: walletAccount }))
   }, [walletAccount])
@@ -404,56 +447,6 @@ const StakingPage = () => {
     { id: 'Tier 3', rarity: 'Common', no: '20', total: '700' },
     { id: 'Tier 4', rarity: 'Common', no: '6', total: '200' },
   ]
-  const nftsData = [
-    {
-      title: 'NFTS WITH REAL UTILITY',
-      id: '#61001',
-      price: '10.1 USDT',
-      img: nft1,
-    },
-    {
-      title: 'NFTS WITH REAL UTILITY',
-      id: '#61002',
-      price: '10.1 USDT',
-      img: nft2,
-    },
-    {
-      title: 'NFTS WITH REAL UTILITY',
-      id: '#61003',
-      price: '10.1 USDT',
-      img: nft3,
-    },
-    {
-      title: 'NFTS WITH REAL UTILITY',
-      id: '#61004',
-      price: '10.1 USDT',
-      img: nft4,
-    },
-    {
-      title: 'NFTS WITH REAL UTILITY',
-      id: '#61005',
-      price: '10.1 USDT',
-      img: nft5,
-    },
-    {
-      title: 'NFTS WITH REAL UTILITY',
-      id: '#61006',
-      price: '10.1 USDT',
-      img: nft6,
-    },
-    {
-      title: 'NFTS WITH REAL UTILITY',
-      id: '#61007',
-      price: '10.1 USDT',
-      img: nft7,
-    },
-    {
-      title: 'NFTS WITH REAL UTILITY',
-      id: '#61008',
-      price: '10.1 USDT',
-      img: nft8,
-    },
-  ]
 
   let PageSize = 10
   const [currentRow, setCurrentRow] = useState(0)
@@ -468,6 +461,11 @@ const StakingPage = () => {
 
   const onClickClaim = () => {
     dispatch(openModalClaim({ isOpen: true }))
+  }
+
+  const onStake = (token_id) => {
+    console.log('token_id', token_id)
+    dispatch(stakeNFT({ token_id: 1 }))
   }
 
   return (
@@ -532,7 +530,7 @@ const StakingPage = () => {
             </div>
           </div>
 
-          <div className="flex flex-col space-y-4 mt-8 w-full">
+          {/* <div className="flex flex-col space-y-4 mt-8 w-full">
             <span className="font-oxanium font-bold text-2xl text-[#FFA52C]">
               List Top
             </span>
@@ -642,6 +640,99 @@ const StakingPage = () => {
                 </div>
               </div>
             </div>
+          </div> */}
+          <div className="flex flex-col space-y-4 mt-8 w-full">
+            <span className="font-oxanium font-bold text-2xl text-[#FFA52C]">
+              List Top
+            </span>
+            {listLeaderBoard &&
+            listLeaderBoard?.items &&
+            listLeaderBoard?.items?.length > 0 ? (
+              <div className="flex flex-col space-y-8">
+                <div className="flex flex-col items-center">
+                  <div
+                    className={`grid lg:grid-cols-${listLeaderBoardTop3?.items?.length} grid-cols-1 pl-[18px] items-center mt-4 gap-x-20 gap-y-12`}
+                  >
+                    {listLeaderBoardTop3 &&
+                      listLeaderBoardTop3?.items?.map((item, index) => (
+                        <Top key={index} item={item} />
+                      ))}
+                  </div>
+                </div>
+                {listLeaderBoard &&
+                  listLeaderBoard?.items &&
+                  listLeaderBoard?.items?.length > 0 && (
+                    <div className="referral__table flex flex-col overflow-hidden">
+                      <div className="grid grid-cols-3 items-center justify-between py-6 border-b border-white border-opacity-10">
+                        <span className="font-oxanium font-bold text-2xl text-white text-center">
+                          Rank
+                        </span>
+                        <span className="font-oxanium font-bold text-2xl text-white text-center">
+                          Wallet Address
+                        </span>
+                        <span className="font-oxanium font-bold text-2xl text-white text-center">
+                          Point
+                        </span>
+                      </div>
+                      {currentTableData?.map((item, index) => (
+                        <SwitchTransition key={index} mode={'out-in'}>
+                          <CSSTransition
+                            key={
+                              leaderBoardParams.page_size * (currentPage - 1) +
+                              index +
+                              1
+                            }
+                            timeout={100 + index * 40}
+                            classNames={classnames({
+                              'table-row-item-left': !pageChangeIncrease,
+                              'table-row-item-right': pageChangeIncrease,
+                            })}
+                          >
+                            <div
+                              className={classnames(
+                                'grid grid-cols-3 items-center justify-between py-5 border-b border-white border-opacity-10 cursor-pointer',
+                                {
+                                  'bg-[#FFA52C] bg-opacity-10':
+                                    index === currentRow,
+                                },
+                              )}
+                              onClick={() => setCurrentRow(index)}
+                            >
+                              <span className="font-poppins font-normal text-base text-white text-center">
+                                {item.rank}
+                              </span>
+                              <span className="font-poppins font-normal text-base text-white text-center">
+                                {addressWalletCompact(item.address)}
+                              </span>
+                              <span className="font-poppins font-normal text-base text-white text-center">
+                                {item.point}
+                              </span>
+                            </div>
+                          </CSSTransition>
+                        </SwitchTransition>
+                      ))}
+                      <div className="flex w-full items-center justify-center pt-8">
+                        <Pagination
+                          className="pagination-bar"
+                          currentPage={currentPage}
+                          numOfPage={listLeaderBoard?.num_of_page}
+                          // totalCount={listLeaderBoard?.num_of_page}
+                          pageSize={leaderBoardParams.page_size}
+                          onPageChange={(page) => {
+                            setCurrentRow(0)
+                            setPageChangeIncrease(page > currentPage)
+                            setCurrentPage(page)
+                          }}
+                        />
+                      </div>
+                    </div>
+                  )}
+              </div>
+            ) : (
+              <span className="font-poppins font-semibold text-base text-center text-[#FFB156]">
+                No data found!
+              </span>
+            )}
           </div>
 
           <div className="flex flex-col space-y-4 mt-8 w-full">
@@ -719,7 +810,7 @@ const StakingPage = () => {
             {listMyNFTs && listMyNFTs.length > 0 ? (
               <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-x-12 gap-y-8">
                 {listMyNFTs.map((item) => (
-                  <NFT data={item} />
+                  <NFT data={item} onStake={onStake} />
                 ))}
               </div>
             ) : (

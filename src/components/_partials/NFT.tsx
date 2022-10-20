@@ -3,7 +3,7 @@ import './index.scss'
 import IcArrow from '../../assets/images/partials/ic_arrow_bot.svg'
 import { v4 as uuidv4 } from 'uuid'
 
-const NFT = ({ data }) => {
+const NFT = ({ data, onStake }) => {
   return (
     <div
       key={data?.token_id}
@@ -33,7 +33,10 @@ const NFT = ({ data }) => {
           {data?.price}
         </span>
       </div>
-      <button className="btn-stake py-[10px] font-poppins font-medium text-base text-white text-center">
+      <button
+        className="btn-stake py-[10px] font-poppins font-medium text-base text-white text-center"
+        onClick={() => onStake(data?.token_id)}
+      >
         Stake
       </button>
     </div>
