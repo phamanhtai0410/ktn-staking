@@ -38,3 +38,11 @@ export interface IMyNFTsArrayModel{
     pagination:IPagination,
     loading: boolean
 }
+
+/** WALLET */
+export interface IWalletModel{
+    address: string,
+    chainId: number,
+    balance: string,
+    easyWeb3:any | void,
+}
