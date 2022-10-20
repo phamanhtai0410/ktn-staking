@@ -66,9 +66,7 @@ export const stakeNFT = createAsyncThunk(
                 if (nftTxn?.hash) {
                     alert("Staked successfully!")
                 }
-                else {
-                    dispatch(setLoading({tokenId:""}))
-                }
+                dispatch(setLoading({tokenId:""}))
                 console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
             }
             
@@ -94,7 +92,7 @@ export const unStakeNFT = createAsyncThunk(
         try {
 
             if(signer && token_id && ADDRESS_NFT ){
-
+                dispatch(setLoading({tokenId:token_id}))
                 const contractStaking = new ethers.Contract(
                     ADDRESS_STAKING,
                     ABI_STAKING,
@@ -105,16 +103,19 @@ export const unStakeNFT = createAsyncThunk(
                     token_id,
                     ADDRESS_NFT
                 );
-        
+                if (nftTxn?.hash) {
+                    alert("Unstaked successfully!")
+                }
                 console.log("Mining... please wait");
                 await nftTxn.wait();
-        
+                dispatch(setLoading({tokenId:""}))
                 console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
 
             }
             
             
         } catch (err) {
+            dispatch(setLoading({tokenId:""}))
             return rejectWithValue(err)
         }
     }
@@ -161,9 +162,7 @@ export const approveStaking = createAsyncThunk(
                 }
                 else {
                     dispatch(setLoading({tokenId:""}))
-                }
-                console.log("approveTxn",approveTxn);
-        
+                }        
                 console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${approveTxn.hash}`);
             }
             

@@ -25,6 +25,7 @@ import {
   fetchListLeaderBoardTop3,
   fetchListMyNFTs,
   stakeNFT,
+  unStakeNFT,
 } from '@/actions/stakingActions'
 import { useEffect, useMemo, useState } from 'react'
 import {
@@ -53,6 +54,7 @@ import {
   randomKeyUUID,
 } from '@/_helpers/utils/lib'
 import { setAlert } from '@/reducers/alert'
+import { selectStakingId } from '@/reducers/staking'
 
 const StakingPage = () => {
   const { t } = useTranslation()
@@ -62,6 +64,7 @@ const StakingPage = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const listLeaderBoard = useSelector(selectLeaderBoard)
   const listLeaderBoardTop3 = useSelector(selectLeaderBoardTop3)
+  const stakingId = useSelector(selectStakingId)
 
   const [leaderBoardParams, setLeaderBoardParams] =
     useState<ILeaderBoardParams>({
@@ -94,7 +97,7 @@ const StakingPage = () => {
 
   useEffect(() => {
     dispatch(fetchListMyNFTs({ address: walletAccount }))
-  }, [walletAccount])
+  }, [walletAccount, stakingId])
 
   const makeid = (length) => {
     var result = ''
@@ -461,8 +464,12 @@ const StakingPage = () => {
     dispatch(openModalClaim({ isOpen: true }))
   }
 
-  const onStake = (token_id) => {
-    dispatch(approveStaking({ token_id: token_id }))
+  const onStake = (token_id, is_staking) => {
+    if (!is_staking) {
+      dispatch(approveStaking({ token_id: token_id }))
+    } else {
+      dispatch(unStakeNFT({ token_id: token_id }))
+    }
   }
 
   return (

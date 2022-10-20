@@ -38,10 +38,18 @@ const NFT = ({ data, onStake }) => {
       </div>
       <button
         className="btn-stake flex flex-row items-center justify-center space-x-4 py-[10px]"
-        onClick={() => onStake(data?.token_id)}
+        onClick={() => {
+          onStake(data?.token_id, data?.is_staking)
+        }}
       >
         <span className="font-poppins font-medium text-base text-white text-center">
-          Stake
+          {!data?.is_staking
+            ? stakingId !== data?.token_id
+              ? 'Stake'
+              : 'Staking'
+            : stakingId !== data?.token_id
+            ? 'Unstake'
+            : 'Unstaking'}
         </span>
 
         {stakingId === data?.token_id && (
