@@ -32,6 +32,8 @@ export const useEasyWeb3 = (cb?: Web3Callback) => {
   }, [])
 
   useEffect(() => {
+    
+    // console.log("connectState",connectState);
     if(ConnectState.Connected === connectState){
       dispatch(setReducerWalletInfo({ 
         ...easyWeb3.getWalletInfo(),
