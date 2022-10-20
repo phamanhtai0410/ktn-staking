@@ -32,6 +32,8 @@ export const useEasyWeb3 = (cb?: Web3Callback) => {
   }, [])
 
   useEffect(() => {
+    
+    // console.log("connectState",connectState);
     if(ConnectState.Connected === connectState){
       dispatch(setReducerWalletInfo({ 
         ...easyWeb3.getWalletInfo(),
@@ -39,6 +41,19 @@ export const useEasyWeb3 = (cb?: Web3Callback) => {
           easyWeb3
       }}))
     }
+
+    if(ConnectState.Disconnected === connectState){
+      // console.log("DEFAULT_WALLET_INFO",DEFAULT_WALLET_INFO);
+      dispatch(setReducerWalletInfo({ 
+        ...DEFAULT_WALLET_INFO,
+        ...{
+          easyWeb3:null,
+          address:null,
+          chainId:null,
+          balance:"0"
+      }}))
+    }
+
   }, [connectState])
 
   return { easyWeb3, connectState, walletInfo }
