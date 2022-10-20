@@ -38,3 +38,10 @@ export interface IMyNFTsArrayModel{
     pagination:IPagination,
     loading: boolean
 }
+
+export interface IAlertModel{
+    type: string,
+    key: string,
+    duration: number,
+    message: any,
+}

@@ -19,11 +19,16 @@ import {
   fetchReferralCode,
   submitReferralCode,
 } from '@/actions/referralActions'
-import { addressWalletCompact, copyTextToClipboard } from '@/_helpers/utils/lib'
+import {
+  addressWalletCompact,
+  copyTextToClipboard,
+  randomKeyUUID,
+} from '@/_helpers/utils/lib'
 import { ILeaderBoardParams } from '@/models/referral-models'
 import { LocalStorageService } from '@/_helpers'
 import { useSearchParams } from 'react-router-dom'
 import Top from '../_partials/Top'
+import { setAlert } from '@/reducers/alert'
 
 const ReferralPage = () => {
   const { t } = useTranslation()
@@ -50,6 +55,18 @@ const ReferralPage = () => {
 
   const onCopyReferralCode = (value) => {
     copyTextToClipboard(value)
+    dispatch(
+      setAlert({
+        type: 'success',
+        key: randomKeyUUID(),
+        duration: 10,
+        message: {
+          status: 'info',
+          title: 'Coming soon',
+          description: `We are in progress to complete this function`,
+        },
+      }),
+    )
   }
 
   const onSubmitReferralCode = (e) => {
