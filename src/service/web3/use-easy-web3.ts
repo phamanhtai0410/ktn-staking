@@ -41,13 +41,16 @@ export const useEasyWeb3 = (cb?: Web3Callback) => {
           easyWeb3
       }}))
     }
-    else if (ConnectState.Disconnected === connectState) {
-      dispatch(setReducerWalletInfo({
-        address: "",
-        balance: "0",
-        chainId: null,
-        easyWeb3: null
-    }))
+    if(ConnectState.Disconnected === connectState){
+      // console.log("DEFAULT_WALLET_INFO",DEFAULT_WALLET_INFO);
+      dispatch(setReducerWalletInfo({ 
+        ...DEFAULT_WALLET_INFO,
+        ...{
+          easyWeb3:null,
+          address:null,
+          chainId:null,
+          balance:"0"
+      }}))
     }
   }, [connectState])
 
