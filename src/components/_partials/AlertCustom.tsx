@@ -1,19 +1,13 @@
-import React from 'react'
-import { ToastContainer, toast, ToastContentProps } from 'react-toastify'
-
 import IcClose from '../../assets/images/toast/ic_close.svg'
 import IcInfo from '../../assets/images/toast/ic_info.svg'
 import IcSuccess from '../../assets/images/toast/ic_success.svg'
 import IcError from '../../assets/images/toast/ic_error.svg'
 import IcWarning from '../../assets/images/toast/ic_warning.svg'
-import { FadeLoader } from 'react-spinners'
-
-import { useDispatch } from 'react-redux'
+import { ClipLoader } from 'react-spinners'
 
 const AlertCustom = ({ dataItem, status, closeToast }) => {
-  const { message, isLoading } = dataItem
+  const { message } = dataItem
   const loadIconView = (status) => {
-    console.log('status', status)
     switch (status) {
       case 'success':
         return <img src={IcSuccess} alt="Success" />
@@ -24,24 +18,28 @@ const AlertCustom = ({ dataItem, status, closeToast }) => {
       case 'error':
         return <img src={IcError} alt="Error" />
       case 'loading':
-        return <FadeLoader color="#FFA540" />
+        return <ClipLoader color="#FFA540" size={24} />
+      case 'update':
+        return <img src={IcSuccess} alt="Update" />
       default:
         break
     }
   }
 
   return (
-    <div className="flex flex-row items-start justify-between">
+    <div className="alert flex flex-row items-start justify-between">
       <div className="flex flex-row items-start">
         {loadIconView(status)}
         <div className="flex flex-col pl-6 space-y-1">
           {message.title && (
-            <span className="font-poppins font-semibold text-base">
+            <span
+              className={`title-${status} font-poppins font-semibold text-base`}
+            >
               {message.title}
             </span>
           )}
           {message.description && (
-            <span className="font-poppins font-normal text-sm text-white">
+            <span className="font-poppins font-normal text-sm text-[#FFF6DE]">
               {message.description}
             </span>
           )}
@@ -63,7 +61,7 @@ const AlertCustom = ({ dataItem, status, closeToast }) => {
           )}
         </div>
       </div>
-      {(!isLoading || status === 'info') && (
+      {(!(status === 'loading') || status === 'info') && (
         <img src={IcClose} alt="" onClick={closeToast} />
       )}
     </div>

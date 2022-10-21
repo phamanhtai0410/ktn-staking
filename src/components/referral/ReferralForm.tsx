@@ -15,7 +15,7 @@ const ReferralForm = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const referralCode = useSelector(selectReferralCode)
 
-  const onCopyReferralCode = (value) => {
+  const onCopy = (value) => {
     copyTextToClipboard(value)
     dispatch(
       setAlert({
@@ -73,7 +73,7 @@ const ReferralForm = () => {
                   src={IcCopy}
                   alt="referral"
                   className="cursor-pointer"
-                  onClick={() => onCopyReferralCode(referralCode?.code)}
+                  onClick={() => onCopy(referralCode?.code)}
                 />
               )}
               <span className="font-poppins font-bold text-xl text-[#FFA52C]">

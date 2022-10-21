@@ -39,13 +39,6 @@ export interface IMyNFTsArrayModel{
     loading: boolean
 }
 
-export interface IAlertModel{
-    type: string,
-    key: string,
-    duration: number,
-    message: any,
-}
-
 /** WALLET */
 export interface IWalletModel{
     address: string,

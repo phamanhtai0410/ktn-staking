@@ -1,6 +1,5 @@
 // import { alertConstants } from "../constants";
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
-import { IAlertModel } from "@/models/redux-models";
 import { RootState } from "@/app/store";
 const autoClose = 3000;
 
@@ -21,7 +20,6 @@ const initialState={
   alertData:{
     type: "",
     key: "",
-    duration: 30000,
     message: ""
   }
 }

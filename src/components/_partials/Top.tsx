@@ -1,11 +1,18 @@
 import { useTranslation } from 'react-i18next'
-import { addressWalletCompact, copyTextToClipboard } from '@/_helpers/utils/lib'
+import {
+  addressWalletCompact,
+  copyTextToClipboard,
+  randomKeyUUID,
+} from '@/_helpers/utils/lib'
 import IcCopy from '../../assets/images/referral/ic_copy.svg'
 import IcTop1 from '../../assets/images/staking/ic_top1.svg'
 import IcTop2 from '../../assets/images/staking/ic_top2.svg'
 import IcTop3 from '../../assets/images/staking/ic_top3.svg'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { setAlert } from '@/reducers/alert'
 const Top = (props) => {
+  const dispatch = useDispatch()
   const { item, index } = props
   const [showCopyIcon, setShowCopyIcon] = useState(false)
 
@@ -24,6 +31,16 @@ const Top = (props) => {
 
   const onCopy = (value) => {
     copyTextToClipboard(value)
+    dispatch(
+      setAlert({
+        type: 'success',
+        key: randomKeyUUID(),
+        message: {
+          status: 'success',
+          title: 'Copied',
+        },
+      }),
+    )
   }
 
   return (

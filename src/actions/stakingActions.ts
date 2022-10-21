@@ -8,6 +8,8 @@ import ABI_STAKING from '@/_contract/ABI_STAKING_V3.json';
 import ABI_NFT from '@/_contract/ABI_NFT_V7.json';
 
 import { setLoading } from '@/reducers/staking';
+import { setAlert } from '@/reducers/alert';
+import { randomKeyUUID } from '@/_helpers/utils/lib';
 const ADDRESS_STAKING = "0x7dd5b9e30c65fADCE34454d3bBa0eDF696D1b10d";
 const ADDRESS_NFT = "0xB1D14A0a8d8794Ef319bfa84601b95C3D2eB5A42"
   
@@ -71,7 +73,16 @@ export const stakeNFT = createAsyncThunk(
                 console.log("Mining... please wait");
                 await nftTxn.wait();
                 if (nftTxn?.hash) {
-                    alert("Staked successfully!")
+                    dispatch(
+                        setAlert({
+                          type: 'success',
+                          key: randomKeyUUID(),
+                          message: {
+                            status: 'success',
+                            title: 'Staked successfully!',
+                          },
+                        }),
+                      )
                 }
                 console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
             }
@@ -112,7 +123,16 @@ export const unStakeNFT = createAsyncThunk(
                 await nftTxn.wait();
 
                 if (nftTxn?.hash) {
-                    alert("Unstaked successfully!")
+                    dispatch(
+                        setAlert({
+                          type: 'success',
+                          key: randomKeyUUID(),
+                          message: {
+                            status: 'success',
+                            title: 'Unstaked successfully!',
+                          },
+                        }),
+                      )
                 }
                 console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
 
