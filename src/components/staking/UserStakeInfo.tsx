@@ -50,9 +50,15 @@ const UserStakeInfo = () => {
             <span className="font-poppins font-bold text-xl text-white">
               Rank: {userRank?.rank || '--'}
             </span>
-            <span className="font-poppins font-bold text-xl text-white">
-              Point: {userRank?.point}
-            </span>
+            <div className="flex flex-row items-center space-x-3">
+              <span className="font-poppins font-bold text-xl text-white">
+                Point:
+              </span>
+              <span className="font-poppins font-bold text-xl text-[#FFA52C]">
+                {userRank?.point}
+              </span>
+            </div>
+
             <button
               className={classNames(
                 'px-4 py-3 rounded-lg font-poppins font-bold text-base',

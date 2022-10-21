@@ -98,34 +98,37 @@ const ReferralForm = () => {
             </span>
           </div>
         </div>
-        <div className="mt-[26px] mb-6 h-[1px] border border-dashed border-[#81715C]"></div>
         {!referralCode?.code_linked && (
-          <div className="flex flex-col space-y-[10px]">
-            <span className="font-poppins font-medium text-base text-[#E2C1AA]">
-              Been referred by a friend?
-            </span>
-            <form
-              onSubmit={(event) => onSubmitReferralCode(event)}
-              className="flex flex-row w-full items-center space-x-4"
-            >
-              <input
-                className="w-full p-3 font-poppins font-medium text-base text-[#E2C1AA] placeholder:text-[#81715C] bg-white bg-opacity-10 rounded-lg focus:outline-none"
-                placeholder="Enter code"
-                value={inputReferralCode}
-                onChange={(e) => onChangeReferralCode(e.target.value)}
-              />
-              <button
-                type="submit"
-                className={`px-4 py-3 font-poppins font-semibold text-base rounded-lg ${
-                  inputReferralCode.length > 5
-                    ? 'bg-[#FFA52C] text-white'
-                    : 'bg-white bg-opacity-10 text-[#81715C]'
-                } `}
-                disabled={inputReferralCode.length < 6}
+          <div className="flex flex-col w-full">
+            <div className="mt-[26px] mb-6 h-[1px] border border-dashed border-[#81715C]"></div>
+
+            <div className="flex flex-col space-y-[10px]">
+              <span className="font-poppins font-medium text-base text-[#E2C1AA]">
+                Been referred by a friend?
+              </span>
+              <form
+                onSubmit={(event) => onSubmitReferralCode(event)}
+                className="flex flex-row w-full items-center space-x-4"
               >
-                Submit
-              </button>
-            </form>
+                <input
+                  className="w-full p-3 font-poppins font-medium text-base text-[#E2C1AA] placeholder:text-[#81715C] bg-white bg-opacity-10 rounded-lg focus:outline-none"
+                  placeholder="Enter code"
+                  value={inputReferralCode}
+                  onChange={(e) => onChangeReferralCode(e.target.value)}
+                />
+                <button
+                  type="submit"
+                  className={`px-4 py-3 font-poppins font-semibold text-base rounded-lg ${
+                    inputReferralCode.length > 5
+                      ? 'bg-[#FFA52C] text-white'
+                      : 'bg-white bg-opacity-10 text-[#81715C]'
+                  } `}
+                  disabled={inputReferralCode.length < 6}
+                >
+                  Submit
+                </button>
+              </form>
+            </div>
           </div>
         )}
       </div>
