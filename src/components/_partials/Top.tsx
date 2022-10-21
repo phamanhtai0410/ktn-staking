@@ -37,7 +37,7 @@ const Top = (props) => {
         key: randomKeyUUID(),
         message: {
           status: 'success',
-          title: 'Copied',
+          title: 'Copied!',
         },
       }),
     )

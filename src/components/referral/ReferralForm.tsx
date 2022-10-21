@@ -23,7 +23,7 @@ const ReferralForm = () => {
         key: randomKeyUUID(),
         message: {
           status: 'success',
-          title: 'Copied',
+          title: 'Copied!',
         },
       }),
     )
