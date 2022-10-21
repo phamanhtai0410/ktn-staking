@@ -2,35 +2,27 @@ import React from 'react'
 import { ToastContainer, toast, ToastContentProps } from 'react-toastify'
 
 import IcClose from '../../assets/images/toast/ic_close.svg'
-// import IcSuccess from "../../assets/images/toast/success.svg";
-// import IcComingSoon from "../../assets/images/toast/coming_soon.svg";
+import IcInfo from '../../assets/images/toast/ic_info.svg'
+import IcSuccess from '../../assets/images/toast/ic_success.svg'
+import IcError from '../../assets/images/toast/ic_error.svg'
 import IcWarning from '../../assets/images/toast/ic_warning.svg'
-// import { TailSpin } from "react-loading-icons";
 import { FadeLoader } from 'react-spinners'
 
 import { useDispatch } from 'react-redux'
-// import { openEditModal } from "../../reducers/user/profile.reducer";
 
-const AlertCustom = ({ dataItem, status }) => {
-  const Msg = ({ closeToast, toastProps }: Partial<ToastContentProps>) => {
-    console.log('closeToast', closeToast)
-    console.log('toastProps', toastProps)
-    return <img src={IcClose} alt="" onClick={closeToast} />
-  }
-  // const { dataItem, closeToast, status } = props
+const AlertCustom = ({ dataItem, status, closeToast }) => {
   const { message, isLoading } = dataItem
-  const dispatch = useDispatch()
-  // const onUpdate = () => {
-  //   dispatch(openEditModal());
-  // };
   const loadIconView = (status) => {
+    console.log('status', status)
     switch (status) {
       case 'success':
-        return <img src={IcWarning} alt="Ic Success" />
+        return <img src={IcSuccess} alt="Success" />
       case 'info':
-        return <img src={IcWarning} alt="IcComing" />
+        return <img src={IcInfo} alt="Info" />
       case 'warning':
-        return <img src={IcWarning} alt="Ic Warning" />
+        return <img src={IcWarning} alt="Warning" />
+      case 'error':
+        return <img src={IcError} alt="Error" />
       case 'loading':
         return <FadeLoader color="#FFA540" />
       default:
@@ -44,7 +36,7 @@ const AlertCustom = ({ dataItem, status }) => {
         {loadIconView(status)}
         <div className="flex flex-col pl-6 space-y-1">
           {message.title && (
-            <span className="font-poppins font-semibold text-base text-[#FFA52C]">
+            <span className="font-poppins font-semibold text-base">
               {message.title}
             </span>
           )}
@@ -53,16 +45,6 @@ const AlertCustom = ({ dataItem, status }) => {
               {message.description}
             </span>
           )}
-          {/* {message.details && (
-            <a
-              href={`https://explore-testnet.vechain.org/transactions/${message.details?.txid}`}
-              target={"_blank"}
-              rel="noopener noreferrer"
-              className="font-poppins text-sm text-[#FA8C16]"
-            >
-              {message.details?.message}
-            </a>
-          )} */}
           {message?.details && message?.details?.label ? (
             <div>
               <p
@@ -82,8 +64,7 @@ const AlertCustom = ({ dataItem, status }) => {
         </div>
       </div>
       {(!isLoading || status === 'info') && (
-        // <img src={IcClose} alt="" onClick={closeToast} />
-        <Msg />
+        <img src={IcClose} alt="" onClick={closeToast} />
       )}
     </div>
   )

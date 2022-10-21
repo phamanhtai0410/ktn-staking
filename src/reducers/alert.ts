@@ -21,7 +21,7 @@ const initialState={
   alertData:{
     type: "",
     key: "",
-    duration: 0,
+    duration: 30000,
     message: ""
   }
 }
@@ -30,11 +30,8 @@ const AlertSlice = createSlice({
   name:'alert',
   initialState:initialState,
   reducers:{
-      setAlert(state,action:PayloadAction<IAlertModel>){
-        console.log("action.payload", action.payload)
-        console.log("state", state)
-        state.alertData = action.payload
-          // state.message =action.payload.message
+      setAlert(state,action){
+        state.alertData = {...action.payload, duration: 3000}
       },
   },
   extraReducers: (builder) => {

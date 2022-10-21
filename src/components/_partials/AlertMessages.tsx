@@ -21,10 +21,7 @@ const AlertMessages = () => {
   const alert = useSelector(selectAlert)
   const getItemAlert = useCallback(
     (item) => {
-      console.log('item', item)
       const key = item.key || randomKeyUUID()
-      // const key = randomKeyUUID()
-
       const option = {
         toastId: key,
         type: item.message.status ? item.message.status : item.type,
@@ -33,6 +30,7 @@ const AlertMessages = () => {
             dataItem={item}
             key={key}
             status={item.message.status ? item.message.status : item.type}
+            closeToast
           />
         ),
         isLoading: false,

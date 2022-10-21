@@ -21,11 +21,9 @@ const ReferralForm = () => {
       setAlert({
         type: 'success',
         key: randomKeyUUID(),
-        duration: 10,
         message: {
-          status: 'info',
-          title: 'Coming soon',
-          description: `We are in progress to complete this function`,
+          status: 'success',
+          title: 'Copied',
         },
       }),
     )

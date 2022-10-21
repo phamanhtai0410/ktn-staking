@@ -4,6 +4,7 @@ import '@/locale'
 import './App.css'
 import MainLayout from '@/components/MainLayout'
 import AlertMessages from './components/_partials/AlertMessages'
+import 'react-toastify/dist/ReactToastify.css'
 
 const App = () => {
   return (
