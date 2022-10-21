@@ -8,11 +8,12 @@ import { selectWalletAccount } from '@/reducers/walletSlice'
 import { openModalClaim } from '@/reducers/referral'
 import { fetchTotalStaked, fetchUserRank } from '@/actions/stakingActions'
 import { useEffect } from 'react'
-import { selectTotalStaked } from '@/reducers/staking'
+import { selectTotalStaked, selectUserRank } from '@/reducers/staking'
 
 const UserStakeInfo = () => {
   const dispatch = useAppDispatch()
   const walletAccount = useSelector(selectWalletAccount)
+  const userRank = useSelector(selectUserRank)
   const totalStaked = useSelector(selectTotalStaked)
   const onClickClaim = () => {
     dispatch(openModalClaim({ isOpen: true }))
@@ -27,6 +28,10 @@ const UserStakeInfo = () => {
   useEffect(() => {
     dispatch(fetchTotalStaked({ name: 'stake' }))
   }, [])
+
+  useEffect(() => {
+    console.log('userRank', userRank)
+  }, [userRank])
 
   return (
     <div className="flex flex-col w-full space-y-4 max-w-[1280px]">
@@ -43,10 +48,10 @@ const UserStakeInfo = () => {
           </div>
           <div className="flex flex-row items-center justify-between">
             <span className="font-poppins font-bold text-xl text-white">
-              Rank -
+              Rank: {userRank?.rank || '--'}
             </span>
             <span className="font-poppins font-bold text-xl text-white">
-              Point: 0
+              Point: {userRank?.point}
             </span>
             <button
               className={classNames(

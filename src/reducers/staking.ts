@@ -1,10 +1,11 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "@/app/store";
-import { approveStaking, fetchListLeaderBoard, fetchTotalStaked, stakeNFT, unStakeNFT } from "@/actions/stakingActions";
+import { approveStaking, fetchListLeaderBoard, fetchTotalStaked, fetchUserRank, stakeNFT, unStakeNFT } from "@/actions/stakingActions";
 import { ILeaderBoardArrayModel } from "@/models/redux-models";
 
 const initialState={
     isPending:false,
+    userRank: null,
     totalStaked:0,
     leaderBoard:<ILeaderBoardArrayModel>{},
     leaderBoardTop3:<ILeaderBoardArrayModel>{},
@@ -18,6 +19,9 @@ const stakingSlice = createSlice({
         // state.isPending = action.payload.isPending;
     },},
     extraReducers: (builder) => {
+        builder.addCase(fetchUserRank.fulfilled, (state, action) => {
+            state.userRank = action.payload.items[0]
+        })
         builder.addCase(fetchTotalStaked.fulfilled, (state, action) => {
             state.totalStaked = action.payload.total
         })
@@ -59,6 +63,7 @@ export default stakingSlice.reducer;
 
 // create and export the selector
 export const selectIsPending = (state: RootState) => state.staking.isPending;
+export const selectUserRank = (state: RootState) => state.staking.userRank;
 export const selectTotalStaked = (state: RootState) => state.staking.totalStaked;
 export const selectLeaderBoard = (state: RootState) => state.staking.leaderBoard;
 export const selectLeaderBoardTop3 = (state: RootState) => state.staking.leaderBoardTop3;
