@@ -13,7 +13,6 @@ import {
   selectLeaderBoardTop3,
 } from '@/reducers/LeaderBoardSlice'
 import Top from '../_partials/Top'
-import { ILeaderBoardParams } from '@/models/referral-models'
 import { addressWalletCompact } from '@/_helpers/utils/lib'
 
 const LeaderBoard = () => {
@@ -21,13 +20,11 @@ const LeaderBoard = () => {
   const listLeaderBoard = useSelector(selectLeaderBoard)
   const listLeaderBoardTop3 = useSelector(selectLeaderBoardTop3)
 
-  const [leaderBoardParams, setLeaderBoardParams] =
-    useState<ILeaderBoardParams>({
-      search: '',
-      page: 1,
-      page_size: 10,
-      event: 'stake',
-    })
+  const [leaderBoardParams, setLeaderBoardParams] = useState({
+    page: 1,
+    page_size: 10,
+    event: 'stake',
+  })
 
   useEffect(() => {
     dispatch(fetchListLeaderBoard(leaderBoardParams))

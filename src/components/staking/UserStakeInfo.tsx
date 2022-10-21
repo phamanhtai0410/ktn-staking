@@ -6,14 +6,27 @@ import { useSelector } from 'react-redux'
 import classNames from 'classnames'
 import { selectWalletAccount } from '@/reducers/walletSlice'
 import { openModalClaim } from '@/reducers/referral'
+import { fetchTotalStaked, fetchUserRank } from '@/actions/stakingActions'
+import { useEffect } from 'react'
+import { selectTotalStaked } from '@/reducers/staking'
 
 const UserStakeInfo = () => {
   const dispatch = useAppDispatch()
   const walletAccount = useSelector(selectWalletAccount)
-
+  const totalStaked = useSelector(selectTotalStaked)
   const onClickClaim = () => {
     dispatch(openModalClaim({ isOpen: true }))
   }
+
+  useEffect(() => {
+    if (walletAccount) {
+      dispatch(fetchUserRank({ event: 'stake', search: walletAccount }))
+    }
+  }, [walletAccount])
+
+  useEffect(() => {
+    dispatch(fetchTotalStaked({ name: 'stake' }))
+  }, [])
 
   return (
     <div className="flex flex-col w-full space-y-4 max-w-[1280px]">
@@ -60,7 +73,7 @@ const UserStakeInfo = () => {
           <div className="flex flex-row items-center justify-between">
             <div className="flex flex-row space-x-2">
               <span className="font-poppins font-bold text-xl text-[#FFA52C]">
-                0
+                {totalStaked}
               </span>
               <span className="font-poppins font-bold text-xl text-white">
                 KATA

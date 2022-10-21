@@ -19,7 +19,9 @@ const StakingPage = () => {
   const stakingId = useSelector(selectStakingId)
 
   useEffect(() => {
-    dispatch(fetchListMyNFTs({ address: walletAccount }))
+    if (walletAccount) {
+      dispatch(fetchListMyNFTs({ address: walletAccount }))
+    }
   }, [walletAccount, stakingId])
 
   return (

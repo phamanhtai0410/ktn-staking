@@ -7,14 +7,29 @@ import { stakingService } from "@/service/staking.service"
 import ABI_STAKING from '@/_contract/ABI_STAKING_V3.json';
 import ABI_NFT from '@/_contract/ABI_NFT_V7.json';
 
-import { ILeaderBoardParams } from '@/models/referral-models';
 import { setLoading } from '@/reducers/staking';
 const ADDRESS_STAKING = "0x7dd5b9e30c65fADCE34454d3bBa0eDF696D1b10d";
 const ADDRESS_NFT = "0xB1D14A0a8d8794Ef319bfa84601b95C3D2eB5A42"
   
+export const fetchUserRank = createAsyncThunk(
+    'staking/fetchUserRank',
+    async (params:any, { dispatch, getState }) => {
+        const response = await stakingService.getListLeaderBoard(params)
+        return response.data
+    }
+)
+
+export const fetchTotalStaked = createAsyncThunk(
+    'staking/fetchTotalStaked',
+    async (params:any, { dispatch, getState }) => {
+        const response = await stakingService.getTotalStaked(params)
+        return response.data
+    }
+)
+
 export const fetchListLeaderBoard = createAsyncThunk(
     'staking/fetchLeaderBoard',
-    async (params:ILeaderBoardParams, { dispatch, getState }) => {
+    async (params:any, { dispatch, getState }) => {
         const response = await stakingService.getListLeaderBoard(params)
         return response.data
     }
@@ -22,7 +37,7 @@ export const fetchListLeaderBoard = createAsyncThunk(
 
 export const fetchListLeaderBoardTop3 = createAsyncThunk(
     'staking/fetchLeaderBoardTop3',
-    async (params:ILeaderBoardParams, { dispatch, getState }) => {
+    async (params:any, { dispatch, getState }) => {
         const response = await stakingService.getListLeaderBoard(params)
         return response.data
     }
