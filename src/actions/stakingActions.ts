@@ -35,14 +35,6 @@ export const fetchListLeaderBoard = createAsyncThunk(
     }
 )
 
-export const fetchListLeaderBoardTop3 = createAsyncThunk(
-    'staking/fetchLeaderBoardTop3',
-    async (params:any, { dispatch, getState }) => {
-        const response = await stakingService.getListLeaderBoard(params)
-        return response.data
-    }
-)
-
 export const fetchListMyNFTs = createAsyncThunk(
     'staking/myNfts',
     async (params:{address:string}, { dispatch, getState }) => {

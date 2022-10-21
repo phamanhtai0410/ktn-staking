@@ -1,6 +1,6 @@
 import Pagination from '@/components/_partials/Pagination'
 import { useAppDispatch } from '@/app/hooks'
-import { fetchListLeaderBoard } from '@/actions/stakingActions'
+import { fetchListLeaderBoard } from '@/actions/referralActions'
 import { useEffect, useState } from 'react'
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import classnames from 'classnames'
@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 
 import Top from '../_partials/Top'
 import { addressWalletCompact } from '@/_helpers/utils/lib'
-import { selectLeaderBoard, selectLeaderBoardTop3 } from '@/reducers/staking'
+import { selectLeaderBoard, selectLeaderBoardTop3 } from '@/reducers/referral'
 
 const LeaderBoard = ({ event }) => {
   const dispatch = useAppDispatch()

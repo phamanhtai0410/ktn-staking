@@ -27,8 +27,8 @@ const MyNfts = ({ data }) => {
       </div>
       {data && data.length > 0 ? (
         <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-x-12 gap-y-8">
-          {listMyNFTs.map((item) => (
-            <Nft data={item} onStake={onStake} />
+          {listMyNFTs.map((item, index) => (
+            <Nft key={index} data={item} onStake={onStake} />
           ))}
         </div>
       ) : (

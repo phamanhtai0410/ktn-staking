@@ -7,10 +7,10 @@ import ModalClaim from './ModalClaim'
 import { selectWalletAccount } from '@/reducers/walletSlice'
 import { selectStakingId } from '@/reducers/staking'
 import Information from './Information'
-import LeaderBoard from './LeaderBoard'
 import MyNfts from './MyNfts'
 import UserStakeInfo from './UserStakeInfo'
 import './index.scss'
+import LeaderBoard from '../referral/LeaderBoard'
 
 const StakingPage = () => {
   const dispatch = useAppDispatch()
@@ -29,7 +29,7 @@ const StakingPage = () => {
       <div className="staking__main pt-40 pb-12 relative flex flex-col items-center min-h-[1254px] sm:px-0 px-4">
         <div className="container">
           <UserStakeInfo />
-          <LeaderBoard />
+          <LeaderBoard event="stake" />
           <Information />
           <MyNfts data={listMyNFTs} />
         </div>
