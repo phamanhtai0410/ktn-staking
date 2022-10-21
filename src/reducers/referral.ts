@@ -1,7 +1,7 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
 import { ILeaderBoardModel, ILeaderBoardArrayModel } from "@/models/redux-models";
 import { RootState } from "@/app/store";
-import { fetchReferralCode, fetchListLeaderBoard, fetchListLeaderBoardTop3 } from "@/actions/referralActions";
+import { fetchReferralCode, fetchListLeaderBoard } from "@/actions/referralActions";
 import { IReferralCode } from "@/models/referral-models";
 
 const initialState={
@@ -26,11 +26,15 @@ const referralSlice = createSlice({
         builder.addCase(fetchReferralCode.fulfilled, (state, action) => {
             state.referralCode = action.payload
         })
+        builder.addCase(fetchReferralCode.rejected, (state, action) => {
+            state.referralCode = <IReferralCode>{}
+        })
+
         builder.addCase(fetchListLeaderBoard.fulfilled, (state, action) => {
           state.leaderBoard= action.payload
-        })
-        builder.addCase(fetchListLeaderBoardTop3.fulfilled, (state, action) => {
+          if (action.payload.page===1) {
             state.leaderBoardTop3.items= action.payload.items.slice(0,Math.min(3,action.payload.items.length))
+        }
         })
     },
 })

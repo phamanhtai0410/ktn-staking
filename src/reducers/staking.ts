@@ -1,0 +1,64 @@
+import { createSlice,PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "@/app/store";
+import { approveStaking, fetchListLeaderBoard, fetchTotalStaked, stakeNFT, unStakeNFT } from "@/actions/stakingActions";
+import { ILeaderBoardArrayModel } from "@/models/redux-models";
+
+const initialState={
+    isPending:false,
+    totalStaked:0,
+    leaderBoard:<ILeaderBoardArrayModel>{},
+    leaderBoardTop3:<ILeaderBoardArrayModel>{},
+    isOpenModalClaim: false
+}
+
+const stakingSlice = createSlice({
+    name:'staking',
+    initialState:initialState,
+    reducers:{setLoading(state,action){
+        // state.isPending = action.payload.isPending;
+    },},
+    extraReducers: (builder) => {
+        builder.addCase(fetchTotalStaked.fulfilled, (state, action) => {
+            state.totalStaked = action.payload.total
+        })
+        builder.addCase(fetchListLeaderBoard.fulfilled, (state, action) => {
+            state.leaderBoard= action.payload
+            if (action.payload.page===1) {
+                state.leaderBoardTop3.items= action.payload.items.slice(0,Math.min(3,action.payload.items.length))
+            }
+        })
+        
+        builder.addCase(approveStaking.pending, (state, action) => {
+            state.isPending= true;
+        })
+        builder.addCase(approveStaking.rejected, (state, action) => {
+            state.isPending= false;
+        })
+
+        builder.addCase(stakeNFT.fulfilled, (state, action) => {
+            state.isPending= false;
+        })
+        builder.addCase(stakeNFT.rejected, (state, action) => {
+            state.isPending= false;
+        })
+
+        builder.addCase(unStakeNFT.pending, (state, action) => {
+            state.isPending= true;
+        })
+        builder.addCase(unStakeNFT.fulfilled, (state, action) => {
+            state.isPending= false;
+        })
+        builder.addCase(unStakeNFT.rejected, (state, action) => {
+            state.isPending= false;
+        })
+    },
+})
+
+export const { setLoading } = stakingSlice.actions;
+export default stakingSlice.reducer;
+
+// create and export the selector
+export const selectIsPending = (state: RootState) => state.staking.isPending;
+export const selectTotalStaked = (state: RootState) => state.staking.totalStaked;
+export const selectLeaderBoard = (state: RootState) => state.staking.leaderBoard;
+export const selectLeaderBoardTop3 = (state: RootState) => state.staking.leaderBoardTop3;

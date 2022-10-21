@@ -1,14 +1,18 @@
 
 import { combineReducers } from '@reduxjs/toolkit'
 
-import leaderBoard from "./LeaderBoardSlice"
+import wallet from "./walletSlice"
 import myNFTs from "./myNFTsSlice"
 import referral from './referral'
+import staking from './staking'
+import alert from './alert'
 
 const rootReducer = combineReducers({
-    leaderBoard,
+    wallet,
     myNFTs,
-    referral
+    referral,
+    staking,
+    alert,
 })
 
 export type RootState = ReturnType<typeof rootReducer>

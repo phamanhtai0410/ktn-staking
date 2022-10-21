@@ -1,9 +1,7 @@
 import React from 'react'
-import './index.scss'
-import IcArrow from '../../assets/images/partials/ic_arrow_bot.svg'
-import { v4 as uuidv4 } from 'uuid'
+import BtnStake from './BtnStake'
 
-const NFT = ({ data }) => {
+const Nft = ({ data, onStake }) => {
   return (
     <div
       key={data?.token_id}
@@ -14,7 +12,7 @@ const NFT = ({ data }) => {
         alt="nft"
         className="h-[248px] object-cover object-top"
       />
-      <span className="font-oxanium font-bold text-base text-white text-center">
+      <span className="font-oxanium font-bold text-base text-white text-center min-h-[24px]">
         {data?.description}
       </span>
       <div className="flex flex-row items-center justify-between">
@@ -33,11 +31,9 @@ const NFT = ({ data }) => {
           {data?.price}
         </span>
       </div>
-      <button className="btn-stake py-[10px] font-poppins font-medium text-base text-white text-center">
-        Stake
-      </button>
+      <BtnStake data={data} onStake={onStake} />
     </div>
   )
 }
 
-export default NFT
+export default Nft

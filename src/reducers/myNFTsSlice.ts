@@ -20,12 +20,10 @@ const myNFTsSlice = createSlice({
     extraReducers: (builder) => {
         // Add reducers for additional action types here, and handle loading state as needed
         builder.addCase(fetchListMyNFTs.fulfilled, (state, action) => {
-          // Add user to the state array
           state.items = action.payload.items
-            //   state.pagination = {
-            //     page: action.payload.page,
-            //     num_of_page: action.payload.num_of_page
-            //   }
+        })
+        builder.addCase(fetchListMyNFTs.rejected, (state, action) => {
+            state.items = []
         })
     },
 })
