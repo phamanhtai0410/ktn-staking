@@ -3,8 +3,9 @@ import './index.scss'
 import { useSelector } from 'react-redux'
 import { selectStakingId } from '@/reducers/staking'
 import { ClipLoader } from 'react-spinners'
+import classNames from 'classnames'
 
-const NFT = ({ data, onStake }) => {
+const Nft = ({ data, onStake }) => {
   const stakingId = useSelector(selectStakingId)
 
   return (
@@ -17,7 +18,7 @@ const NFT = ({ data, onStake }) => {
         alt="nft"
         className="h-[248px] object-cover object-top"
       />
-      <span className="font-oxanium font-bold text-base text-white text-center">
+      <span className="font-oxanium font-bold text-base text-white text-center min-h-[24px]">
         {data?.description}
       </span>
       <div className="flex flex-row items-center justify-between">
@@ -37,7 +38,10 @@ const NFT = ({ data, onStake }) => {
         </span>
       </div>
       <button
-        className="btn-stake flex flex-row items-center justify-center space-x-4 py-[10px]"
+        className={classNames(
+          'flex flex-row items-center justify-center space-x-4 py-[10px] rounded-lg bg-white bg-opacity-5 hover:bg-[#4D4233]',
+          { 'bg-[#4D4233]': data?.token_id === stakingId },
+        )}
         onClick={() => {
           onStake(data?.token_id, data?.is_staking)
         }}
@@ -48,7 +52,7 @@ const NFT = ({ data, onStake }) => {
               ? 'Stake'
               : 'Staking'
             : stakingId !== data?.token_id
-            ? 'Unstake'
+            ? 'UnStake'
             : 'Unstaking'}
         </span>
 
@@ -64,4 +68,4 @@ const NFT = ({ data, onStake }) => {
   )
 }
 
-export default NFT
+export default Nft
