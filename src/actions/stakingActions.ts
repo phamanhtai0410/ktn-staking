@@ -73,13 +73,11 @@ export const stakeNFT = createAsyncThunk(
                 if (nftTxn?.hash) {
                     alert("Staked successfully!")
                 }
-                dispatch(setLoading({tokenId:""}))
                 console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
             }
             
             
         } catch (err) {
-            dispatch(setLoading({tokenId:""}))
             return rejectWithValue(err)
         }
     }
@@ -99,7 +97,6 @@ export const unStakeNFT = createAsyncThunk(
         try {
 
             if(signer && token_id && ADDRESS_NFT ){
-                dispatch(setLoading({tokenId:token_id}))
                 const contractStaking = new ethers.Contract(
                     ADDRESS_STAKING,
                     ABI_STAKING,
@@ -110,19 +107,19 @@ export const unStakeNFT = createAsyncThunk(
                     token_id,
                     ADDRESS_NFT
                 );
+                
+                console.log("Mining... please wait");
+                await nftTxn.wait();
+
                 if (nftTxn?.hash) {
                     alert("Unstaked successfully!")
                 }
-                console.log("Mining... please wait");
-                await nftTxn.wait();
-                dispatch(setLoading({tokenId:""}))
                 console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
 
             }
             
             
         } catch (err) {
-            dispatch(setLoading({tokenId:""}))
             return rejectWithValue(err)
         }
     }
@@ -142,7 +139,6 @@ export const approveStaking = createAsyncThunk(
         try {
 
             if(signer && token_id && ADDRESS_NFT ){
-                dispatch(setLoading({tokenId:token_id}))
                 const amountMax = FixedNumber.from(1000000000)
 
                 const contractStaking = new ethers.Contract(
@@ -166,16 +162,12 @@ export const approveStaking = createAsyncThunk(
                 await approveTxn.wait();
                 if (approveTxn?.hash) {
                     dispatch(stakeNFT({ token_id: token_id }))
-                }
-                else {
-                    dispatch(setLoading({tokenId:""}))
-                }        
+                }    
                 console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${approveTxn.hash}`);
             }
             
             
         } catch (err) {
-            dispatch(setLoading({tokenId:""}))
             return rejectWithValue(err)
         }
     }

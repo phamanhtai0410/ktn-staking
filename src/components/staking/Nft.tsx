@@ -1,13 +1,7 @@
 import React from 'react'
-import './index.scss'
-import { useSelector } from 'react-redux'
-import { selectStakingId } from '@/reducers/staking'
-import { ClipLoader } from 'react-spinners'
-import classNames from 'classnames'
+import BtnStake from './BtnStake'
 
 const Nft = ({ data, onStake }) => {
-  const stakingId = useSelector(selectStakingId)
-
   return (
     <div
       key={data?.token_id}
@@ -37,36 +31,7 @@ const Nft = ({ data, onStake }) => {
           {data?.price}
         </span>
       </div>
-      <button
-        className={classNames(
-          'flex flex-row items-center justify-center space-x-4 py-[10px] rounded-lg',
-          { 'bg-[#4D4233]': data?.token_id === stakingId },
-          { 'bg-white bg-opacity-5': data?.token_id !== stakingId },
-          { 'hover:bg-[#4D4233]': !stakingId },
-        )}
-        disabled={stakingId ? true : false}
-        onClick={() => {
-          onStake(data?.token_id, data?.is_staking)
-        }}
-      >
-        <span className="font-poppins font-medium text-base text-white text-center">
-          {!data?.is_staking
-            ? stakingId !== data?.token_id
-              ? 'Stake'
-              : 'Staking'
-            : stakingId !== data?.token_id
-            ? 'UnStake'
-            : 'Unstaking'}
-        </span>
-
-        {stakingId === data?.token_id && (
-          <ClipLoader
-            color="white"
-            size={17}
-            loading={stakingId ? true : false}
-          />
-        )}
-      </button>
+      <BtnStake data={data} onStake={onStake} />
     </div>
   )
 }

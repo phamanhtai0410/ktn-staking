@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 import { selectMyNFTs } from '@/reducers/myNFTsSlice'
 import ModalClaim from './ModalClaim'
 import { selectWalletAccount } from '@/reducers/walletSlice'
-import { selectStakingId } from '@/reducers/staking'
 import Information from './Information'
 import MyNfts from './MyNfts'
 import UserStakeInfo from './UserStakeInfo'
@@ -16,13 +15,12 @@ const StakingPage = () => {
   const dispatch = useAppDispatch()
   const walletAccount = useSelector(selectWalletAccount)
   const listMyNFTs = useSelector(selectMyNFTs)
-  const stakingId = useSelector(selectStakingId)
 
   useEffect(() => {
     if (walletAccount) {
       dispatch(fetchListMyNFTs({ address: walletAccount }))
     }
-  }, [walletAccount, stakingId])
+  }, [walletAccount])
 
   return (
     <section className="staking">
