@@ -39,9 +39,12 @@ const Nft = ({ data, onStake }) => {
       </div>
       <button
         className={classNames(
-          'flex flex-row items-center justify-center space-x-4 py-[10px] rounded-lg bg-white bg-opacity-5 hover:bg-[#4D4233]',
+          'flex flex-row items-center justify-center space-x-4 py-[10px] rounded-lg',
           { 'bg-[#4D4233]': data?.token_id === stakingId },
+          { 'bg-white bg-opacity-5': data?.token_id !== stakingId },
+          { ' hover:bg-[#4D4233]': !stakingId },
         )}
+        disabled={stakingId ? true : false}
         onClick={() => {
           onStake(data?.token_id, data?.is_staking)
         }}
