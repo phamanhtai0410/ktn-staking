@@ -8,20 +8,12 @@ const initialState={
     referralCode:<IReferralCode>{},
     leaderBoard:<ILeaderBoardArrayModel>{},
     leaderBoardTop3:<ILeaderBoardArrayModel>{},
-    isOpenModalClaim: false
 }
 
 const referralSlice = createSlice({
     name:'referral',
     initialState:initialState,
-    reducers:{
-        // setListCollections(state,action:PayloadAction<ILeaderBoardModel[]>){
-        //     state.items = action.payload;
-        // },
-        openModalClaim(state,action){
-            state.isOpenModalClaim = action.payload.isOpen;
-        },
-    },
+    reducers:{},
     extraReducers: (builder) => {
         builder.addCase(fetchReferralCode.fulfilled, (state, action) => {
             state.referralCode = action.payload
@@ -39,11 +31,10 @@ const referralSlice = createSlice({
     },
 })
 
-export const { openModalClaim } = referralSlice.actions;
+export const { } = referralSlice.actions;
 export default referralSlice.reducer;
 
 // create and export the selector
 export const selectReferralCode = (state: RootState) => state.referral.referralCode;
 export const selectLeaderBoard = (state: RootState) => state.referral.leaderBoard;
 export const selectLeaderBoardTop3 = (state: RootState) => state.referral.leaderBoardTop3;
-export const selectIsOpenModalClaim = (state: RootState) => state.referral.isOpenModalClaim;

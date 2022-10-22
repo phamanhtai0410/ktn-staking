@@ -7,7 +7,6 @@ import { stakingService } from "@/service/staking.service"
 import ABI_STAKING from '@/_contract/ABI_STAKING_V3.json';
 import ABI_NFT from '@/_contract/ABI_NFT_V7.json';
 
-import { setLoading } from '@/reducers/staking';
 import { setAlert } from '@/reducers/alert';
 import { randomKeyUUID } from '@/_helpers/utils/lib';
 const ADDRESS_STAKING = "0x7dd5b9e30c65fADCE34454d3bBa0eDF696D1b10d";

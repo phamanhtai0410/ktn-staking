@@ -1,4 +1,4 @@
-import { openModalClaim } from '@/reducers/referral'
+import { openModalClaim } from '@/reducers/staking'
 import Modal from 'react-modal'
 import useClaimFacade from './useClaimFacade'
 import IcUsdt from '../../assets/images/staking/ic_usdt.svg'
@@ -22,7 +22,8 @@ const ModalClaim = () => {
     isOpen,
     step,
     claimType,
-    claiming,
+    isClaiming,
+    userRank,
     setClaimType,
     resetModal,
     nextStep,
@@ -122,12 +123,12 @@ const ModalClaim = () => {
 
           {step === 3 && (
             <div className="w-full">
-              {claiming ? (
+              {isClaiming ? (
                 <div className="mt-8 flex flex-col items-center space-y-8">
                   <span className="font-poppins font-semibold w-full text-align text-center text-base text-[#FFF6DE]">
                     You are claiming...
                   </span>
-                  <FadeLoader color="#FFA540" loading={claiming} />
+                  <FadeLoader color="#FFA540" loading={isClaiming} />
                 </div>
               ) : (
                 <div className="mt-8 flex flex-col items-center space-y-3">
@@ -149,7 +150,7 @@ const ModalClaim = () => {
                       Available
                     </span>
                     <span className="font-poppins font-normal text-align text-sm text-[#FFF6DE]">
-                      2300
+                      {userRank?.point}
                     </span>
                   </div>
                 </div>
@@ -157,8 +158,8 @@ const ModalClaim = () => {
               <button
                 className={classNames(
                   'mt-8 w-full py-3 rounded-[32px] font-poppins font-semibold',
-                  { 'bg-[#FFA52C] text-white': !claiming },
-                  { 'bg-[#4D4233] text-[#806B4F]': claiming },
+                  { 'bg-[#FFA52C] text-white': !isClaiming },
+                  { 'bg-[#4D4233] text-[#806B4F]': isClaiming },
                 )}
                 onClick={closeModal}
               >

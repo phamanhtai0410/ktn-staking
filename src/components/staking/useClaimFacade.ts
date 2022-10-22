@@ -1,14 +1,16 @@
-import { selectIsOpenModalClaim } from "@/reducers/referral";
+import { selectIsOpenModalClaim, selectUserRank } from "@/reducers/staking";
+import { selectWalletAccount } from "@/reducers/walletSlice";
 import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const useClaimFacade = () => {
   const dispatch = useDispatch();
+  const walletAccount = useSelector(selectWalletAccount)
   const isOpen = useSelector(selectIsOpenModalClaim)
-  // const [isOpen, setIsOpen] = useState(false);
+  const userRank = useSelector(selectUserRank)
   const [step, setStep] = useState(1);
   const [claimType, setClaimType] = useState("");
-  const [claiming, setClaiming] = useState(true);
+  const [isClaiming, setIsClaiming] = useState(true);
 
   const nextStep = () => {
     setStep(step + 1);
@@ -17,7 +19,7 @@ const useClaimFacade = () => {
   const resetModal = () => {
     setStep(1);
     setClaimType("");
-    setClaiming(true)
+    setIsClaiming(true)
   };
 
   useEffect(() => {
@@ -25,7 +27,7 @@ const useClaimFacade = () => {
     }
     if (step === 3) {
       setTimeout(() => {
-        setClaiming(false)
+        setIsClaiming(false)
       }, 1500);
     }
     if (step === 4) {
@@ -39,7 +41,8 @@ const useClaimFacade = () => {
     isOpen,
     step,
     claimType,
-    claiming,
+    isClaiming,
+    userRank,
     setClaimType,
     resetModal,
     nextStep,

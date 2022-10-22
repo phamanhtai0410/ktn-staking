@@ -13,7 +13,7 @@ const Nft = ({ data, onStake }) => {
         className="h-[248px] object-cover object-top"
       />
       <span className="font-oxanium font-bold text-base text-white text-center min-h-[24px]">
-        {data?.description}
+        {data?.name}
       </span>
       <div className="flex flex-row items-center justify-between">
         <span className="font-poppins font-normal text-sm text-white">

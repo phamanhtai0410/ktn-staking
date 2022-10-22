@@ -92,7 +92,6 @@ const Pagination = (props) => {
         )
       })}
       <button
-        // className="flex flex-row items-center space-x-2 p-2 bg-[#353A4552] rounded-lg cursor-pointer hover:bg-white hover:bg-opacity-10"
         className={classNames(
           'flex flex-row items-center space-x-2 p-2 bg-[#353A4552] rounded-lg cursor-pointer',
           { 'hover:bg-white hover:bg-opacity-10': currentPage !== lastPage },
