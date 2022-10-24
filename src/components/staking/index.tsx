@@ -23,10 +23,6 @@ const StakingPage = () => {
     }
   }, [walletAccount])
 
-  const onClickClaim = () => {
-    dispatch(openModalClaim({ isOpen: true }))
-  }
-
   return (
     <section className="staking">
       <div className="staking__main pt-40 pb-12 relative flex flex-col items-center min-h-[1254px] sm:px-0 px-4">
