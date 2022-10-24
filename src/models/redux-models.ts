@@ -31,6 +31,7 @@ export interface IMyNFTModel{
     rarity: number,
     price: string,
     token_uri: string,
+    is_staking: boolean,
 }
 
 export interface IMyNFTsArrayModel{
