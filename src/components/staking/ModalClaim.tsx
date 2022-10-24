@@ -125,7 +125,7 @@ const ModalClaim = () => {
             <div className="w-full">
               <div className="mt-8 flex flex-col items-center space-y-8">
                 <span className="font-poppins font-semibold w-full text-align text-center text-base text-[#FFF6DE]">
-                  You are claiming...
+                  You are unstaking all ...
                 </span>
                 <FadeLoader color="#FFA540" loading={isClaiming} />
               </div>

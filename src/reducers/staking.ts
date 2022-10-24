@@ -1,6 +1,6 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "@/app/store";
-import { approveStaking, fetchListLeaderBoard, fetchTotalStaked, fetchUserRank, stakeNFT, unStakeNFT } from "@/actions/stakingActions";
+import { approveStaking, fetchListLeaderBoard, fetchTotalStaked, fetchUserRank, stakeNFT, unStakeNFT, unStakeAll } from "@/actions/stakingActions";
 import { ILeaderBoardArrayModel } from "@/models/redux-models";
 
 const initialState={
@@ -34,6 +34,7 @@ const stakingSlice = createSlice({
             }
         })
         
+        // APPROVE NFT
         builder.addCase(approveStaking.pending, (state, action) => {
             state.isPending= true;
         })
@@ -41,6 +42,7 @@ const stakingSlice = createSlice({
             state.isPending= false;
         })
 
+        // STAKE NFT
         builder.addCase(stakeNFT.fulfilled, (state, action) => {
             state.isPending= false;
         })
@@ -48,6 +50,7 @@ const stakingSlice = createSlice({
             state.isPending= false;
         })
 
+        // UNSTAKE NFT
         builder.addCase(unStakeNFT.pending, (state, action) => {
             state.isPending= true;
         })
@@ -55,6 +58,17 @@ const stakingSlice = createSlice({
             state.isPending= false;
         })
         builder.addCase(unStakeNFT.rejected, (state, action) => {
+            state.isPending= false;
+        })
+
+        // UNSTAKE ALL
+        builder.addCase(unStakeAll.pending, (state, action) => {
+            state.isPending= true;
+        })
+        builder.addCase(unStakeAll.fulfilled, (state, action) => {
+            state.isPending= false;
+        })
+        builder.addCase(unStakeAll.rejected, (state, action) => {
             state.isPending= false;
         })
     },
