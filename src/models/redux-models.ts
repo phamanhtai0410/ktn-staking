@@ -31,19 +31,13 @@ export interface IMyNFTModel{
     rarity: number,
     price: string,
     token_uri: string,
+    is_staking: boolean,
 }
 
 export interface IMyNFTsArrayModel{
     items: IMyNFTModel[],
     pagination:IPagination,
     loading: boolean
-}
-
-export interface IAlertModel{
-    type: string,
-    key: string,
-    duration: number,
-    message: any,
 }
 
 /** WALLET */

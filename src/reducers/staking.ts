@@ -9,15 +9,17 @@ const initialState={
     totalStaked:0,
     leaderBoard:<ILeaderBoardArrayModel>{},
     leaderBoardTop3:<ILeaderBoardArrayModel>{},
-    isOpenModalClaim: false
+    isOpenModalClaim: false,
 }
 
 const stakingSlice = createSlice({
     name:'staking',
     initialState:initialState,
-    reducers:{setLoading(state,action){
-        // state.isPending = action.payload.isPending;
-    },},
+    reducers:{
+        openModalClaim(state,action){
+            state.isOpenModalClaim = action.payload.isOpen;
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchUserRank.fulfilled, (state, action) => {
             state.userRank = action.payload.items[0]
@@ -58,12 +60,13 @@ const stakingSlice = createSlice({
     },
 })
 
-export const { setLoading } = stakingSlice.actions;
+export const { openModalClaim } = stakingSlice.actions;
 export default stakingSlice.reducer;
 
 // create and export the selector
 export const selectIsPending = (state: RootState) => state.staking.isPending;
 export const selectUserRank = (state: RootState) => state.staking.userRank;
+export const selectIsOpenModalClaim = (state: RootState) => state.staking.isOpenModalClaim;
 export const selectTotalStaked = (state: RootState) => state.staking.totalStaked;
 export const selectLeaderBoard = (state: RootState) => state.staking.leaderBoard;
 export const selectLeaderBoardTop3 = (state: RootState) => state.staking.leaderBoardTop3;

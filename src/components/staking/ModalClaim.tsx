@@ -1,4 +1,4 @@
-import { openModalClaim } from '@/reducers/referral'
+import { openModalClaim } from '@/reducers/staking'
 import Modal from 'react-modal'
 import useClaimFacade from './useClaimFacade'
 import IcUsdt from '../../assets/images/staking/ic_usdt.svg'
@@ -22,7 +22,8 @@ const ModalClaim = () => {
     isOpen,
     step,
     claimType,
-    claiming,
+    isClaiming,
+    userRank,
     setClaimType,
     resetModal,
     nextStep,
@@ -122,43 +123,45 @@ const ModalClaim = () => {
 
           {step === 3 && (
             <div className="w-full">
-              {claiming ? (
-                <div className="mt-8 flex flex-col items-center space-y-8">
-                  <span className="font-poppins font-semibold w-full text-align text-center text-base text-[#FFF6DE]">
-                    You are claiming...
-                  </span>
-                  <FadeLoader color="#FFA540" loading={claiming} />
-                </div>
-              ) : (
-                <div className="mt-8 flex flex-col items-center space-y-3">
-                  <span className="font-poppins font-normal w-full text-align text-sm text-[#FFF6DE]">
-                    Transaction overview
-                  </span>
-                  <div className="relative w-full flex items-center">
-                    <input
-                      placeholder="Enter point"
-                      className="w-full p-4 focus:outline-none rounded-lg bg-white bg-opacity-5 border border-[#FFA52C] border-opacity-20 font-poppins font-normal text-base text-[#FFA52C] placeholder:text-[#81715C]"
-                    />
-                    <button className="absolute right-4 font-poppins font-bold text-align text-base text-[#FFA52C]">
-                      MAX
-                    </button>
-                  </div>
+              <div className="mt-8 flex flex-col items-center space-y-8">
+                <span className="font-poppins font-semibold w-full text-align text-center text-base text-[#FFF6DE]">
+                  You are claiming...
+                </span>
+                <FadeLoader color="#FFA540" loading={isClaiming} />
+              </div>
+            </div>
+          )}
 
-                  <div className="flex flex-row w-full items-center justify-between">
-                    <span className="font-poppins font-normal text-align text-sm text-[#FFF6DE]">
-                      Available
-                    </span>
-                    <span className="font-poppins font-normal text-align text-sm text-[#FFF6DE]">
-                      2300
-                    </span>
-                  </div>
+          {step === 4 && (
+            <div className="w-full">
+              <div className="mt-8 flex flex-col items-center space-y-3">
+                <span className="font-poppins font-normal w-full text-align text-sm text-[#FFF6DE]">
+                  Transaction overview
+                </span>
+                <div className="relative w-full flex items-center">
+                  <input
+                    placeholder="Enter point"
+                    className="w-full p-4 focus:outline-none rounded-lg bg-white bg-opacity-5 border border-[#FFA52C] border-opacity-20 font-poppins font-normal text-base text-[#FFA52C] placeholder:text-[#81715C]"
+                  />
+                  <button className="absolute right-4 font-poppins font-bold text-align text-base text-[#FFA52C]">
+                    MAX
+                  </button>
                 </div>
-              )}
+
+                <div className="flex flex-row w-full items-center justify-between">
+                  <span className="font-poppins font-normal text-align text-sm text-[#FFF6DE]">
+                    Available
+                  </span>
+                  <span className="font-poppins font-normal text-align text-sm text-[#FFF6DE]">
+                    {userRank?.point}
+                  </span>
+                </div>
+              </div>
               <button
                 className={classNames(
                   'mt-8 w-full py-3 rounded-[32px] font-poppins font-semibold',
-                  { 'bg-[#FFA52C] text-white': !claiming },
-                  { 'bg-[#4D4233] text-[#806B4F]': claiming },
+                  { 'bg-[#FFA52C] text-white': !isClaiming },
+                  { 'bg-[#4D4233] text-[#806B4F]': isClaiming },
                 )}
                 onClick={closeModal}
               >

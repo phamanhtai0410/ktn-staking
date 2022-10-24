@@ -1,23 +1,42 @@
-import { selectIsOpenModalClaim } from "@/reducers/referral";
+import { selectMyNFTs } from "@/reducers/myNFTsSlice";
+import { selectIsOpenModalClaim, selectUserRank } from "@/reducers/staking";
+import { selectWalletAccount } from "@/reducers/walletSlice";
 import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const useClaimFacade = () => {
   const dispatch = useDispatch();
+  const walletAccount = useSelector(selectWalletAccount)
   const isOpen = useSelector(selectIsOpenModalClaim)
-  // const [isOpen, setIsOpen] = useState(false);
+  const userRank = useSelector(selectUserRank)
+  const listMyNFTs = useSelector(selectMyNFTs)
   const [step, setStep] = useState(1);
-  const [claimType, setClaimType] = useState("");
-  const [claiming, setClaiming] = useState(true);
+  const [claimType, setClaimType] = useState("USDT");
+  const [isClaiming, setIsClaiming] = useState(true);
 
   const nextStep = () => {
-    setStep(step + 1);
+    if (step===1 && !checkStaked()) {
+      setStep(step + 3);
+    }
+    else {
+      setStep(step + 1);
+    }
+  };
+
+  const checkStaked = () => {
+    let flag = false;
+    listMyNFTs?.map((item)=>{
+      if (item.is_staking) {
+        flag = true;
+      }
+    })
+    return flag
   };
 
   const resetModal = () => {
     setStep(1);
-    setClaimType("");
-    setClaiming(true)
+    setClaimType("USDT");
+    setIsClaiming(true)
   };
 
   useEffect(() => {
@@ -25,7 +44,7 @@ const useClaimFacade = () => {
     }
     if (step === 3) {
       setTimeout(() => {
-        setClaiming(false)
+        setIsClaiming(false)
       }, 1500);
     }
     if (step === 4) {
@@ -39,7 +58,8 @@ const useClaimFacade = () => {
     isOpen,
     step,
     claimType,
-    claiming,
+    isClaiming,
+    userRank,
     setClaimType,
     resetModal,
     nextStep,

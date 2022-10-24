@@ -6,21 +6,12 @@ import { randomKeyUUID } from '../../_helpers/utils/lib'
 import AlertCustom from './AlertCustom'
 import { selectAlert } from '@/reducers/alert'
 import './toastify.scss'
-const contextClass = {
-  success: 'bg-popupVb',
-  error: 'bg-popupVb',
-  info: 'bg-popupVb',
-  warning: 'bg-popupVb',
-  loading: 'bg-popupVb',
-  update: 'bg-popupVb',
-  default: 'bg-popupVb',
-  dark: 'bg-popupVb',
-}
 
 const AlertMessages = () => {
   const alert = useSelector(selectAlert)
   const getItemAlert = useCallback(
     (item) => {
+      console.log('first', item)
       const key = item.key || randomKeyUUID()
       const option = {
         toastId: key,
@@ -34,7 +25,7 @@ const AlertMessages = () => {
           />
         ),
         isLoading: false,
-        autoClose: item.duration || item.type === 'loading',
+        autoClose: item.duration || item.type !== 'loading',
       }
 
       switch (alert.type) {
@@ -54,7 +45,6 @@ const AlertMessages = () => {
           toast.loading(option.render, {
             ...option,
             autoClose: false,
-            isLoading: true,
           })
           break
         case 'update':
@@ -76,9 +66,8 @@ const AlertMessages = () => {
 
   return (
     <ToastContainer
-      toastClassName={({ type }) =>
-        contextClass[type || 'default'] +
-        ` relative flex px-4 py-4 border border-[#81715C] backdrop-blur-[25px] rounded-md justify-between overflow-hidden cursor-pointer`
+      toastClassName={() =>
+        'relative flex mb-3 px-4 py-4 border border-[#81715C] backdrop-blur-[25px] rounded-md justify-between overflow-hidden cursor-pointer'
       }
       position={toast.POSITION.BOTTOM_RIGHT}
       hideProgressBar={false}

@@ -5,7 +5,7 @@ import { useAppDispatch } from '@/app/hooks'
 import { useSelector } from 'react-redux'
 import classNames from 'classnames'
 import { selectWalletAccount } from '@/reducers/walletSlice'
-import { openModalClaim } from '@/reducers/referral'
+import { openModalClaim } from '@/reducers/staking'
 import { fetchTotalStaked, fetchUserRank } from '@/actions/stakingActions'
 import { useEffect } from 'react'
 import { selectTotalStaked, selectUserRank } from '@/reducers/staking'
@@ -15,7 +15,8 @@ const UserStakeInfo = () => {
   const walletAccount = useSelector(selectWalletAccount)
   const userRank = useSelector(selectUserRank)
   const totalStaked = useSelector(selectTotalStaked)
-  const onClickClaim = () => {
+  const onClickClaim = async () => {
+    await dispatch(fetchUserRank({ event: 'stake', search: walletAccount }))
     dispatch(openModalClaim({ isOpen: true }))
   }
 
@@ -50,16 +51,21 @@ const UserStakeInfo = () => {
             <span className="font-poppins font-bold text-xl text-white">
               Rank: {userRank?.rank || '--'}
             </span>
-            <span className="font-poppins font-bold text-xl text-white">
-              Point: {userRank?.point}
-            </span>
+            <div className="flex flex-row items-center space-x-3">
+              <span className="font-poppins font-bold text-xl text-white">
+                Point:
+              </span>
+              <span className="font-poppins font-bold text-xl text-[#FFA52C]">
+                {userRank?.point}
+              </span>
+            </div>
+
             <button
               className={classNames(
                 'px-4 py-3 rounded-lg font-poppins font-bold text-base',
                 { 'bg-[#FFA52C] text-white': walletAccount },
                 { 'bg-[#4D4233] text-[#806B4F]': !walletAccount },
               )}
-              disabled={!walletAccount}
               onClick={() => {
                 onClickClaim()
               }}

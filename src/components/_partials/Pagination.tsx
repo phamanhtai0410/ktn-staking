@@ -5,6 +5,7 @@ import IcArrow from '../../assets/images/partials/arrow_bot.svg'
 import IcPrev from '../../assets/images/partials/ic_prev.svg'
 import IcNext from '../../assets/images/partials/ic_next.svg'
 import { usePagination, DOTS } from './usePagination'
+import classNames from 'classnames'
 
 interface Props {
   index: string
@@ -50,7 +51,10 @@ const Pagination = (props) => {
       })}
     >
       <button
-        className="flex flex-row items-center space-x-2 p-2 bg-[#353A4552] rounded-lg cursor-pointer hover:bg-white hover:bg-opacity-10"
+        className={classNames(
+          'flex flex-row items-center space-x-2 p-2 bg-[#353A4552] rounded-lg cursor-pointer',
+          { 'hover:bg-white hover:bg-opacity-10': currentPage !== 1 },
+        )}
         disabled={currentPage === 1}
         onClick={onPrevious}
       >
@@ -88,7 +92,10 @@ const Pagination = (props) => {
         )
       })}
       <button
-        className="flex flex-row items-center space-x-2 p-2 bg-[#353A4552] rounded-lg cursor-pointer hover:bg-white hover:bg-opacity-10"
+        className={classNames(
+          'flex flex-row items-center space-x-2 p-2 bg-[#353A4552] rounded-lg cursor-pointer',
+          { 'hover:bg-white hover:bg-opacity-10': currentPage !== lastPage },
+        )}
         disabled={currentPage === lastPage}
         onClick={onNext}
       >
