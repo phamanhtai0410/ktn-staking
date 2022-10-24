@@ -10,7 +10,6 @@ import MyNfts from './MyNfts'
 import UserStakeInfo from './UserStakeInfo'
 import './index.scss'
 import LeaderBoard from '../referral/LeaderBoard'
-import { openModalClaim } from '@/reducers/staking'
 
 const StakingPage = () => {
   const dispatch = useAppDispatch()
