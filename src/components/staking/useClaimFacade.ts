@@ -44,9 +44,9 @@ const useClaimFacade = () => {
     if (step === 1 || step === 2) {
     }
     if (step === 3) {
-      setIsClaiming(true)
-      dispatch(unStakeAll())
-      setIsClaiming(false)
+      // setIsClaiming(true)
+      // dispatch(unStakeAll())
+      // setIsClaiming(false)
     }
     if (step === 4) {
     }
