@@ -7,6 +7,7 @@ import IcClose from '../../assets/images/staking/ic_close.svg'
 import classNames from 'classnames'
 import { FadeLoader } from 'react-spinners'
 import { useDispatch } from 'react-redux'
+import { useState } from 'react'
 
 const customStyles = {
   content: {
@@ -29,10 +30,20 @@ const ModalClaim = () => {
     nextStep,
   } = useClaimFacade()
 
+  const [point, setPoint] = useState('')
+  const setMaxPoint = (point) => {
+    setPoint(point)
+  }
+
+  const onChangePoint = (value) => {
+    setPoint(value)
+  }
+
   const closeModal = () => {
     dispatch(openModalClaim({ isOpen: false }))
     resetModal()
   }
+
   return (
     <div className="flex items-start relative">
       <Modal
@@ -142,8 +153,13 @@ const ModalClaim = () => {
                   <input
                     placeholder="Enter point"
                     className="w-full p-4 focus:outline-none rounded-lg bg-white bg-opacity-5 border border-[#FFA52C] border-opacity-20 font-poppins font-normal text-base text-[#FFA52C] placeholder:text-[#81715C]"
+                    value={point}
+                    onChange={(e) => onChangePoint(e.target.value)}
                   />
-                  <button className="absolute right-4 font-poppins font-bold text-align text-base text-[#FFA52C]">
+                  <button
+                    className="absolute right-4 font-poppins font-bold text-align text-base text-[#FFA52C]"
+                    onClick={() => setMaxPoint(userRank?.point)}
+                  >
                     MAX
                   </button>
                 </div>

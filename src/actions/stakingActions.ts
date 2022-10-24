@@ -194,7 +194,7 @@ export const approveStaking = createAsyncThunk(
 
 export const unStakeAll = createAsyncThunk(
     'staking/unStakeAll',
-    async (param:any, { dispatch, getState ,rejectWithValue}) => {
+    async (_, { dispatch, getState ,rejectWithValue}) => {
 
         const rootState = getState() as RootState;
         const  { easyWeb3, address} = rootState.wallet;

@@ -87,7 +87,7 @@ const UserStakeInfo = () => {
                 {totalStaked}
               </span>
               <span className="font-poppins font-bold text-xl text-white">
-                KATA
+                NFTs
               </span>
             </div>
 

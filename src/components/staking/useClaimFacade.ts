@@ -1,12 +1,13 @@
 import { unStakeAll } from '@/actions/stakingActions'
+import { useAppDispatch } from '@/app/hooks'
 import { selectMyNFTs } from '@/reducers/myNFTsSlice'
 import { selectIsOpenModalClaim, selectIsPending, selectUserRank } from '@/reducers/staking'
 import { selectWalletAccount } from '@/reducers/walletSlice'
 import { useState, useEffect, useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 const useClaimFacade = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const walletAccount = useSelector(selectWalletAccount)
   const isOpen = useSelector(selectIsOpenModalClaim)
   const userRank = useSelector(selectUserRank)
@@ -44,9 +45,9 @@ const useClaimFacade = () => {
     if (step === 1 || step === 2) {
     }
     if (step === 3) {
-      // setIsClaiming(true)
-      // dispatch(unStakeAll())
-      // setIsClaiming(false)
+      setIsClaiming(true)
+      dispatch(unStakeAll())
+      setIsClaiming(false)
     }
     if (step === 4) {
     }
