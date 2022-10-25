@@ -10,7 +10,7 @@ import ABI_NFT from '@/_contract/ABI_NFT_V7.json';
 
 import { setAlert } from '@/reducers/alert';
 import { randomKeyUUID } from '@/_helpers/utils/lib';
-const ADDRESS_STAKING = "0x82B05634dAF5E691295a8f82F3F810DF693Ced7F";
+const ADDRESS_STAKING = "0xe51479Fd661a40BFfbD5A275dA2CBD6437F56f92";
 const ADDRESS_NFT = "0x7059a9f1dA0b8838FB6f1c1dFc737C97d9ad8B5e"
   
 export const fetchUserRank = createAsyncThunk(
