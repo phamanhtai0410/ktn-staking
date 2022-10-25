@@ -1,6 +1,6 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "@/app/store";
-import { approveStaking, fetchListLeaderBoard, fetchTotalStaked, fetchUserRank, stakeNFT, unStakeNFT, unStakeAll } from "@/actions/stakingActions";
+import { approveStaking, fetchListLeaderBoard, fetchTotalStaked, fetchUserRank, stakeNFT, unStakeNFT, unStakeAll, fetchExchangeInfo } from "@/actions/stakingActions";
 import { ILeaderBoardArrayModel } from "@/models/redux-models";
 
 const initialState={
@@ -10,6 +10,10 @@ const initialState={
     leaderBoard:<ILeaderBoardArrayModel>{},
     leaderBoardTop3:<ILeaderBoardArrayModel>{},
     isOpenModalClaim: false,
+    claim: {
+        isPending: false,
+        status: "",
+    },
 }
 
 const stakingSlice = createSlice({
@@ -71,6 +75,18 @@ const stakingSlice = createSlice({
         builder.addCase(unStakeAll.rejected, (state, action) => {
             state.isPending= false;
         })
+
+        // CLAIM
+        builder.addCase(fetchExchangeInfo.pending, (state, action) => {
+            state.claim.isPending= true;
+        })
+        builder.addCase(fetchExchangeInfo.fulfilled, (state, action) => {
+            state.claim.isPending= false;
+            state.claim.status=action.payload.status
+        })
+        builder.addCase(fetchExchangeInfo.rejected, (state, action) => {
+            state.claim.isPending= false;
+        })
     },
 })
 
@@ -84,3 +100,4 @@ export const selectIsOpenModalClaim = (state: RootState) => state.staking.isOpen
 export const selectTotalStaked = (state: RootState) => state.staking.totalStaked;
 export const selectLeaderBoard = (state: RootState) => state.staking.leaderBoard;
 export const selectLeaderBoardTop3 = (state: RootState) => state.staking.leaderBoardTop3;
+export const selectClaim = (state: RootState) => state.staking.claim;

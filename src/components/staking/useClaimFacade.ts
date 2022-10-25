@@ -1,9 +1,11 @@
-import { unStakeAll } from '@/actions/stakingActions'
+import { fetchUserRank, unStakeAll } from '@/actions/stakingActions'
 import { useAppDispatch } from '@/app/hooks'
+import { setAlert } from '@/reducers/alert'
 import { selectMyNFTs } from '@/reducers/myNFTsSlice'
-import { selectIsOpenModalClaim, selectIsPending, selectUserRank } from '@/reducers/staking'
+import { selectClaim, selectIsOpenModalClaim, selectIsPending, selectUserRank } from '@/reducers/staking'
 import { selectWalletAccount } from '@/reducers/walletSlice'
-import { useState, useEffect, useCallback } from 'react'
+import { randomKeyUUID } from '@/_helpers/utils/lib'
+import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 const useClaimFacade = () => {
@@ -13,6 +15,7 @@ const useClaimFacade = () => {
   const userRank = useSelector(selectUserRank)
   const listMyNFTs = useSelector(selectMyNFTs)
   const isPending = useSelector(selectIsPending)
+  const claim = useSelector(selectClaim)
   const [step, setStep] = useState(1)
   const [claimType, setClaimType] = useState('USDT')
   const [isClaiming, setIsClaiming] = useState(false)
@@ -63,6 +66,21 @@ const useClaimFacade = () => {
     }
   }, [isPending])
   
+  useEffect(() => {
+    if (!claim?.isPending && claim?.status==="PENDING") {
+      dispatch(
+        setAlert({
+          type: 'success',
+          key: randomKeyUUID(),
+          message: {
+            status: 'success',
+            title: 'Claimed successfully! Your request is pending now.',
+          },
+        }),
+      )
+      dispatch(fetchUserRank({ event: 'stake', search: walletAccount }))
+    }
+  }, [claim])
 
   return {
     isOpen,
@@ -73,6 +91,7 @@ const useClaimFacade = () => {
     setClaimType,
     resetModal,
     nextStep,
+    setStep,
   }
 }
 

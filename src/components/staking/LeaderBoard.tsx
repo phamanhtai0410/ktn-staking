@@ -99,7 +99,7 @@ const LeaderBoard = ({ event }) => {
                           {addressWalletCompact(item.address)}
                         </span>
                         <span className="font-poppins font-normal text-base text-white text-center">
-                          {item.point}
+                          {item.point.toFixed(2)}
                         </span>
                       </div>
                     </CSSTransition>

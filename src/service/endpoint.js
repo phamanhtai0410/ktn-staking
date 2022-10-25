@@ -17,6 +17,7 @@ export const VERIFY_SIGN = `${ROUTE}/${MODEL}` // [POST] Verify signature
  */
 export const LEADER_BOARD_LIST_ITEMS = `${ROUTE}/leader_board`
 export const TOTAL_STAKED = `${ROUTE}/event`
+export const EXCHANGE_INFO = `${ROUTE}/exchange`
 /**
  * * My Nft
  * GET: https://api-stag-ktn.esollabs.com/v1/nft/my_nfts?address={_address}

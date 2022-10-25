@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { referralService } from "@/service/referral.service"
+import { userService } from '@/service/user.service'
 
 export const fetchReferralCode = createAsyncThunk(
     'referral/fetchReferralCode',
@@ -14,7 +15,7 @@ export const submitReferralCode = createAsyncThunk(
     async (params:{address:string, code:string}, { dispatch, getState }) => {
         const response = await referralService.validateReferralCode(params)
         if (response?.data && response?.data?.nonce && response?.data?.msg) {
-            const signature = await referralService.web3PersonalSign(response.data.msg, params.address)
+            const signature = await userService.web3PersonalSign(response.data.msg, params.address)
             console.log("signature", signature)
             let body = {address:params.address,code:params.code,nonce:response.data.nonce,signature:signature}
             if (signature) {

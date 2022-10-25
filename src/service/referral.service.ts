@@ -1,7 +1,7 @@
 
 import axiosClient from "./axiosClient"
 
-import { LEADER_BOARD_LIST_ITEMS ,GET_LIST_MY_NFTS, GET_REFERRAL_CODE, VALIDATE_REFERRAL_CODE, SUBMIT_REFERRAL_CODE } from "./endpoint"
+import { LEADER_BOARD_LIST_ITEMS, GET_REFERRAL_CODE, VALIDATE_REFERRAL_CODE, SUBMIT_REFERRAL_CODE } from "./endpoint"
 
 export const referralService = {
 
@@ -21,13 +21,4 @@ export const referralService = {
     return axiosClient.get(LEADER_BOARD_LIST_ITEMS, { params })
   },
 
-  web3PersonalSign: async(message:string, account:string) =>{
-    try {
-        return await window.ethereum.request({ method: "personal_sign", params: [message,account] 
-        })
-    } catch (error) {
-        console.error(error);
-        return false;
-    }
-  }, 
 }
