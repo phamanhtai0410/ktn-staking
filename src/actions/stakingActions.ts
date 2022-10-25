@@ -38,7 +38,7 @@ export const fetchListLeaderBoard = createAsyncThunk(
 
 export const fetchListMyNFTs = createAsyncThunk(
     'staking/myNfts',
-    async (params:{address:string}, { dispatch, getState }) => {
+    async (params:any, { dispatch, getState }) => {
         const response = await stakingService.getListMyNFTs(params)
         return response.data
     }
@@ -194,7 +194,7 @@ export const approveStaking = createAsyncThunk(
 
 export const unStakeAll = createAsyncThunk(
     'staking/unStakeAll',
-    async (param:any, { dispatch, getState ,rejectWithValue}) => {
+    async (_, { dispatch, getState ,rejectWithValue}) => {
 
         const rootState = getState() as RootState;
         const  { easyWeb3, address} = rootState.wallet;

@@ -13,14 +13,6 @@ import LeaderBoard from '../referral/LeaderBoard'
 
 const StakingPage = () => {
   const dispatch = useAppDispatch()
-  const walletAccount = useSelector(selectWalletAccount)
-  const listMyNFTs = useSelector(selectMyNFTs)
-
-  useEffect(() => {
-    if (walletAccount) {
-      dispatch(fetchListMyNFTs({ address: walletAccount }))
-    }
-  }, [walletAccount])
 
   return (
     <section className="staking">
@@ -29,7 +21,7 @@ const StakingPage = () => {
           <UserStakeInfo />
           <LeaderBoard event="stake" />
           <Information />
-          <MyNfts data={listMyNFTs} />
+          <MyNfts />
         </div>
       </div>
       <ModalClaim />
