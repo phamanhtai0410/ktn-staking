@@ -30,10 +30,6 @@ const UserStakeInfo = () => {
     dispatch(fetchTotalStaked({ name: 'stake' }))
   }, [])
 
-  useEffect(() => {
-    console.log('userRank', userRank)
-  }, [userRank])
-
   return (
     <div className="flex flex-col w-full space-y-4 max-w-[1280px]">
       <span className="font-oxanium font-bold text-2xl text-[#FFA52C]">
@@ -56,7 +52,7 @@ const UserStakeInfo = () => {
                 Point:
               </span>
               <span className="font-poppins font-bold text-xl text-[#FFA52C]">
-                {userRank?.point}
+                {userRank?.point.toFixed(2)}
               </span>
             </div>
 

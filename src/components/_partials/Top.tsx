@@ -64,7 +64,7 @@ const Top = (props) => {
         )}
       </div>
       <span className="font-poppins font-semibold text-base text-white">
-        Point: {item?.point ? item.point : '--'}
+        Point: {item?.point ? item.point.toFixed(2) : '--'}
       </span>
       <img
         src={getIconListTop(index + 1)}

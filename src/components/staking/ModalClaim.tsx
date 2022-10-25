@@ -6,8 +6,10 @@ import IcNft from '../../assets/images/staking/ic_nft.svg'
 import IcClose from '../../assets/images/staking/ic_close.svg'
 import classNames from 'classnames'
 import { FadeLoader } from 'react-spinners'
-import { useDispatch } from 'react-redux'
 import { useState } from 'react'
+import { fetchExchangeInfo } from '@/actions/stakingActions'
+import { useAppDispatch } from '@/app/hooks'
+import BtnClaim from './BtnClaim'
 
 const customStyles = {
   content: {
@@ -18,7 +20,7 @@ const customStyles = {
 }
 
 const ModalClaim = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const {
     isOpen,
     step,
@@ -28,6 +30,7 @@ const ModalClaim = () => {
     setClaimType,
     resetModal,
     nextStep,
+    setStep,
   } = useClaimFacade()
 
   const [point, setPoint] = useState('')
@@ -36,7 +39,15 @@ const ModalClaim = () => {
   }
 
   const onChangePoint = (value) => {
+    if (Number(value) > userRank?.point) {
+      return
+    }
     setPoint(value)
+  }
+
+  const claim = async (point) => {
+    await dispatch(fetchExchangeInfo({ amount: point, event: 'stake' }))
+    closeModal()
   }
 
   const closeModal = () => {
@@ -118,7 +129,7 @@ const ModalClaim = () => {
               <div className="flex flex-row space-x-8">
                 <button
                   className="w-full py-3 rounded-[32px] font-poppins font-semibold text-white bg-white bg-opacity-5 border border-[#FFA52C] border-opacity-20"
-                  onClick={closeModal}
+                  onClick={() => setStep(4)}
                 >
                   No
                 </button>
@@ -173,16 +184,12 @@ const ModalClaim = () => {
                   </span>
                 </div>
               </div>
-              <button
-                className={classNames(
-                  'mt-8 w-full py-3 rounded-[32px] font-poppins font-semibold',
-                  { 'bg-[#FFA52C] text-white': !isClaiming },
-                  { 'bg-[#4D4233] text-[#806B4F]': isClaiming },
-                )}
-                onClick={closeModal}
-              >
-                Claim
-              </button>
+              <div className="w-full mt-8">
+                <BtnClaim
+                  disable={!(Number(point) > 0)}
+                  onClaim={() => claim(point)}
+                />
+              </div>
             </div>
           )}
         </div>

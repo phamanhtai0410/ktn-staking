@@ -3,6 +3,7 @@ import { ethers, FixedNumber } from 'ethers'
 
 import { RootState } from '@/reducers/rootReducer'
 import { stakingService } from "@/service/staking.service"
+import { userService } from '@/service/user.service'
 
 import ABI_STAKING from '@/_contract/ABI_STAKING_V3.json';
 import ABI_NFT from '@/_contract/ABI_NFT_V7.json';
@@ -237,3 +238,30 @@ export const unStakeAll = createAsyncThunk(
         }
     }
 )
+
+export const fetchExchangeInfo = createAsyncThunk(
+    'staking/exchange',
+    async (params:any, { dispatch, getState }) => {
+        
+        const response = await stakingService.getExchangeInfo(params)
+        if (response?.data?.nonce && response?.data?.msg) {
+            const rootState = getState() as RootState;
+            const { easyWeb3, address} = rootState.wallet;
+            const signature = await userService.web3PersonalSign(response.data.msg, address);
+            return exchange(response.data, signature, address, params.amount, params.event)
+        }
+        // return response.data
+    }
+)
+
+const exchange = async (data, signature, address, amount, event) => {
+    let params = {
+        nonce: data.nonce,
+        signature: signature,
+        address: address,
+        amount: amount,
+        event: event
+    }
+    const response = await stakingService.exchange(params)
+    return response.data;
+}

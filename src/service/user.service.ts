@@ -15,6 +15,16 @@ export const userService = {
     return axiosClient.post(VERIFY_SIGN, bodyParams)
   },
 
+  web3PersonalSign: async (message:string, account:string) =>{
+    try {
+        return await window.ethereum.request({ method: "personal_sign", params: [message,account] 
+        })
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+  }, 
+  
 }
 
 
