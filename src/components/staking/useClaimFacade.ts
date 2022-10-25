@@ -27,7 +27,7 @@ const useClaimFacade = () => {
 
   const checkStaked = () => {
     let flag = false
-    listMyNFTs?.map((item) => {
+    listMyNFTs?.items?.map((item) => {
       if (item.is_staking) {
         flag = true
       }
