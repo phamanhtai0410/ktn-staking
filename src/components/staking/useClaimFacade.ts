@@ -5,8 +5,12 @@ import { selectMyNFTs } from '@/reducers/myNFTsSlice'
 import { selectClaim, selectIsOpenModalClaim, selectIsPending, selectUserRank } from '@/reducers/staking'
 import { selectWalletAccount } from '@/reducers/walletSlice'
 import { randomKeyUUID } from '@/_helpers/utils/lib'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useSelector } from 'react-redux'
+import { io } from "socket.io-client";
+
+const REACT_APP_WSS_URL = "https://socket-stag.scanhub.ai";
+
 
 const useClaimFacade = () => {
   const dispatch = useAppDispatch()
@@ -44,6 +48,21 @@ const useClaimFacade = () => {
     setIsClaiming(false)
   }
 
+  const listenClaimEvent = () => {
+    // let message = {
+    //   room_id: walletAccount
+    // }
+    const socket = io("https://socket-stag.scanhub.ai");
+
+    socket.on("connect", () => {
+      console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+    });
+    
+    // socket.on("disconnect", () => {
+    //   console.log(socket.id); // undefined
+    // });
+  }
+
   useEffect(() => {
     if (step === 1 || step === 2) {
     }
@@ -79,6 +98,7 @@ const useClaimFacade = () => {
         }),
       )
       dispatch(fetchUserRank({ event: 'stake', search: walletAccount }))
+      listenClaimEvent();
     }
   }, [claim])
 
