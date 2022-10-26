@@ -52,10 +52,25 @@ const useClaimFacade = () => {
     // let message = {
     //   room_id: walletAccount
     // }
-    const socket = io("https://socket-stag.scanhub.ai");
+    // const socket = io("https://socket-stag.scanhub.ai");
 
+    const host = 'http://54.255.240.19:8443'
+    let socket = io(host, {
+        forceNew: true,
+        transports: ["websocket"],
+        auth: {},
+    });
     socket.on("connect", () => {
-      console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+      console.log('connected', socket.id);
+      socket.emit("subscribe", {
+          'room_id': walletAccount.toLowerCase()
+      }, (response) => {
+          console.log(response); // ok
+      })
+  
+    });
+    socket.on("EXCHANGE", (data) => {
+      console.log('====EXCHANGE', data);
     });
     
     // socket.on("disconnect", () => {
@@ -98,7 +113,7 @@ const useClaimFacade = () => {
         }),
       )
       dispatch(fetchUserRank({ event: 'stake', search: walletAccount }))
-      listenClaimEvent();
+      // listenClaimEvent();
     }
   }, [claim])
 
