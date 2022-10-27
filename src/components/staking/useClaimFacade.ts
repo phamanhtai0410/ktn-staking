@@ -9,8 +9,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { io } from "socket.io-client";
 
-const REACT_APP_WSS_URL = "https://socket-stag.scanhub.ai";
-
+const REACT_APP_WSS_URL: string = import.meta.env.VITE_SOCKET_URL.toString() || ''
 
 const useClaimFacade = () => {
   const dispatch = useAppDispatch()
@@ -49,33 +48,36 @@ const useClaimFacade = () => {
   }
 
   const listenClaimEvent = () => {
-    // let message = {
-    //   room_id: walletAccount
-    // }
-    // const socket = io("https://socket-stag.scanhub.ai");
-
-    const host = 'http://54.255.240.19:8443'
-    let socket = io(host, {
+    let socket = io(REACT_APP_WSS_URL, {
         forceNew: true,
         transports: ["websocket"],
         auth: {},
     });
+    socket.connect()
     socket.on("connect", () => {
-      console.log('connected', socket.id);
       socket.emit("subscribe", {
           'room_id': walletAccount.toLowerCase()
       }, (response) => {
-          console.log(response); // ok
+          console.log("response", response);
       })
   
     });
     socket.on("EXCHANGE", (data) => {
-      console.log('====EXCHANGE', data);
+      if (data?.status==="OKE") {
+        dispatch(
+          setAlert({
+            type: 'info',
+            key: randomKeyUUID(),
+            message: {
+              status: 'info',
+              title: 'Claimed detail',
+              link: `https://testnet.bscscan.com/tx/${data?.tx_hash}`
+            },
+          }),
+        )
+        socket.disconnect()
+      }
     });
-    
-    // socket.on("disconnect", () => {
-    //   console.log(socket.id); // undefined
-    // });
   }
 
   useEffect(() => {
@@ -108,12 +110,12 @@ const useClaimFacade = () => {
           key: randomKeyUUID(),
           message: {
             status: 'success',
-            title: 'Claimed successfully! Your request is pending now.',
+            title: 'Claimed successfully!',
           },
         }),
       )
       dispatch(fetchUserRank({ event: 'stake', search: walletAccount }))
-      // listenClaimEvent();
+      listenClaimEvent();
     }
   }, [claim])
 

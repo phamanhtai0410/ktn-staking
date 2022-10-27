@@ -97,10 +97,10 @@ const ModalClaim = () => {
                 </div>
                 <div
                   className={classNames(
-                    'flex flex-col items-center w-full py-6 space-y-4 bg-white bg-opacity-5 border border-[#FFA52C] rounded-lg cursor-pointer',
+                    'flex flex-col items-center w-full py-6 space-y-4 bg-white bg-opacity-5 border border-[#FFA52C] rounded-lg',
                     { 'border-opacity-20': claimType !== 'NFT' },
                   )}
-                  onClick={() => setClaimType('NFT')}
+                  // onClick={() => setClaimType('NFT')}
                 >
                   <span className="font-poppins font-semibold w-full text-align text-center text-base text-[#FFF6DE]">
                     NFT
