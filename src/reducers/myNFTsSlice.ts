@@ -13,8 +13,15 @@ const myNFTsSlice = createSlice({
     name:'myNFTs',
     initialState:initialState,
     reducers:{
-        setListCollections(state,action:PayloadAction<IMyNFTModel[]>){
-            state.items = action.payload;
+        updateNftFlag(state,action){
+            const tokenId = action.payload.token_id;
+            const newState = state.items.map(obj => {
+                if (obj.token_id === tokenId) {
+                  return {...obj, is_staking: !obj.is_staking};
+                }
+                return obj;
+              });
+              state.items = newState;
         },
     },
     extraReducers: (builder) => {
@@ -29,7 +36,7 @@ const myNFTsSlice = createSlice({
     },
 })
 
-export const { setListCollections } = myNFTsSlice.actions;
+export const { updateNftFlag } = myNFTsSlice.actions;
 export default myNFTsSlice.reducer;
 
 // create and export the selector
