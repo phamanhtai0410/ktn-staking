@@ -57,12 +57,12 @@ export default defineConfig({
   },
   plugins: [
     react(),
-    !production &&
-      nodePolyfills({
-        include: [
-          'node_modules/**/*.js',
-          new RegExp('node_modules/.vite/.*js'),
-        ],
-      }),
+    // !production &&
+    //   nodePolyfills({
+    //     include: [
+    //       'node_modules/**/*.js',
+    //       new RegExp('node_modules/.vite/.*js'),
+    //     ],
+    //   }),
   ],
 })
