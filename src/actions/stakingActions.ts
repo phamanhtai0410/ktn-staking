@@ -10,6 +10,7 @@ import ABI_NFT from '@/_contract/ABI_NFT_V7.json';
 
 import { setAlert } from '@/reducers/alert';
 import { randomKeyUUID } from '@/_helpers/utils/lib';
+import { updateNftFlag } from '@/reducers/myNFTsSlice'
 const ADDRESS_STAKING = "0xe51479Fd661a40BFfbD5A275dA2CBD6437F56f92";
 const ADDRESS_NFT = "0x7059a9f1dA0b8838FB6f1c1dFc737C97d9ad8B5e"
   
@@ -82,7 +83,8 @@ export const stakeNFT = createAsyncThunk(
                             title: 'Staked successfully!',
                           },
                         }),
-                      )
+                    )
+                    dispatch(updateNftFlag({token_id: token_id}))
                 }
                 console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
             }
@@ -132,7 +134,8 @@ export const unStakeNFT = createAsyncThunk(
                             title: 'Unstaked successfully!',
                           },
                         }),
-                      )
+                    )
+                    dispatch(updateNftFlag({token_id: token_id}))
                 }
                 console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
 

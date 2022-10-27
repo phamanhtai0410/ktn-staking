@@ -86,6 +86,7 @@ const stakingSlice = createSlice({
         })
         builder.addCase(fetchExchangeInfo.rejected, (state, action) => {
             state.claim.isPending= false;
+            state.claim.status=""
         })
     },
 })
