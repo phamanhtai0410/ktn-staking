@@ -84,32 +84,32 @@
   font-family: 'Oxanium';
   font-style: normal;
   font-weight: 300;
-  src: local('Oxanium'), url(../fonts/oxanium/Oxanium-Light.ttf) format('ttf');
+  src: local('Oxanium'), url(../fonts/oxanium/Oxanium-Light.woff) format('woff');
 }
 @font-face {
   font-family: 'Oxanium';
   font-style: normal;
   font-weight: 400;
-  src: local('Oxanium'), url(../fonts/oxanium/Oxanium-Regular.ttf) format('ttf');
+  src: local('Oxanium'), url(../fonts/oxanium/Oxanium-Regular.woff) format('woff');
 }
 @font-face {
   font-family: 'Oxanium';
   font-style: normal;
   font-weight: 500;
-  src: local('Oxanium'), url(../fonts/oxanium/Oxanium-Medium.ttf) format('ttf');
+  src: local('Oxanium'), url(../fonts/oxanium/Oxanium-Medium.woff) format('woff');
 }
 @font-face {
   font-family: 'Oxanium';
   font-style: normal;
   font-weight: 600;
-  src: local('Oxanium'), url(../fonts/oxanium/Oxanium-SemiBold.ttf) format('ttf');
+  src: local('Oxanium'), url(../fonts/oxanium/Oxanium-SemiBold.woff) format('woff');
 }
 
 @font-face {
   font-family: 'Oxanium';
   font-style: normal;
   font-weight: 700;
-  src: local('Oxanium'), url(../fonts/oxanium/Oxanium-Bold.ttf) format('ttf');
+  src: local('Oxanium'), url(../fonts/oxanium/Oxanium-Bold.woff) format('woff');
 }
 
 body {
