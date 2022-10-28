@@ -44,15 +44,20 @@ const UserStakeInfo = () => {
             </span>
           </div>
           <div className="flex flex-row items-center justify-between">
-            <span className="font-poppins font-bold text-xl text-white">
-              Rank: {userRank?.rank || '--'}
-            </span>
+            <div className="flex flex-row items-center space-x-3">
+              <span className="font-poppins font-bold text-xl text-white">
+                Rank:
+              </span>
+              <span className="font-poppins font-bold text-xl text-[#FFA52C]">
+                {userRank?.rank || '-'}
+              </span>
+            </div>
             <div className="flex flex-row items-center space-x-3">
               <span className="font-poppins font-bold text-xl text-white">
                 Point:
               </span>
               <span className="font-poppins font-bold text-xl text-[#FFA52C]">
-                {userRank?.point.toFixed(2)}
+                {userRank?.point ? userRank?.point.toFixed(2) : '0'}
               </span>
             </div>
 
@@ -83,7 +88,7 @@ const UserStakeInfo = () => {
                 {totalStaked}
               </span>
               <span className="font-poppins font-bold text-xl text-white">
-                NFTs
+                KATA NFT
               </span>
             </div>
 

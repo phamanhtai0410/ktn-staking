@@ -20,7 +20,7 @@ const Nft = ({ data, onStake }) => {
           NFT ID
         </span>
         <span className="font-poppins font-normal text-sm text-[#FFA52C]">
-          {data?.token_id}
+          #{data?.token_id}
         </span>
       </div>
       <div className="flex flex-row items-center justify-between">
@@ -28,7 +28,7 @@ const Nft = ({ data, onStake }) => {
           Price
         </span>
         <span className="font-poppins font-bold text-xl text-[#FFA52C]">
-          {data?.price}
+          {`${data?.price} USDT`}
         </span>
       </div>
       <BtnStake data={data} onStake={onStake} />

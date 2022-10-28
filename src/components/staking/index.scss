@@ -69,6 +69,26 @@
             }
         }
     }
+
+    &__circle-move {
+        animation: stakingCircle 15s linear infinite;
+    }
+
+    &__circle-move-reverse {
+        animation: stakingCircleReverve 15s linear infinite;
+    }
+
+    .animate-delay-400 {
+        animation-delay: .4s;
+    }
+
+    .animate-delay-800 {
+        animation-delay: .8s;
+    }
+
+    .animate-delay-1200 {
+        animation-delay: 1.2s;
+    }
 }
 
 @keyframes scale-out-hor-left {
@@ -160,5 +180,25 @@
     100% {
         -webkit-filter: blur(12px) opacity(0%);
         filter: blur(12px) opacity(0%);
+    }
+}
+
+@keyframes stakingCircle {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes stakingCircleReverve {
+    from {
+        transform: rotate(360deg);
+    }
+
+    to {
+        transform: rotate(0deg);
     }
 }

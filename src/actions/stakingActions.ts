@@ -11,8 +11,8 @@ import ABI_NFT from '@/_contract/ABI_NFT_V7.json';
 import { setAlert } from '@/reducers/alert';
 import { randomKeyUUID } from '@/_helpers/utils/lib';
 import { updateNftFlag } from '@/reducers/myNFTsSlice'
-const ADDRESS_STAKING = "0xe51479Fd661a40BFfbD5A275dA2CBD6437F56f92";
-const ADDRESS_NFT = "0x7059a9f1dA0b8838FB6f1c1dFc737C97d9ad8B5e"
+const ADDRESS_STAKING: string = import.meta.env.VITE_ADDRESS_STAKING.toString() || '';
+const ADDRESS_NFT: string = import.meta.env.VITE_ADDRESS_NFT.toString() || '';
   
 export const fetchUserRank = createAsyncThunk(
     'staking/fetchUserRank',
