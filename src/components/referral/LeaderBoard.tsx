@@ -109,8 +109,7 @@ const LeaderBoard = ({ event }) => {
                   <Pagination
                     className="pagination-bar"
                     currentPage={currentPage}
-                    numOfPage={listLeaderBoard?.num_of_page}
-                    // totalCount={listLeaderBoard?.num_of_page}
+                    totalCount={listLeaderBoard?.num_of_page}
                     pageSize={leaderBoardParams.page_size}
                     onPageChange={(page) => {
                       setCurrentRow(0)

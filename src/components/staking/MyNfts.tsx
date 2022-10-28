@@ -13,14 +13,12 @@ import Pagination from '../_partials/Pagination'
 import { useEffect, useState } from 'react'
 import { selectWalletAccount } from '@/reducers/walletSlice'
 
+const page_size = 8
+
 const MyNfts = () => {
   const dispatch = useAppDispatch()
   const walletAccount = useSelector(selectWalletAccount)
   const listMyNFTs = useSelector(selectMyNFTs)
-  const [params, setParams] = useState({
-    page: 1,
-    page_size: 8,
-  })
 
   const onStake = (token_id, is_staking) => {
     if (!is_staking) {
@@ -33,15 +31,16 @@ const MyNfts = () => {
   const [currentPage, setCurrentPage] = useState(1)
 
   useEffect(() => {
-    setParams({ ...params, page: currentPage })
     if (walletAccount) {
       dispatch(
         fetchListMyNFTs({
-          ...params,
           page: currentPage,
+          page_size: page_size,
           address: walletAccount,
         }),
       )
+    } else {
+      setCurrentPage(1)
     }
   }, [walletAccount, currentPage])
 
@@ -54,7 +53,7 @@ const MyNfts = () => {
         <FormSearchPrice />
         <FormSearchToken />
       </div>
-      {listMyNFTs && listMyNFTs?.items?.length > 0 ? (
+      {walletAccount && listMyNFTs && listMyNFTs?.items?.length > 0 ? (
         <div>
           <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-x-12 gap-y-8">
             {listMyNFTs?.items?.map((item, index) => (
@@ -65,8 +64,7 @@ const MyNfts = () => {
             <Pagination
               className="pagination-bar"
               currentPage={currentPage}
-              numOfPage={listMyNFTs?.pagination?.num_of_page}
-              // totalCount={listLeaderBoard?.num_of_page}
+              totalCount={listMyNFTs?.pagination?.num_of_page}
               pageSize={listMyNFTs?.pagination?.page_size}
               onPageChange={(page) => {
                 setCurrentPage(page)
