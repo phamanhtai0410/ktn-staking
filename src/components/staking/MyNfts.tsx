@@ -64,7 +64,7 @@ const MyNfts = () => {
             ))}
           </div>
           <div className="flex w-full items-center justify-center pt-8">
-            {/* <Pagination
+            <Pagination
               className="pagination-bar"
               currentPage={currentPage}
               totalCount={listMyNFTs?.pagination?.num_of_page}
@@ -72,7 +72,7 @@ const MyNfts = () => {
               onPageChange={(page) => {
                 setCurrentPage(page)
               }}
-            /> */}
+            />
           </div>
         </div>
       ) : (
