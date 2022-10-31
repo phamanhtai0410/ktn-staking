@@ -10,6 +10,9 @@ import { useState } from 'react'
 import { fetchExchangeInfo } from '@/actions/stakingActions'
 import { useAppDispatch } from '@/app/hooks'
 import BtnClaim from './BtnClaim'
+import { EasyWeb3 } from '@/service/web3'
+import { useSelector } from 'react-redux'
+import { selectEasyWeb3 } from '@/reducers/walletSlice'
 
 const customStyles = {
   content: {
@@ -33,6 +36,7 @@ const ModalClaim = () => {
     setStep,
   } = useClaimFacade()
 
+  const easyWeb3Data = useSelector(selectEasyWeb3)
   const [point, setPoint] = useState('')
   const setMaxPoint = (point) => {
     setPoint(point)
@@ -46,6 +50,10 @@ const ModalClaim = () => {
   }
 
   const claim = async (point) => {
+    let acceptChain: number = import.meta.env.VITE_CHAIN_ID
+    if (acceptChain !== easyWeb3Data?.walletInfo?.chainId) {
+      await EasyWeb3.getInstance().switchEthereumCChain(acceptChain)
+    }
     await dispatch(fetchExchangeInfo({ amount: point, event: 'stake' }))
     closeModal()
   }

@@ -19,3 +19,7 @@ export async function copyTextToClipboard(text) {
 export const randomKeyUUID = () => {
   return uuidv4();
 };
+
+export function formatBalanceString(x) {
+  return Number(x).toLocaleString();
+}

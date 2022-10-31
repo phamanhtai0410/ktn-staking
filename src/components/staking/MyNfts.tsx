@@ -23,14 +23,6 @@ const MyNfts = () => {
   const walletAccount = useSelector(selectWalletAccount)
   const listMyNFTs = useSelector(selectMyNFTs)
 
-  const onStake = (token_id, is_staking) => {
-    if (!is_staking) {
-      dispatch(approveStaking({ token_id: token_id }))
-    } else {
-      dispatch(unStakeNFT({ token_id: token_id }))
-    }
-  }
-
   const [currentPage, setCurrentPage] = useState(1)
 
   useEffect(() => {
@@ -60,11 +52,11 @@ const MyNfts = () => {
         <div>
           <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-x-12 gap-y-8">
             {listMyNFTs?.items?.map((item, index) => (
-              <Nft key={index} data={item} onStake={onStake} />
+              <Nft key={index} data={item} />
             ))}
           </div>
           <div className="flex w-full items-center justify-center pt-8">
-            {/* <Pagination
+            <Pagination
               className="pagination-bar"
               currentPage={currentPage}
               totalCount={listMyNFTs?.pagination?.num_of_page}
@@ -72,7 +64,7 @@ const MyNfts = () => {
               onPageChange={(page) => {
                 setCurrentPage(page)
               }}
-            /> */}
+            />
           </div>
         </div>
       ) : (
