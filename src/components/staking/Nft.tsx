@@ -1,7 +1,7 @@
 import React from 'react'
 import BtnStake from './BtnStake'
 
-const Nft = ({ data, onStake }) => {
+const Nft = ({ data }) => {
   return (
     <div
       key={data?.token_id}
@@ -31,7 +31,7 @@ const Nft = ({ data, onStake }) => {
           {`${data?.price} USDT`}
         </span>
       </div>
-      <BtnStake data={data} onStake={onStake} />
+      <BtnStake data={data} />
     </div>
   )
 }
