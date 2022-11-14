@@ -55,7 +55,7 @@ const LeaderBoard = ({ event }) => {
             </div>
           </div>
           {currentTableData && (
-            <div className="referral__table flex flex-col overflow-hidden">
+            <div className="staking__table flex flex-col overflow-hidden">
               <div className="grid grid-cols-3 items-center justify-between py-6 border-b border-white border-opacity-10">
                 <span className="font-oxanium font-bold text-2xl text-white text-center">
                   Rank
