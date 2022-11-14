@@ -46,7 +46,7 @@ const Top = (props) => {
   return (
     <div
       key={index}
-      className="referral__top relative w-[304px] flex flex-col items-center py-2 space-y-2"
+      className="staking__top relative w-[304px] flex flex-col items-center py-2 space-y-2"
       onMouseEnter={() => setShowCopyIcon(true)}
       onMouseLeave={() => setShowCopyIcon(false)}
     >
