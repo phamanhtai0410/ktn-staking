@@ -15,11 +15,9 @@ const BtnStake = ({ data }) => {
   const [isOnClick, setIsOnClick] = useState(false)
 
   const onStake = async (token_id, is_staking) => {
-    let acceptChain: number = import.meta.env.VITE_CHAIN_ID
-    if (acceptChain !== easyWeb3Data?.walletInfo?.chainId) {
-      const result = await EasyWeb3.getInstance().switchEthereumChain(
-        acceptChain,
-      )
+    let acceptChain = import.meta.env.VITE_CHAIN_ID
+    if (Number(acceptChain) !== easyWeb3Data?.walletInfo?.chainId) {
+      const result = await easyWeb3Data.switchEthereumChain(acceptChain)
       if (result !== undefined) {
         if (!is_staking) {
           dispatch(approveStaking({ token_id: token_id }))
@@ -27,6 +25,12 @@ const BtnStake = ({ data }) => {
           dispatch(unStakeNFT({ token_id: token_id }))
         }
       } else setIsOnClick(false)
+    } else {
+      if (!is_staking) {
+        dispatch(approveStaking({ token_id: token_id }))
+      } else {
+        dispatch(unStakeNFT({ token_id: token_id }))
+      }
     }
   }
 
