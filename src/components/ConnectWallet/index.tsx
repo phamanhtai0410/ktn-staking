@@ -27,18 +27,12 @@ const ConnectWallet = () => {
   }
 
   const { easyWeb3, connectState, walletInfo } = useEasyWeb3(web3callback)
+
   const onConnect = async () => {
-    
-    const messageSign = await easyWeb3.getMessageWallet();
-
-    if(messageSign && messageSign.signature){
-         const res =  dispatch(verifySign(messageSign))
-         if(res){
-          await easyWeb3.connectWallet();
-          LocalStorageService.setAccount(messageSign.address)
-         }
-    }
-
+    const messageSign = await easyWeb3.getMessageWallet()
+      if(messageSign && messageSign.signature){
+          await dispatch(verifySign(messageSign))
+      }
   }
 
   const onDisconnect = () => {
