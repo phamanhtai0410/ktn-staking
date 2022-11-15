@@ -52,7 +52,7 @@ const ModalClaim = () => {
   const claim = async (point) => {
     let acceptChain: number = import.meta.env.VITE_CHAIN_ID
     if (acceptChain !== easyWeb3Data?.walletInfo?.chainId) {
-      await EasyWeb3.getInstance().switchEthereumCChain(acceptChain)
+      await EasyWeb3.getInstance().switchEthereumChain(acceptChain)
     }
     await dispatch(fetchExchangeInfo({ amount: point, event: 'stake' }))
     closeModal()
