@@ -15,6 +15,7 @@ import { selectWalletAccount } from '@/reducers/walletSlice'
 import circle1 from '../../assets/images/staking/circle1.png'
 import circle2 from '../../assets/images/staking/circle2.png'
 import char from '../../assets/images/staking/char.png'
+import FormSearchType from '../_partials/FormSearchType'
 
 const page_size = 8
 
@@ -24,6 +25,7 @@ const MyNfts = () => {
   const listMyNFTs = useSelector(selectMyNFTs)
 
   const [currentPage, setCurrentPage] = useState(1)
+  const [nftType, setNftType] = useState('NFT')
 
   useEffect(() => {
     if (walletAccount) {
@@ -32,12 +34,13 @@ const MyNfts = () => {
           page: currentPage,
           page_size: page_size,
           address: walletAccount,
+          nft_type: nftType,
         }),
       )
     } else {
       setCurrentPage(1)
     }
-  }, [walletAccount, currentPage])
+  }, [walletAccount, currentPage, nftType])
 
   return (
     <div className="flex flex-col space-y-4 mt-8 w-full">
@@ -46,6 +49,7 @@ const MyNfts = () => {
       </span>
       <div className="flex flex-row space-x-6">
         <FormSearchPrice />
+        <FormSearchType setNftType={setNftType} />
         <FormSearchToken />
       </div>
       {walletAccount && listMyNFTs && listMyNFTs?.items?.length > 0 ? (
