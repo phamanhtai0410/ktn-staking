@@ -2,13 +2,13 @@ version: "3"
 
 services:
   staking-web:
-    image: staking-web
-    build:
-        context: .
-        dockerfile: Dockerfile-prod
+    image: [IMAGE_REPO]
+    # build:
+    #     context: .
+    #     dockerfile: Dockerfile-prod
     restart: always
-    volumes:
-      - ./:/webapps
+    # volumes:
+    #   - ./:/webapps
     ports:
       - 5555:80
     networks:
