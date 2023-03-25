@@ -28,6 +28,11 @@ stages:
       if [ "$CI_COMMIT_REF_NAME" == "stag" ]; then
         aws eks --region $AWS_REGION update-kubeconfig --name esol-staging-cluster
       fi
+  - |
+      if [ "$CI_COMMIT_REF_NAME" == "master" ]; then
+        aws eks --region $AWS_REGION update-kubeconfig --name esol-production-cluster
+      fi
+
  
 .predeploy: &predeploy |
   apk add --no-cache  bash git  python3 py3-pip curl
@@ -37,7 +42,7 @@ stages:
   helm repo add helm-template s3://esol-helm-template
   helm pull s3://esol-helm-template/helm-template-$HELM_VERSION.tgz --untar=true
 
-build:
+build_stag:
   image: docker:19.03.1
   tags:
   - esol-stag-test
